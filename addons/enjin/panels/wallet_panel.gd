@@ -48,7 +48,7 @@ func _init(plugin, main):
 func node(name):
 	return references.nodes[name]
 
-func update(e):
+func update_p(e):
 	
 	print(enjinObj.current_identity)
 	match e:

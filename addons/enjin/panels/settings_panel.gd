@@ -87,7 +87,7 @@ func _init(plugin, main):
 func node(name):
 	return references.nodes[name]
 
-func update(e):
+func update_p(e):
 	match e:
 		enjin_api.event.CREATE_ROLE:
 			on_cancel_new_role()

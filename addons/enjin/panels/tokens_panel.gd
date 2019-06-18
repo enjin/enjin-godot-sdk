@@ -168,7 +168,7 @@ func node(name):
 	
 	return references.nodes[name]
 
-func update(e):
+func update_p(e):
 	match e:
 		enjin_api.event.GET_TOKENS:
 			var set = [0,enjinObj.tokens.size(),token,enjinObj.tokens]

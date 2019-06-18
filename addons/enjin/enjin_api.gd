@@ -584,7 +584,7 @@ func update_enjin_obj(response, pdata):
 			pdata[0].call_deferred("set_transfer_to", eth_address)
 	
 	helper.loading(pdata[1],"finished")
-	pdata[0].call_deferred("update", pdata[1])
+	pdata[0].call_deferred("update_p", pdata[1])
 
 func update_bearer():
 	var idx = -1
