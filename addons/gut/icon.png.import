@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/enjinicon.png-fb041fefbba4e81da23f15d530ab6dca.stex"
+path="res://.import/icon.png-91b084043b8aaf2f1c906e7b9fa92969.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/enjin/resources/enjinicon.png"
-dest_files=[ "res://.import/enjinicon.png-fb041fefbba4e81da23f15d530ab6dca.stex" ]
+source_file="res://addons/gut/icon.png"
+dest_files=[ "res://.import/icon.png-91b084043b8aaf2f1c906e7b9fa92969.stex" ]
 
 [params]
 
