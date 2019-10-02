@@ -19,10 +19,6 @@ config/name="EnjinCoinGodotPlugin"
 run/main_scene="res://addons/enjin/toolbar.tscn"
 config/icon="res://icon.png"
 
-[editor_plugins]
-
-enabled=PoolStringArray( "enjin" )
-
 [rendering]
 
 environment/default_environment="res://default_env.tres"
