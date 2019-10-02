@@ -11,32 +11,32 @@ var editor_toolbar: Node = null
 var toolbar: Node = null
 
 func _enter_tree():
-	if editor_toolbar == null:
-		editor_toolbar = EditorMenus.get_primary_toolbar(self)
-	reload_toolbar()
+    if editor_toolbar == null:
+        editor_toolbar = EditorMenus.get_primary_toolbar(self)
+    reload_toolbar()
 
 func _exit_tree():
-	remove_from_toolbar()
+    remove_from_toolbar()
 
 # Reload the toolbar
 func reload_toolbar():
-	remove_from_toolbar()
-	add_to_toolbar()
+    remove_from_toolbar()
+    add_to_toolbar()
 
 # Add the plugin toolbar to the editor toolbar
 func add_to_toolbar():
-	if editor_toolbar == null:
-		return
-	toolbar = toolbar_tscn.instance()
-	editor_toolbar.add_child(toolbar, true)
+    if editor_toolbar == null:
+        return
+    toolbar = toolbar_tscn.instance()
+    editor_toolbar.add_child(toolbar, true)
 
 # Remove the plugin toolbar from the editor toolbar
 func remove_from_toolbar():
-	if toolbar == null:
-		return
-	editor_toolbar.remove_child(toolbar)
-	toolbar.queue_free()
-	toolbar = null
+    if toolbar == null:
+        return
+    editor_toolbar.remove_child(toolbar)
+    toolbar.queue_free()
+    toolbar = null
 
 func start_plugin():
-	print("Plugin Started")
+    print("Plugin Started")
