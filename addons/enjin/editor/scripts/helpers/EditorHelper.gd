@@ -1,12 +1,6 @@
 const toolbar_path_1_3_1 = "/root/EditorNode/@@5/@@6/@@14/@@15/@@54/"
 const toolbar_menus = [ "Scene", "Project", "Debug", "Editor", "Help" ]
 
-static func get_plugin(node: Node):
-    var editor_node = node.get_tree().get_root().get_child(0)
-    if editor_node.has_node("./EnjinPlugin") == false:
-        return null
-    return editor_node.get_node("./EnjinPlugin")
-
 static func get_primary_toolbar(plugin: EditorPlugin):
     var base_control = plugin.get_editor_interface().get_base_control();
     var toolbar_node = find_scene_menu_quick(base_control)
