@@ -2,9 +2,9 @@ tool
 extends EditorPlugin
 
 # Class references
-var EditorMenus = preload("res://addons/enjin/editor/extensions/EditorMenus.gd")
+var EditorHelper = preload("res://addons/enjin/editor/scripts/helpers/EditorHelper.gd")
 # Toolbar ui template
-var toolbar_tscn = preload("res://addons/enjin/editor/toolbar.tscn")
+var toolbar_tscn = preload("res://addons/enjin/editor/views/toolbar_menu.tscn")
 # Editor's primary toolbar (e.g. Scene Project Debug Editor Help)
 var editor_toolbar: Node = null
 # Toolbar ui instance
@@ -12,7 +12,7 @@ var toolbar: Node = null
 
 func _enter_tree():
     if editor_toolbar == null:
-        editor_toolbar = EditorMenus.get_primary_toolbar(self)
+        editor_toolbar = EditorHelper.get_primary_toolbar(self)
     reload_toolbar()
 
 func _exit_tree():
@@ -28,6 +28,7 @@ func add_to_toolbar():
     if editor_toolbar == null:
         return
     toolbar = toolbar_tscn.instance()
+    toolbar.set_plugin(self)
     editor_toolbar.add_child(toolbar, true)
 
 # Remove the plugin toolbar from the editor toolbar

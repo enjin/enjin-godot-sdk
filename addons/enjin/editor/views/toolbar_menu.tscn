@@ -1,9 +1,10 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://addons/enjin/editor/ToolbarMenu.gd" type="Script" id=1]
+[ext_resource path="res://addons/enjin/editor/scripts/ToolbarMenu.gd" type="Script" id=1]
 
 [node name="enjin_menu" type="MenuButton"]
 margin_right = 43.0
 margin_bottom = 40.0
 text = "Enjin"
+items = [ "Home", null, 0, false, false, 0, 0, null, "", false ]
 script = ExtResource( 1 )
