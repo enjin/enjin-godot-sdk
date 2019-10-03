@@ -6,5 +6,5 @@
 margin_right = 43.0
 margin_bottom = 40.0
 text = "Enjin"
-items = [ "Home", null, 0, false, false, 0, 0, null, "", false ]
+items = [ "Home", null, 0, false, false, 10, 0, null, "", false, "Documentation", null, 0, false, false, 20, 0, null, "", false, "", null, 0, false, false, -1, 0, null, "", true, "Reload", null, 0, false, false, 30, 0, null, "", false ]
 script = ExtResource( 1 )
