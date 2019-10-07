@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://addons/enjin/example/scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://addons/enjin/example/prefabs/Mob.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/enjin/example/prefabs/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/enjin/example/views/HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/enjin/example/art/House In a Forest Loop.ogg" type="AudioStream" id=5]
+[ext_resource path="res://addons/enjin/example/art/gameover.wav" type="AudioStream" id=6]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -39,6 +41,14 @@ position = Vector2( 525, 300 )
 curve = SubResource( 1 )
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -20.0
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -20.0
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
