@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/loading0004.png-faa5e4cd17a8f47e073d4b215d503225.stex"
+path="res://.import/loading0002.png-d670edcda819024ad51e4e3519b8238b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/enjin/login/loading0004.png"
-dest_files=[ "res://.import/loading0004.png-faa5e4cd17a8f47e073d4b215d503225.stex" ]
+source_file="res://addons/enjin/legacy/login/loading0002.png"
+dest_files=[ "res://.import/loading0002.png-d670edcda819024ad51e4e3519b8238b.stex" ]
 
 [params]
 

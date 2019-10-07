@@ -1,7 +1,7 @@
 tool
 extends EditorPlugin
 
-var enjin_tscn = preload("res://addons/enjin/enjin.tscn")
+var enjin_tscn = preload("res://addons/enjin/legacy/enjin.tscn")
 var enjin
 
 class Panels:

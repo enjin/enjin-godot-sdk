@@ -1,4 +1,4 @@
-extends "res://addons/enjin/graphql.gd"
+extends "res://addons/enjin/legacy/graphql.gd"
 
 var roles ={"View App":"viewApp",
             "View Users":"viewUsers",

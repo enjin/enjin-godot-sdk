@@ -23,10 +23,6 @@ config/icon="res://icon.png"
 
 gdscript/completion/autocomplete_setters_and_getters=true
 
-[editor_plugins]
-
-enabled=PoolStringArray( "enjin" )
-
 [input]
 
 save={

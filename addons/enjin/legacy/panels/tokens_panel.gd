@@ -1,4 +1,4 @@
-extends "res://addons/enjin/graphql.gd"
+extends "res://addons/enjin/legacy/graphql.gd"
 
 var helper
 var enjin_api
