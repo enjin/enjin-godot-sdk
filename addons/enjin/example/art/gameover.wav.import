@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/gameover.wav-9fcf5bbd56c100ea9641731cb5204e0b.sample"
+
+[deps]
+
+source_file="res://addons/enjin/example/art/gameover.wav"
+dest_files=[ "res://.import/gameover.wav-9fcf5bbd56c100ea9641731cb5204e0b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
