@@ -9,20 +9,36 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Thread",
+"class": "EnjinHttp",
+"language": "GDScript",
+"path": "res://addons/enjin/sdk/http/EnjinHttp.gd"
+}, {
+"base": "Node",
+"class": "EnjinOauth",
+"language": "GDScript",
+"path": "res://addons/enjin/sdk/queries/EnjinOauth.gd"
+}, {
 "base": "Node",
 "class": "TrustedPlatformClient",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/TrustedPlatformClient.gd"
 } ]
 _global_script_class_icons={
+"EnjinHttp": "",
+"EnjinOauth": "",
 "TrustedPlatformClient": ""
 }
 
 [application]
 
 config/name="Enjin-Godot-Plugin"
-run/main_scene="res://addons/enjin/editor/views/toolbar_menu.tscn"
+run/main_scene="res://addons/enjin/example/scenes/Login.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Enjin="*res://addons/enjin/example/scripts/Enjin.gd"
 
 [debug]
 
@@ -31,6 +47,18 @@ gdscript/warnings/unused_variable=false
 gdscript/warnings/unused_class_variable=false
 gdscript/warnings/unused_argument=false
 gdscript/warnings/return_value_discarded=false
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/dpi/allow_hidpi=true
+window/stretch/mode="2d"
+window/stretch/aspect="expand"
+
+[global]
+
+warnings/return_value_discarded=false
 
 [input]
 
