@@ -3,6 +3,8 @@ class_name TrustedPlatformClient
 
 # URLs
 const KOVAN_BASE = "kovan.cloud.enjin.io"
+# Content Types
+const APPLICATION_JSON = "application/json"
 # Endpoints
 const GRAPHQL = "/graphql"
 
@@ -21,6 +23,7 @@ func graphql_request(query: String, callback: EnjinCallback):
     var call = EnjinCall.new()
     call.set_method(HTTPClient.METHOD_POST)
     call.set_endpoint(GRAPHQL)
+    call.set_content_type(APPLICATION_JSON)
     call.set_body(to_json_body(query))
     http.enqueue(call, callback)
 

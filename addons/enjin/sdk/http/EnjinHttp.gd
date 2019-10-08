@@ -66,11 +66,7 @@ func process_request(idx: int, req: Array):
             return
         # Initiate the request
         var call: EnjinCall = req[1]
-        var callback: EnjinCallback = req[2]
-        var headers = []
-        headers.push_back("Content-Type: application/json")
-        headers.push_back("Content-Length: %s" % str(call.get_body().length()))
-        client.request(call.get_method(), call.get_endpoint(), headers, call.get_body())
+        client.request(call.get_method(), call.get_endpoint(), call.get_headers(), call.get_body())
         client.poll()
     elif status in ERROR_STATUSES:
         request_queue.remove(idx)
