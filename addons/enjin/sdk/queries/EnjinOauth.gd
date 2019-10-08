@@ -2,8 +2,8 @@ extends Node
 class_name EnjinOauth
 
 const LOGIN_USER_QUERY: String = """
-query Login {
-    result: EnjinOauth(email: \"{email}\", password: \"{pass}\") {
+query Login($email: String, $password: String) {
+    result: EnjinOauth(email: $email, password: $password) {
         id,
         accessTokens
     }
@@ -11,8 +11,11 @@ query Login {
 """
 
 static func login_user_query(var email: String, var password: String):
-    var params = {
-        "email": email,
-        "pass": password
+    var body = {
+        "query": LOGIN_USER_QUERY,
+        "variables": {
+            "email": email,
+            "password": password
+        }
     }
-    return LOGIN_USER_QUERY.format(params)
+    return body

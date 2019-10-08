@@ -16,16 +16,13 @@ func _init(base_url: String = KOVAN_BASE):
     http = EnjinHttp.new(url)
 
 func login_user(email: String, password: String, callback: EnjinCallback):
-    var formatted_query = EnjinOauth.login_user_query(email, password)
-    graphql_request(formatted_query, callback)
+    var body = EnjinOauth.login_user_query(email, password)
+    graphql_request(body, callback)
 
-func graphql_request(query: String, callback: EnjinCallback):
+func graphql_request(body, callback: EnjinCallback):
     var call = EnjinCall.new()
     call.set_method(HTTPClient.METHOD_POST)
     call.set_endpoint(GRAPHQL)
     call.set_content_type(APPLICATION_JSON)
-    call.set_body(to_json_body(query))
+    call.set_body(to_json(body))
     http.enqueue(call, callback)
-
-func to_json_body(query: String) -> String:
-    return to_json({"query": query})
