@@ -1,18 +1,35 @@
-extends Thread
+extends Node
 class_name EnjinHttp
 
+# Statuses
+const STATUS_CONNECTION_FAILED = "Unable to establish connection to host."
+
 var url: String
+var thread: Thread
+var quit_thread: bool = false
 
-func _init(var builder: Builder):
-    url = builder.url
+func _init(url_in: String):
+    url = url_in
+    thread = Thread.new()
+    thread.start(self, "run")
 
-static func builder() -> Builder:
-    return Builder.new()
+func run(userdata):
+    while !quit_thread:
+#        if http.get_status() == HTTPClient.STATUS_DISCONNECTED:
+#            var result = http.connect_to_host(url, 443, true, true)
+#            if result != OK:
+#                print(STATUS_CONNECTION_FAILED)
+#
+#            while http.get_status() == HTTPClient.STATUS_RESOLVING || http.get_status() == HTTPClient.STATUS_CONNECTING:
+#                http.poll()
+#
+#            if http.get_status() != HTTPClient.STATUS_CONNECTED:
+#                print(STATUS_CONNECTION_FAILED)
+#
+#        if http.get_status() != HTTPClient.STATUS_CONNECTED:
+#            print(http.get_status())
 
-class Builder:
+        OS.delay_msec(100)
 
-    var url: String setget with_url
-
-    func with_url(var url_in: String) -> Builder:
-        url = url_in
-        return self
+func enqueue(call: EnjinCall, callback: EnjinCallback):
+    pass
