@@ -3,7 +3,7 @@ class_name EnjinOauth
 
 const LOGIN_USER_QUERY: String = """
 query Login {
-    result: EnjinOauth(email: {email}, password: {pass}) {
+    result: EnjinOauth(email: \"{email}\", password: \"{pass}\") {
         id,
         accessTokens
     }

@@ -11,6 +11,7 @@ var http: EnjinHttp
 
 func _init(base_url: String = KOVAN_BASE):
     url = base_url
+    http = EnjinHttp.new(url)
 
 func login_user(email: String, password: String, callback: EnjinCallback):
     var formatted_query = EnjinOauth.login_user_query(email, password)
