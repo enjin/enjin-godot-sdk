@@ -2,8 +2,14 @@ extends Node
 class_name EnjinOauth
 
 const LOGIN_USER_QUERY: String = """
-query Login($email: String, $password: String) {
-    result: EnjinOauth(email: $email, password: $password) {
+query Login($app_id: Int,
+            $email: String!,
+            $password: String!)
+{
+    result: EnjinOauth(app_id: $app_id,
+                       email: $email,
+                       password: $password)
+    {
         id,
         accessTokens
     }
