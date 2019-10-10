@@ -1,4 +1,4 @@
-extends Object
+extends Reference
 class_name EnjinHttp
 
 # Statuses
@@ -75,17 +75,23 @@ func process_request(idx: int, req: Array):
         client.poll()
 
 func process_completed_request(req: Array):
-    reclaim(req)
+    var client: HTTPClient = req[0]
+    var call: EnjinCall = req[1]
     var callback: EnjinCallback = req[2]
     var response: PoolByteArray = req[3]
-
+    # Get response code and headers
+    var code = client.get_response_code()
+    var headers = client.get_response_headers_as_dictionary()
+    # Return the client to the connection pool
+    reclaim(req)
+    # Get the response body string
     var body
     if response == null:
         body = "failed"
     else:
         body = response.get_string_from_ascii()
-
-    callback.get_instance().call_deferred(callback.get_method(), body)
+    # Call the request callback on the main thread
+    callback.get_instance().call_deferred(callback.get_method(), EnjinResponse.new(call, code, headers, body))
 
 func is_pool_full() -> bool:
     return connection_pool_count >= connection_pool_max_size

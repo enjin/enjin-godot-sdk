@@ -25,8 +25,10 @@ func _on_login_pressed():
     var callback = EnjinCallback.new(self, "_on_login_response")
     Enjin.client.login_user(email, password, callback);
 
-func _on_login_response(res_body):
-    print("Login Result:\n%s" % str(res_body))
+func _on_login_response(response: EnjinResponse):
+    print("Code: %s" % response.get_code())
+    print("Headers: %s" % response.get_headers())
+    print("Body: %s" % response.get_body())
 
 func show(control: Control):
     control.set_visible_characters(-1)

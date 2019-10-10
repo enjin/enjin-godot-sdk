@@ -9,27 +9,32 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Object",
+"base": "Reference",
 "class": "EnjinCall",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/http/EnjinCall.gd"
 }, {
-"base": "Object",
+"base": "Reference",
 "class": "EnjinCallback",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/http/EnjinCallback.gd"
 }, {
-"base": "Object",
+"base": "Reference",
 "class": "EnjinHttp",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/http/EnjinHttp.gd"
 }, {
-"base": "Object",
+"base": "Reference",
 "class": "EnjinOauth",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/queries/EnjinOauth.gd"
 }, {
-"base": "Object",
+"base": "Reference",
+"class": "EnjinResponse",
+"language": "GDScript",
+"path": "res://addons/enjin/sdk/http/EnjinResponse.gd"
+}, {
+"base": "Reference",
 "class": "TrustedPlatformClient",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/TrustedPlatformClient.gd"
@@ -39,6 +44,7 @@ _global_script_class_icons={
 "EnjinCallback": "",
 "EnjinHttp": "",
 "EnjinOauth": "",
+"EnjinResponse": "",
 "TrustedPlatformClient": ""
 }
 

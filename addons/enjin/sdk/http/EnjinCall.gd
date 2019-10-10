@@ -1,4 +1,4 @@
-extends Object
+extends Reference
 class_name EnjinCall
 
 var method: int = HTTPClient.METHOD_GET setget set_method, get_method

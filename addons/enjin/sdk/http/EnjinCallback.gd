@@ -1,4 +1,4 @@
-extends Object
+extends Reference
 class_name EnjinCallback
 
 var instance: Object setget , get_instance
