@@ -23,7 +23,7 @@ func _on_login_pressed():
         return
 
     var callback = EnjinCallback.new(self, "_on_login_response")
-    Enjin.client.login_user(email, password, callback);
+    Enjin.client.auth_user(email, password, callback);
 
 func _on_login_response(response: EnjinResponse):
     print("Code: %s" % response.get_code())

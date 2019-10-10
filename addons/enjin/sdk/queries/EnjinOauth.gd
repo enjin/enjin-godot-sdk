@@ -16,7 +16,7 @@ query Login($app_id: Int,
 }
 """
 
-static func login_user_query(var email: String, var password: String):
+static func auth_user_query(var email: String, var password: String):
     var body = {
         "query": LOGIN_USER_QUERY,
         "variables": {
