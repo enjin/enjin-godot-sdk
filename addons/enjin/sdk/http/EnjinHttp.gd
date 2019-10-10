@@ -9,6 +9,7 @@ var ERROR_STATUSES = [HTTPClient.STATUS_CANT_RESOLVE, HTTPClient.STATUS_CANT_CON
 
 var url: String
 var thread: Thread
+var mutex: Mutex
 var quit_thread: bool = false
 var connection_pool_max_size
 var connection_pool_count = 0
@@ -19,6 +20,7 @@ func _init(url_in: String, pool_size: int = 10):
     url = url_in
     connection_pool_max_size = pool_size
     thread = Thread.new()
+    mutex = Mutex.new()
     thread.start(self, "run")
 
 func run(userdata):
@@ -47,6 +49,7 @@ func process_queue():
 func process_request(idx: int, req: Array):
     var client: HTTPClient = req[0]
     var status = client.get_status()
+    print(status)
 
     if status == HTTPClient.STATUS_BODY:
         client.poll()
@@ -60,21 +63,23 @@ func process_request(idx: int, req: Array):
             req[3] = req[3] + chunk
     elif status == HTTPClient.STATUS_CONNECTED:
         if req[3] != null:
-            # Request has completed
-            request_queue.remove(idx)
-            process_completed_request(req)
+            process_completed_request(idx, req)
             return
         # Initiate the request
         var call: EnjinCall = req[1]
         client.request(call.get_method(), call.get_endpoint(), call.get_headers(), call.get_body())
         client.poll()
     elif status in ERROR_STATUSES:
-        request_queue.remove(idx)
-        process_completed_request(req)
+        process_completed_request(idx, req)
     else:
         client.poll()
 
-func process_completed_request(req: Array):
+func process_completed_request(idx: int, req: Array):
+    # Remove request from request queue
+    mutex.lock()
+    request_queue.remove(idx)
+    mutex.unlock()
+
     var client: HTTPClient = req[0]
     var call: EnjinCall = req[1]
     var callback: EnjinCallback = req[2]
@@ -125,4 +130,6 @@ func connect_client(client: HTTPClient) -> bool:
 
 
 func enqueue(call: EnjinCall, callback: EnjinCallback):
+    mutex.lock()
     request_queue.push_back([null, call, callback, null])
+    mutex.unlock()

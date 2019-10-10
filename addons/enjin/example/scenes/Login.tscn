@@ -75,7 +75,6 @@ text = "Email:"
 margin_top = 25.0
 margin_right = 270.0
 margin_bottom = 45.0
-focus_next = NodePath("../PasswordInput")
 size_flags_vertical = 4
 
 [node name="Error" type="Label" parent="Margin/Panel/Margin/Components/Margin/Form/Email"]
@@ -100,7 +99,6 @@ text = "Password:"
 margin_top = 25.0
 margin_right = 270.0
 margin_bottom = 45.0
-focus_next = NodePath("../../Button")
 size_flags_vertical = 4
 secret = true
 
