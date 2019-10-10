@@ -1,4 +1,4 @@
-extends Node
+extends Object
 class_name EnjinOauth
 
 const LOGIN_USER_QUERY: String = """

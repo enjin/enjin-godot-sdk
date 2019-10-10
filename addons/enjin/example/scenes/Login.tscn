@@ -36,7 +36,7 @@ custom_constants/margin_bottom = 20
 
 [node name="Components" type="VBoxContainer" parent="Margin/Panel/Margin"]
 margin_left = 325.0
-margin_top = 30.0
+margin_top = 20.0
 margin_right = 595.0
 margin_bottom = 460.0
 
@@ -50,14 +50,14 @@ align = 1
 [node name="Margin" type="MarginContainer" parent="Margin/Panel/Margin/Components"]
 margin_top = 65.0
 margin_right = 270.0
-margin_bottom = 430.0
+margin_bottom = 440.0
 size_flags_vertical = 3
 custom_constants/margin_top = 75
 
 [node name="Form" type="VBoxContainer" parent="Margin/Panel/Margin/Components/Margin"]
 margin_top = 75.0
 margin_right = 270.0
-margin_bottom = 365.0
+margin_bottom = 375.0
 size_flags_vertical = 3
 custom_constants/separation = 5
 
@@ -84,7 +84,6 @@ margin_right = 270.0
 margin_bottom = 70.0
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "Enter a valid email"
-percent_visible = -0.0625
 
 [node name="Password" type="VBoxContainer" parent="Margin/Panel/Margin/Components/Margin/Form"]
 margin_top = 75.0
@@ -115,7 +114,7 @@ text = "Enter a valid password"
 [node name="Margin" type="MarginContainer" parent="Margin/Panel/Margin/Components/Margin/Form"]
 margin_top = 150.0
 margin_right = 270.0
-margin_bottom = 290.0
+margin_bottom = 300.0
 size_flags_vertical = 3
 custom_constants/margin_top = 10
 

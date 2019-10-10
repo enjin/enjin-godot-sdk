@@ -1,4 +1,4 @@
-extends Node
+extends Object
 class_name EnjinCallback
 
 var instance: Object setget , get_instance
