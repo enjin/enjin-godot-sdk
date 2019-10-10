@@ -9,6 +9,7 @@ var ERROR_STATUSES = [HTTPClient.STATUS_CANT_RESOLVE, HTTPClient.STATUS_CANT_CON
 
 var url: String
 var thread: Thread
+var sem: Semaphore
 var mutex: Mutex
 var quit_thread: bool = false
 var connection_pool_max_size
@@ -20,12 +21,14 @@ func _init(url_in: String, pool_size: int = 10):
     url = url_in
     connection_pool_max_size = pool_size
     thread = Thread.new()
+    sem = Semaphore.new()
     mutex = Mutex.new()
     thread.start(self, "run")
 
 func run(userdata):
     while !quit_thread:
-        if request_queue.size() > 0:
+        sem.wait()
+        while request_queue.size() > 0:
             process_queue()
         OS.delay_msec(100)
 
@@ -133,3 +136,4 @@ func enqueue(call: EnjinCall, callback: EnjinCallback):
     mutex.lock()
     request_queue.push_back([null, call, callback, null])
     mutex.unlock()
+    sem.post()

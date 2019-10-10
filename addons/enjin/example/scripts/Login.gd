@@ -2,10 +2,15 @@ extends CanvasLayer
 
 export(NodePath) var form
 
+var submitted = false
+
 func _ready():
     hide_errors()
 
 func _on_login_pressed():
+    if submitted:
+        return
+
     hide_errors()
 
     var email: String = email_input().text
@@ -25,10 +30,13 @@ func _on_login_pressed():
     var callback = EnjinCallback.new(self, "_on_login_response")
     Enjin.client.auth_user(email, password, callback);
 
+    submitted = true
+
 func _on_login_response(response: EnjinResponse):
     print("Code: %s" % response.get_code())
     print("Headers: %s" % response.get_headers())
     print("Body: %s" % response.get_body())
+    submitted = false
 
 func show(control: Control):
     control.set_visible_characters(-1)
