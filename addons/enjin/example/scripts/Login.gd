@@ -3,6 +3,11 @@ extends CanvasLayer
 export(NodePath) var form
 
 var submitted = false
+var email_regex
+
+func _init():
+    email_regex = RegEx.new()
+    email_regex.compile("[^@]+@[^\\.]+\\..+")
 
 func _ready():
     hide_errors()
@@ -18,6 +23,9 @@ func _on_login_pressed():
 
     var valid = true
     if email.empty():
+        show(email_error())
+        valid = false
+    if !email_regex.search(email):
         show(email_error())
         valid = false
     if password.empty():
