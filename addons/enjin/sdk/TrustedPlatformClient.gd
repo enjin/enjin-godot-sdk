@@ -18,8 +18,13 @@ func _init(base_url: String = KOVAN_BASE):
 
 func auth_user(email: String, password: String, callback: EnjinCallback):
     var body = EnjinOauth.auth_user_query(email, password)
+    # Create call
     var call = graphql_request(body)
-    http.enqueue(call, callback)
+    # Create callback chain
+    var cb = EnjinCallback.new(self, "auth_user_callback")
+    cb.then(callback)
+    # Enqueue Request
+    http.enqueue(call, cb)
 
 func auth_app(app_id: int, secret: String, callback: EnjinCallback):
     var body = {
@@ -27,9 +32,20 @@ func auth_app(app_id: int, secret: String, callback: EnjinCallback):
         "client_id": str(app_id),
         "client_secret": secret
     }
+    # Create call
     var call = post(OAUTH_TOKEN, to_json(body))
     call.set_content_type(APPLICATION_JSON)
-    http.enqueue(call, callback)
+    # Create callback chain
+    var cb = EnjinCallback.new(self, "auth_app_callback")
+    cb.then(callback)
+    # Enqueue Request
+    http.enqueue(call, cb)
+
+func auth_user_callback(res: EnjinResponse):
+    pass
+
+func auth_app_callback(res: EnjinResponse):
+    pass
 
 func post(endpoint: String, body) -> EnjinCall:
     var call = EnjinCall.new()

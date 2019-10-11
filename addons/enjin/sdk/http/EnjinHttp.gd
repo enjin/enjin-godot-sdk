@@ -66,18 +66,18 @@ func process_request(idx: int, req: Array):
             req[3] = req[3] + chunk
     elif status == HTTPClient.STATUS_CONNECTED:
         if req[3] != null:
-            process_completed_request(idx, req)
+            complete_request(idx, req)
             return
         # Initiate the request
         var call: EnjinCall = req[1]
         client.request(call.get_method(), call.get_endpoint(), call.get_headers(), call.get_body())
         client.poll()
     elif status in ERROR_STATUSES:
-        process_completed_request(idx, req)
+        complete_request(idx, req)
     else:
         client.poll()
 
-func process_completed_request(idx: int, req: Array):
+func complete_request(idx: int, req: Array):
     # Remove request from request queue
     mutex.lock()
     request_queue.remove(idx)
@@ -99,7 +99,7 @@ func process_completed_request(idx: int, req: Array):
     else:
         body = response.get_string_from_ascii()
     # Call the request callback on the main thread
-    callback.get_instance().call_deferred(callback.get_method(), EnjinResponse.new(call, code, headers, body))
+    callback.complete_deffered(EnjinResponse.new(call, code, headers, body))
 
 func is_pool_full() -> bool:
     return connection_pool_count >= connection_pool_max_size
