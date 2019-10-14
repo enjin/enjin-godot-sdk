@@ -35,4 +35,4 @@ func get_headers() -> Array:
     var headers_out = headers.duplicate()
     headers_out.push_back("Content-Type: %s" % content_type)
     headers_out.push_back("Content-Length: %s" % str(body.length()))
-    return headers
+    return headers_out

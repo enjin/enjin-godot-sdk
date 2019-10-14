@@ -52,7 +52,6 @@ func process_queue():
 func process_request(idx: int, req: Array):
     var client: HTTPClient = req[0]
     var status = client.get_status()
-    print(status)
 
     if status == HTTPClient.STATUS_BODY:
         client.poll()
