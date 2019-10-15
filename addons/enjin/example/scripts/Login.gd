@@ -41,9 +41,7 @@ func _on_login_pressed():
     submitted = true
 
 func _on_login_response(response: EnjinResponse):
-    print("Code: %s" % response.get_code())
-    print("Headers: %s" % response.get_headers())
-    print("Body: %s" % response.get_body())
+    print("Authorization: %s" % Enjin.client.auth_token)
     submitted = false
 
 func show(control: Control):

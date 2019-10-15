@@ -1,19 +1,21 @@
 extends Reference
 class_name TrustedPlatformClient
 
-# URLs
+# hosts
 const KOVAN_BASE = "kovan.cloud.enjin.io"
-# Content Types
+# content types
 const APPLICATION_JSON = "application/json"
-# Endpoints
+# endpoints
 const GRAPHQL = "/graphql"
 const OAUTH_TOKEN = "/oauth/token"
-# Headers
+# auth headers
 const AUTHORIZATION = "Authorization"
 const X_APP_ID = "X-App-Id"
-# JSON Keys
+# oauth/token body keys
 const TOKEN_TYPE = "token_type"
 const ACCESS_TOKEN = "access_token"
+# auth types
+const BEARER = "bearer"
 
 var url: String
 var http: EnjinHttp
@@ -51,7 +53,15 @@ func auth_app(app_id: int, secret: String, callback: EnjinCallback):
     http.enqueue(call, cb)
 
 func auth_user_callback(res: EnjinResponse):
-    pass
+    if !res.is_success():
+        clear_auth()
+        return
+    var gql_res: EnjinGraphqlResponse = EnjinGraphqlResponse.new(res)
+    if !gql_res.is_success():
+        clear_auth()
+        return
+    var access_token = gql_res.get_items()["accessTokens"][0]["accessToken"]
+    auth_token = "%s %s" % [BEARER, access_token]
 
 func auth_app_callback(res: EnjinResponse):
     if !res.is_success():

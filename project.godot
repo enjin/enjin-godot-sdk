@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://addons/enjin/sdk/http/EnjinCallback.gd"
 }, {
 "base": "Reference",
+"class": "EnjinGraphqlResponse",
+"language": "GDScript",
+"path": "res://addons/enjin/sdk/graphql/EnjinGraphqlResponse.gd"
+}, {
+"base": "Reference",
 "class": "EnjinHttp",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/http/EnjinHttp.gd"
@@ -42,6 +47,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "EnjinCall": "",
 "EnjinCallback": "",
+"EnjinGraphqlResponse": "",
 "EnjinHttp": "",
 "EnjinOauth": "",
 "EnjinResponse": "",
