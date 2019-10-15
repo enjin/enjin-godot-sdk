@@ -2,7 +2,6 @@ extends CanvasLayer
 
 export(NodePath) var form
 
-var submitted = false
 var email_regex
 
 func _init():
@@ -13,7 +12,7 @@ func _ready():
     hide_errors()
 
 func _on_login_pressed():
-    if submitted:
+    if get_button().disabled:
         return
 
     hide_errors()
@@ -35,14 +34,16 @@ func _on_login_pressed():
     if !valid:
         return
 
-    var callback = EnjinCallback.new(self, "_on_login_response")
-    Enjin.client.auth_user(email, password, callback);
+    var options = {
+        "callback": EnjinCallback.new(self, "_on_login_response")
+    }
+    Enjin.client.auth_user(email, password, options);
 
-    submitted = true
+    get_button().disabled = true
 
 func _on_login_response(response: EnjinResponse):
     print("Authorization: %s" % Enjin.client.auth_token)
-    submitted = false
+    get_button().disabled = false
 
 func show(control: Control):
     control.set_visible_characters(-1)
@@ -53,6 +54,9 @@ func hide_errors():
 
 func get_form() -> Node:
     return get_node(form)
+
+func get_button() -> Button:
+    return get_form().get_node("Margin").get_node("Submit") as Button
 
 func get_input(parent: String) -> Node:
     return get_form().get_node(parent).get_node("Input")

@@ -7,11 +7,15 @@ const ITEMS_KEY = "items"
 const CURSOR_KEY = "cursor"
 const ERRORS_KEY = "errors"
 
+var http_response: EnjinResponse
 var items
 var cursor
 var errors
 
 func _init(res: EnjinResponse):
+    http_response = res
+    if res.get_body().length() == 0:
+        return
     var parse_result: JSONParseResult = JSON.parse(res.get_body())
     if parse_result == null || parse_result.get_error() != OK:
         return

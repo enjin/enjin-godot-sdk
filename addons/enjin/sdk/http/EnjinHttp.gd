@@ -86,6 +86,7 @@ func complete_request(idx: int, req: Array):
     var call: EnjinCall = req[1]
     var callback: EnjinCallback = req[2]
     var response: PoolByteArray = req[3]
+    var udata = req[4]
     # Get response code and headers
     var code = client.get_response_code()
     var headers = client.get_response_headers_as_dictionary()
@@ -98,7 +99,7 @@ func complete_request(idx: int, req: Array):
     else:
         body = response.get_string_from_ascii()
     # Call the request callback on the main thread
-    callback.complete_deffered(EnjinResponse.new(call, code, headers, body))
+    callback.complete_deffered_2(EnjinResponse.new(call, code, headers, body), udata)
 
 func is_pool_full() -> bool:
     return connection_pool_count >= connection_pool_max_size
@@ -131,8 +132,8 @@ func connect_client(client: HTTPClient) -> bool:
     return client.get_status() == HTTPClient.STATUS_CONNECTED
 
 
-func enqueue(call: EnjinCall, callback: EnjinCallback):
+func enqueue(call: EnjinCall, callback: EnjinCallback, udata = null):
     mutex.lock()
-    request_queue.push_back([null, call, callback, null])
+    request_queue.push_back([null, call, callback, null, udata])
     mutex.unlock()
     sem.post()

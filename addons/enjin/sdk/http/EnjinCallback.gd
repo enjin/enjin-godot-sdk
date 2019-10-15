@@ -3,7 +3,6 @@ class_name EnjinCallback
 
 var instance: Object setget ,get_instance
 var method: String setget ,get_method
-var chained_callback: EnjinCallback setget ,get_chained_callbacks
 
 func _init(instance_in: Object, method_in: String):
     instance = instance_in
@@ -15,14 +14,14 @@ func get_instance() -> Object:
 func get_method() -> String:
     return method
 
-func get_chained_callbacks() -> EnjinCallback:
-    return chained_callback
+func complete_deffered_0():
+    instance.call_deferred(method)
 
-func then(next: EnjinCallback):
-    if next != null:
-        chained_callback = next
+func complete_deffered_1(arg1):
+    instance.call_deferred(method, arg1)
 
-func complete_deffered(data):
-    instance.call_deferred(method, data)
-    if chained_callback != null:
-        chained_callback.complete_deffered(data)
+func complete_deffered_2(arg1, arg2):
+    instance.call_deferred(method, arg1, arg2)
+
+func complete_deffered_3(arg1, arg2, arg3):
+    instance.call_deferred(method, arg1, arg2, arg3)

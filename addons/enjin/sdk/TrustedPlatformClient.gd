@@ -16,6 +16,8 @@ const TOKEN_TYPE = "token_type"
 const ACCESS_TOKEN = "access_token"
 # auth types
 const BEARER = "bearer"
+# keys
+const CALLBACK = "callback"
 
 var url: String
 var http: EnjinHttp
@@ -26,67 +28,70 @@ func _init(base_url: String = KOVAN_BASE):
     url = base_url
     http = EnjinHttp.new(url)
 
-func auth_user(email: String, password: String, callback: EnjinCallback):
+func auth_user(email: String, password: String, options: Dictionary = {}):
     var body = EnjinOauth.auth_user_query(email, password)
     # Create call
-    var call = graphql_request(body)
-    # Create callback chain
-    var cb = EnjinCallback.new(self, "auth_user_callback")
-    cb.then(callback)
+    var call = _graphql_request(body)
+    var cb = EnjinCallback.new(self, "_auth_user_callback")
     # Enqueue Request
-    http.enqueue(call, cb)
+    http.enqueue(call, cb, options)
 
-func auth_app(app_id: int, secret: String, callback: EnjinCallback):
-    auth_app_id = app_id
+func auth_app(app_id: int, secret: String, options: Dictionary = {}):
+    options.app_id = app_id
     var body = {
         "grant_type": "client_credentials",
         "client_id": str(app_id),
         "client_secret": secret
     }
     # Create call
-    var call = post(OAUTH_TOKEN, to_json(body))
+    var call = _post(OAUTH_TOKEN, to_json(body))
     call.set_content_type(APPLICATION_JSON)
-    # Create callback chain
-    var cb = EnjinCallback.new(self, "auth_app_callback")
-    cb.then(callback)
+    var cb = EnjinCallback.new(self, "_auth_app_callback")
     # Enqueue Request
-    http.enqueue(call, cb)
-
-func auth_user_callback(res: EnjinResponse):
-    if !res.is_success():
-        clear_auth()
-        return
-    var gql_res: EnjinGraphqlResponse = EnjinGraphqlResponse.new(res)
-    if !gql_res.is_success():
-        clear_auth()
-        return
-    var access_token = gql_res.get_items()["accessTokens"][0]["accessToken"]
-    auth_token = "%s %s" % [BEARER, access_token]
-
-func auth_app_callback(res: EnjinResponse):
-    if !res.is_success():
-        clear_auth()
-        return
-    var result: JSONParseResult = JSON.parse(res.get_body())
-    if result.get_error() != OK:
-        clear_auth()
-        return
-    var data = result.get_result()
-    auth_token = "%s %s" % [data[TOKEN_TYPE], data[ACCESS_TOKEN]]
+    http.enqueue(call, cb, options)
 
 func clear_auth():
     auth_app_id = null
     auth_token = null
 
-func post(endpoint: String, body) -> EnjinCall:
+func _auth_user_callback(res: EnjinResponse, options: Dictionary = {}):
+    if res.is_success():
+        var gql_res: EnjinGraphqlResponse = EnjinGraphqlResponse.new(res)
+        if gql_res.is_success():
+            var access_token = gql_res.get_items()["accessTokens"][0]["accessToken"]
+            auth_token = "%s %s" % [BEARER, access_token]
+        else:
+            clear_auth()
+    else:
+        clear_auth()
+    if options.has(CALLBACK):
+        var cb: EnjinCallback = options.get(CALLBACK)
+        cb.complete_deferred_1(res)
+
+func _auth_app_callback(res: EnjinResponse, options: Dictionary = {}):
+    if res.is_success():
+        var result: JSONParseResult = JSON.parse(res.get_body())
+        if result.get_error() == OK:
+            var data = result.get_result()
+            auth_app_id = options.app_id
+            auth_token = "%s %s" % [data[TOKEN_TYPE], data[ACCESS_TOKEN]]
+        else:
+            clear_auth()
+    else:
+        clear_auth()
+    if options.has(CALLBACK):
+        var cb: EnjinCallback = options.get(CALLBACK)
+        cb.complete_deferred_1(res)
+
+func _post(endpoint: String, body) -> EnjinCall:
     var call = EnjinCall.new()
     call.set_method(HTTPClient.METHOD_POST)
     call.set_endpoint(endpoint)
     call.set_body(body)
     return call
 
-func graphql_request(body):
-    var call = post(GRAPHQL, to_json(body))
+func _graphql_request(body):
+    var call = _post(GRAPHQL, to_json(body))
     call.set_content_type(APPLICATION_JSON)
     if auth_app_id != null:
         call.add_header(X_APP_ID, auth_app_id)
