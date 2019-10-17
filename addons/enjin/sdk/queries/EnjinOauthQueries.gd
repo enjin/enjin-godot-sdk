@@ -1,13 +1,11 @@
 extends Reference
-class_name EnjinOauth
+class_name EnjinOauthQueries
 
-const LOGIN_USER_QUERY: String = """
-query Login($app_id: Int,
-            $email: String!,
+const AUTH_USER_QUERY: String = """
+query Login($email: String!,
             $password: String!)
 {
-    result: EnjinOauth(app_id: $app_id,
-                       email: $email,
+    result: EnjinOauth(email: $email,
                        password: $password)
     {
         id,
@@ -18,7 +16,7 @@ query Login($app_id: Int,
 
 static func auth_user_query(var email: String, var password: String):
     var body = {
-        "query": LOGIN_USER_QUERY,
+        "query": AUTH_USER_QUERY,
         "variables": {
             "email": email,
             "password": password

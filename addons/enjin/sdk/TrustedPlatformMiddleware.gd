@@ -1,12 +1,12 @@
 extends Reference
 class_name TrustedPlatformMiddleware
 
-var http: EnjinHttp
-var state: TrustedPlatformState
+var _http: EnjinHttp
+var _state: TrustedPlatformState
 
-func _init(http_in: EnjinHttp, state_in: TrustedPlatformState):
-    http = http_in
-    state = state_in
+func _init(http: EnjinHttp, state: TrustedPlatformState):
+    _http = http
+    _state = state
 
 func post(endpoint: String, body) -> EnjinCall:
     var call = EnjinCall.new()
@@ -17,9 +17,9 @@ func post(endpoint: String, body) -> EnjinCall:
 
 func graphql(body):
     var call = post(EnjinEndpoints.GRAPHQL, to_json(body))
-    call.set_content_type(EnjinContentTypes.APPLICATION_JSON)
-    if state.auth_app_id != null:
-        call.add_header(EnjinHeaders.X_APP_ID, state.auth_app_id)
-    if state.auth_token != null:
-        call.add_header(EnjinHeaders.AUTHORIZATION, state.auth_token)
+    call.set_content_type(EnjinContentTypes.APPLICATION_JSON_UTF8)
+    if _state._auth_app_id != null:
+        call.add_header(EnjinHeaders.X_APP_ID, _state._auth_app_id)
+    if _state._auth_token != null:
+        call.add_header(EnjinHeaders.AUTHORIZATION, _state._auth_token)
     return call

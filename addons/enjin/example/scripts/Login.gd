@@ -37,7 +37,7 @@ func _on_login_pressed():
     var options = {
         "callback": EnjinCallback.new(self, "_on_login_response")
     }
-    Enjin.client.auth_user(email, password, options);
+    Enjin.client.auth_service().auth_user(email, password, options);
 
     get_button().disabled = true
 

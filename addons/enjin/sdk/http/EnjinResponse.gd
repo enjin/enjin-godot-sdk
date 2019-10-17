@@ -1,31 +1,31 @@
 extends Reference
 class_name EnjinResponse
 
-var request: EnjinCall setget ,get_call
-var code: int setget ,get_code
-var headers: Dictionary setget ,get_headers
-var body: String setget ,get_body
+var _request: EnjinCall setget ,get_call
+var _code: int setget ,get_code
+var _headers: Dictionary setget ,get_headers
+var _body: String setget ,get_body
 
-func _init(request_in: EnjinCall, code_in: int, headers_in: Dictionary, body_in: String):
-    request = request_in
-    code = code_in
-    headers = headers_in
-    body = body_in
+func _init(request: EnjinCall, code: int, headers: Dictionary, body: String):
+    _request = request
+    _code = code
+    _headers = headers
+    _body = body
 
 func get_call() -> EnjinCall:
-    return request
+    return _request
 
 func get_code() -> int:
-    return code
+    return _code
 
 func get_headers() -> Dictionary:
-    return headers
+    return _headers
 
 func get_body() -> String:
-    return body
+    return _body
 
 func is_success() -> bool:
-    return code >= 200 and code < 300
+    return _code >= 200 and _code < 300
 
 func has_body() -> bool:
-    return body.length() > 0
+    return _body.length() > 0

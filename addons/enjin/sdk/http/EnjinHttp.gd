@@ -7,45 +7,51 @@ const STATUS_CONNECTION_FAILED = "Unable to establish connection to host."
 var CONNECTING_STATUSES = [HTTPClient.STATUS_RESOLVING, HTTPClient.STATUS_CONNECTING]
 var ERROR_STATUSES = [HTTPClient.STATUS_CANT_RESOLVE, HTTPClient.STATUS_CANT_CONNECT, HTTPClient.STATUS_CONNECTION_ERROR, HTTPClient.STATUS_SSL_HANDSHAKE_ERROR]
 
-var url: String
-var thread: Thread
-var sem: Semaphore
-var mutex: Mutex
-var quit_thread: bool = false
-var connection_pool_max_size
-var connection_pool_count = 0
-var connection_pool = []
-var request_queue = []
+var _base_url: String
+var _thread: Thread
+var _sem: Semaphore
+var _mutex: Mutex
+var _quit_thread: bool = false
+var _connection_pool_size
+var _connection_pool_count = 0
+var _connection_pool = []
+var _request_queue = []
 
-func _init(url_in: String, pool_size: int = 10):
-    url = url_in
-    connection_pool_max_size = pool_size
-    thread = Thread.new()
-    sem = Semaphore.new()
-    mutex = Mutex.new()
-    thread.start(self, "run")
+func _init(base_url: String, connection_pool_size: int = 10):
+    _base_url = base_url
+    _connection_pool_size = connection_pool_size
+    _thread = Thread.new()
+    _sem = Semaphore.new()
+    _mutex = Mutex.new()
+    _thread.start(self, "_run")
 
-func run(userdata):
-    while !quit_thread:
-        sem.wait()
-        while request_queue.size() > 0:
-            process_queue()
+func enqueue(call: EnjinCall, callback: EnjinCallback, udata = null):
+    _mutex.lock()
+    _request_queue.push_back([null, call, callback, null, udata])
+    _mutex.unlock()
+    _sem.post()
+
+func _run(userdata):
+    while !_quit_thread:
+        _sem.wait()
+        while _request_queue.size() > 0:
+            _process_queue()
         OS.delay_msec(100)
 
-func process_queue():
-    for idx in range(request_queue.size()):
-        var req = request_queue[idx]
+func _process_queue():
+    for idx in range(_request_queue.size()):
+        var req = _request_queue[idx]
 
         # Acquire http client instance
         if req[0] == null:
-            if connection_pool.empty():
-                if is_pool_full():
+            if _connection_pool.empty():
+                if _is_pool_full():
                     continue
                 else:
                     _create_client()
-                    req[0] = connection_pool.pop_back()
+                    req[0] = _connection_pool.pop_back()
             else:
-                req[0] = connection_pool.pop_back()
+                req[0] = _connection_pool.pop_back()
 
         _process_request(idx, req)
 
@@ -65,22 +71,22 @@ func _process_request(idx: int, req: Array):
             req[3] = req[3] + chunk
     elif status == HTTPClient.STATUS_CONNECTED:
         if req[3] != null:
-            complete_request(idx, req)
+            _complete_request(idx, req)
             return
         # Initiate the request
         var call: EnjinCall = req[1]
         client.request(call.get_method(), call.get_endpoint(), call.get_headers(), call.get_body())
         client.poll()
     elif status in ERROR_STATUSES:
-        complete_request(idx, req)
+        _complete_request(idx, req)
     else:
         client.poll()
 
-func complete_request(idx: int, req: Array):
+func _complete_request(idx: int, req: Array):
     # Remove request from request queue
-    mutex.lock()
-    request_queue.remove(idx)
-    mutex.unlock()
+    _mutex.lock()
+    _request_queue.remove(idx)
+    _mutex.unlock()
 
     var client: HTTPClient = req[0]
     var call: EnjinCall = req[1]
@@ -91,7 +97,7 @@ func complete_request(idx: int, req: Array):
     var code = client.get_response_code()
     var headers = client.get_response_headers_as_dictionary()
     # Return the client to the connection pool
-    reclaim(req)
+    _reclaim_client(req)
     # Get the response body string
     var body
     if response == null:
@@ -101,13 +107,8 @@ func complete_request(idx: int, req: Array):
     # Call the request callback on the main thread
     callback.complete_deffered_2(EnjinResponse.new(call, code, headers, body), udata)
 
-func is_pool_full() -> bool:
-    return connection_pool_count >= connection_pool_max_size
-
-func reclaim(req: Array):
-    var client: HTTPClient = req[0]
-    req[0] = null
-    connection_pool.push_back(client)
+func _is_pool_full() -> bool:
+    return _connection_pool_count >= _connection_pool_size
 
 func _create_client():
     var client: HTTPClient = HTTPClient.new()
@@ -115,14 +116,14 @@ func _create_client():
     if !result:
         print(STATUS_CONNECTION_FAILED)
         return
-    connection_pool.push_back(client)
-    connection_pool_count += 1
+    _connection_pool.push_back(client)
+    _connection_pool_count += 1
 
 func _connect_client(client: HTTPClient) -> bool:
     if client.get_status() == HTTPClient.STATUS_CONNECTED:
         return true
 
-    var result = client.connect_to_host(url, 443, true, true)
+    var result = client.connect_to_host(_base_url, 443, true, true)
     if result != OK:
         return false
 
@@ -131,9 +132,7 @@ func _connect_client(client: HTTPClient) -> bool:
 
     return client.get_status() == HTTPClient.STATUS_CONNECTED
 
-
-func enqueue(call: EnjinCall, callback: EnjinCallback, udata = null):
-    mutex.lock()
-    request_queue.push_back([null, call, callback, null, udata])
-    mutex.unlock()
-    sem.post()
+func _reclaim_client(req: Array):
+    var client: HTTPClient = req[0]
+    req[0] = null
+    _connection_pool.push_back(client)

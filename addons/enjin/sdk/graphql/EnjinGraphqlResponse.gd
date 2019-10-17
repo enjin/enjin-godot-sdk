@@ -7,16 +7,16 @@ const ITEMS_KEY = "items"
 const CURSOR_KEY = "cursor"
 const ERRORS_KEY = "errors"
 
-var http_response: EnjinResponse
-var items
-var cursor
-var errors
+var _http_response: EnjinResponse
+var _items
+var _cursor
+var _errors
 
-func _init(res: EnjinResponse):
-    http_response = res
-    if res.get_body().length() == 0:
+func _init(http_response: EnjinResponse):
+    _http_response = http_response
+    if http_response.get_body().length() == 0:
         return
-    var parse_result: JSONParseResult = JSON.parse(res.get_body())
+    var parse_result: JSONParseResult = JSON.parse(http_response.get_body())
     if parse_result == null || parse_result.get_error() != OK:
         return
     var body: Dictionary = parse_result.get_result()
@@ -31,24 +31,24 @@ func _get_items(root: Dictionary):
         return
     var results = data[RESULT_KEY]
     if results.has(ITEMS_KEY):
-        items = results[ITEMS_KEY]
-        cursor = results[CURSOR_KEY]
+        _items = results[ITEMS_KEY]
+        _cursor = results[CURSOR_KEY]
     else:
-        items = results
+        _items = results
 
 func _get_errors(root: Dictionary):
     if !root.has(ERRORS_KEY):
         return
-    errors = root[ERRORS_KEY]
+    _errors = root[ERRORS_KEY]
 
 func get_items():
-    return items
+    return _items
 
 func get_cursor():
-    return cursor
+    return _cursor
 
 func get_errors():
-    return errors
+    return _errors
 
 func is_success():
-    return errors == null and items != null
+    return _errors == null and _items != null
