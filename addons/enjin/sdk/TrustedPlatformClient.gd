@@ -18,6 +18,8 @@ const ACCESS_TOKEN = "access_token"
 const BEARER = "bearer"
 # keys
 const CALLBACK = "callback"
+const GQL_ACCESS_TOKENS = "accessTokens"
+const GQL_ACCESS_TOKEN = "accessToken"
 
 var url: String
 var http: EnjinHttp
@@ -29,6 +31,7 @@ func _init(base_url: String = KOVAN_BASE):
     http = EnjinHttp.new(url)
 
 func auth_user(email: String, password: String, options: Dictionary = {}):
+    clear_auth()
     var body = EnjinOauth.auth_user_query(email, password)
     # Create call
     var call = _graphql_request(body)
@@ -37,6 +40,7 @@ func auth_user(email: String, password: String, options: Dictionary = {}):
     http.enqueue(call, cb, options)
 
 func auth_app(app_id: int, secret: String, options: Dictionary = {}):
+    clear_auth()
     options.app_id = app_id
     var body = {
         "grant_type": "client_credentials",
@@ -55,33 +59,36 @@ func clear_auth():
     auth_token = null
 
 func _auth_user_callback(res: EnjinResponse, options: Dictionary = {}):
-    if res.is_success():
+    var out = {}
+    out.response = res
+
+    if res.has_body():
         var gql_res: EnjinGraphqlResponse = EnjinGraphqlResponse.new(res)
+        out.gql = gql_res
         if gql_res.is_success():
-            var access_token = gql_res.get_items()["accessTokens"][0]["accessToken"]
+            var access_token = gql_res.get_items()[GQL_ACCESS_TOKENS][0][GQL_ACCESS_TOKEN]
             auth_token = "%s %s" % [BEARER, access_token]
-        else:
-            clear_auth()
-    else:
-        clear_auth()
+
     if options.has(CALLBACK):
         var cb: EnjinCallback = options.get(CALLBACK)
-        cb.complete_deferred_1(res)
+        cb.complete_deferred_1(out)
 
 func _auth_app_callback(res: EnjinResponse, options: Dictionary = {}):
-    if res.is_success():
+    var out = {}
+    out.response = res
+
+    if res.has_body():
         var result: JSONParseResult = JSON.parse(res.get_body())
         if result.get_error() == OK:
             var data = result.get_result()
-            auth_app_id = options.app_id
-            auth_token = "%s %s" % [data[TOKEN_TYPE], data[ACCESS_TOKEN]]
-        else:
-            clear_auth()
-    else:
-        clear_auth()
+            out.json = data
+            if data.has(TOKEN_TYPE) and data.has(ACCESS_TOKEN):
+                auth_app_id = options.app_id
+                auth_token = "%s %s" % [data[TOKEN_TYPE], data[ACCESS_TOKEN]]
+
     if options.has(CALLBACK):
         var cb: EnjinCallback = options.get(CALLBACK)
-        cb.complete_deferred_1(res)
+        cb.complete_deferred_1(out)
 
 func _post(endpoint: String, body) -> EnjinCall:
     var call = EnjinCall.new()

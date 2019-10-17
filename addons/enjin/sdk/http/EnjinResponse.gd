@@ -26,3 +26,6 @@ func get_body() -> String:
 
 func is_success() -> bool:
     return code >= 200 and code < 300
+
+func has_body() -> bool:
+    return body.length() > 0

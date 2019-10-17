@@ -41,7 +41,7 @@ func _on_login_pressed():
 
     get_button().disabled = true
 
-func _on_login_response(response: EnjinResponse):
+func _on_login_response(data: Dictionary):
     print("Authorization: %s" % Enjin.client.auth_token)
     get_button().disabled = false
 
