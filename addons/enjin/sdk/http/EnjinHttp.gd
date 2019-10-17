@@ -42,14 +42,14 @@ func process_queue():
                 if is_pool_full():
                     continue
                 else:
-                    create_client()
+                    _create_client()
                     req[0] = connection_pool.pop_back()
             else:
                 req[0] = connection_pool.pop_back()
 
-        process_request(idx, req)
+        _process_request(idx, req)
 
-func process_request(idx: int, req: Array):
+func _process_request(idx: int, req: Array):
     var client: HTTPClient = req[0]
     var status = client.get_status()
 
@@ -109,16 +109,16 @@ func reclaim(req: Array):
     req[0] = null
     connection_pool.push_back(client)
 
-func create_client():
+func _create_client():
     var client: HTTPClient = HTTPClient.new()
-    var result: bool = connect_client(client)
+    var result: bool = _connect_client(client)
     if !result:
         print(STATUS_CONNECTION_FAILED)
         return
     connection_pool.push_back(client)
     connection_pool_count += 1
 
-func connect_client(client: HTTPClient) -> bool:
+func _connect_client(client: HTTPClient) -> bool:
     if client.get_status() == HTTPClient.STATUS_CONNECTED:
         return true
 

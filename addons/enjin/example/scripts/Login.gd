@@ -42,7 +42,7 @@ func _on_login_pressed():
     get_button().disabled = true
 
 func _on_login_response(data: Dictionary):
-    if Enjin.client.is_authed():
+    if Enjin.client.get_state().is_authed():
         get_tree().change_scene("res://addons/enjin/example/scenes/Main.tscn")
     else:
         get_button().disabled = false
