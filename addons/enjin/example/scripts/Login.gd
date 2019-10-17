@@ -42,8 +42,10 @@ func _on_login_pressed():
     get_button().disabled = true
 
 func _on_login_response(data: Dictionary):
-    print("Authorization: %s" % Enjin.client.auth_token)
-    get_button().disabled = false
+    if Enjin.client.is_authed():
+        get_tree().change_scene("res://addons/enjin/example/scenes/Main.tscn")
+    else:
+        get_button().disabled = false
 
 func show(control: Control):
     control.set_visible_characters(-1)

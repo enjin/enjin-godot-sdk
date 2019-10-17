@@ -58,6 +58,9 @@ func clear_auth():
     auth_app_id = null
     auth_token = null
 
+func is_authed() -> bool:
+    return auth_token != null
+
 func _auth_user_callback(res: EnjinResponse, options: Dictionary = {}):
     var out = {}
     out.response = res
@@ -71,7 +74,7 @@ func _auth_user_callback(res: EnjinResponse, options: Dictionary = {}):
 
     if options.has(CALLBACK):
         var cb: EnjinCallback = options.get(CALLBACK)
-        cb.complete_deferred_1(out)
+        cb.complete_deffered_1(out)
 
 func _auth_app_callback(res: EnjinResponse, options: Dictionary = {}):
     var out = {}
