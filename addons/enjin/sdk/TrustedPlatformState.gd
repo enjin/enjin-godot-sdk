@@ -1,5 +1,4 @@
 extends Reference
-class_name TrustedPlatformState
 
 var _auth_app_id
 var _auth_token

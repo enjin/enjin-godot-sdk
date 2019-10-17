@@ -1,5 +1,4 @@
 extends Reference
-class_name EnjinOauthQueries
 
 const AUTH_USER_QUERY: String = """
 query Login($email: String!,
@@ -15,11 +14,10 @@ query Login($email: String!,
 """
 
 static func auth_user_query(var email: String, var password: String):
-    var body = {
-        "query": AUTH_USER_QUERY,
-        "variables": {
-            "email": email,
-            "password": password
-        }
-    }
+    var body = {}
+    var variables = {}
+    body.query = AUTH_USER_QUERY
+    body.variables = variables
+    variables.email = email
+    variables.password = password
     return body

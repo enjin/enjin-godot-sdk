@@ -10,11 +10,6 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
-"class": "EnjinAuthService",
-"language": "GDScript",
-"path": "res://addons/enjin/sdk/services/EnjinAuthService.gd"
-}, {
-"base": "Reference",
 "class": "EnjinCall",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/http/EnjinCall.gd"
@@ -55,37 +50,21 @@ _global_script_classes=[ {
 "path": "res://addons/enjin/sdk/http/EnjinHttp.gd"
 }, {
 "base": "Reference",
-"class": "EnjinOauthQueries",
-"language": "GDScript",
-"path": "res://addons/enjin/sdk/queries/EnjinOauthQueries.gd"
-}, {
-"base": "Reference",
 "class": "EnjinResponse",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/http/EnjinResponse.gd"
 }, {
 "base": "Reference",
-"class": "EnjinUserService",
+"class": "EnjinUserInput",
 "language": "GDScript",
-"path": "res://addons/enjin/sdk/services/EnjinUserService.gd"
+"path": "res://addons/enjin/sdk/inputs/EnjinUserInput.gd"
 }, {
 "base": "Reference",
 "class": "TrustedPlatformClient",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/TrustedPlatformClient.gd"
-}, {
-"base": "Reference",
-"class": "TrustedPlatformMiddleware",
-"language": "GDScript",
-"path": "res://addons/enjin/sdk/TrustedPlatformMiddleware.gd"
-}, {
-"base": "Reference",
-"class": "TrustedPlatformState",
-"language": "GDScript",
-"path": "res://addons/enjin/sdk/TrustedPlatformState.gd"
 } ]
 _global_script_class_icons={
-"EnjinAuthService": "",
 "EnjinCall": "",
 "EnjinCallback": "",
 "EnjinContentTypes": "",
@@ -94,12 +73,9 @@ _global_script_class_icons={
 "EnjinHeaders": "",
 "EnjinHosts": "",
 "EnjinHttp": "",
-"EnjinOauthQueries": "",
 "EnjinResponse": "",
-"EnjinUserService": "",
-"TrustedPlatformClient": "",
-"TrustedPlatformMiddleware": "",
-"TrustedPlatformState": ""
+"EnjinUserInput": "",
+"TrustedPlatformClient": ""
 }
 
 [application]

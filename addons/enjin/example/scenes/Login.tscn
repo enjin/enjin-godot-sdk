@@ -75,6 +75,7 @@ text = "Email:"
 margin_top = 25.0
 margin_right = 270.0
 margin_bottom = 45.0
+rect_pivot_offset = Vector2( 135, 5 )
 size_flags_vertical = 4
 
 [node name="Error" type="Label" parent="Margin/Panel/Margin/Components/Margin/Form/Email"]

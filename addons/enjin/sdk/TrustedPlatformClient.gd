@@ -1,6 +1,11 @@
 extends Reference
 class_name TrustedPlatformClient
 
+const TrustedPlatformState = preload("res://addons/enjin/sdk/TrustedPlatformState.gd")
+const TrustedPlatformMiddleware = preload("res://addons/enjin/sdk/TrustedPlatformMiddleware.gd")
+const EnjinAuthService = preload("res://addons/enjin/sdk/services/EnjinAuthService.gd")
+const EnjinUserService = preload("res://addons/enjin/sdk/services/EnjinUserService.gd")
+
 var _base_url: String
 var _http: EnjinHttp
 var _state: TrustedPlatformState setget ,get_state

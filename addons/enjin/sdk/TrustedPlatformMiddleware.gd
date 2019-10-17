@@ -1,5 +1,6 @@
 extends Reference
-class_name TrustedPlatformMiddleware
+
+const TrustedPlatformState = preload("res://addons/enjin/sdk/TrustedPlatformState.gd")
 
 var _http: EnjinHttp
 var _state: TrustedPlatformState

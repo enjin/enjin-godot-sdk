@@ -1,5 +1,4 @@
 extends Reference
-class_name EnjinAuthService
 
 # auth types
 const BEARER = "bearer"
@@ -9,6 +8,10 @@ const TOKEN_TYPE = "token_type"
 const ACCESS_TOKEN = "access_token"
 const GQL_ACCESS_TOKENS = "accessTokens"
 const GQL_ACCESS_TOKEN = "accessToken"
+
+const TrustedPlatformState = preload("res://addons/enjin/sdk/TrustedPlatformState.gd")
+const TrustedPlatformMiddleware = preload("res://addons/enjin/sdk/TrustedPlatformMiddleware.gd")
+const EnjinOauthQueries = preload("res://addons/enjin/sdk/queries/EnjinOauthQueries.gd")
 
 var _state: TrustedPlatformState
 var _middleware: TrustedPlatformMiddleware
