@@ -8,7 +8,7 @@ const CURSOR_KEY = "cursor"
 const ERRORS_KEY = "errors"
 
 var _http_response: EnjinResponse
-var _items
+var _result
 var _cursor
 var _errors
 
@@ -20,29 +20,32 @@ func _init(http_response: EnjinResponse):
     if parse_result == null || parse_result.get_error() != OK:
         return
     var body: Dictionary = parse_result.get_result()
-    _get_items(body)
+    _get_result(body)
     _get_errors(body)
 
-func _get_items(root: Dictionary):
-    if !root.has(DATA_KEY):
+func _get_result(root: Dictionary):
+    # Check if value is assigned to data field
+    if !root.has(DATA_KEY) or root.get(DATA_KEY) == null:
         return
     var data = root[DATA_KEY]
-    if !data.has(RESULT_KEY):
+    # Check if value is assigned to result field
+    if !data.has(RESULT_KEY) or data.get(RESULT_KEY) == null:
         return
-    var results = data[RESULT_KEY]
-    if results.has(ITEMS_KEY):
-        _items = results[ITEMS_KEY]
-        _cursor = results[CURSOR_KEY]
+    var result = data[RESULT_KEY]
+    # Check if the data is paginated
+    if result.has(ITEMS_KEY):
+        _result = result[ITEMS_KEY]
+        _cursor = result[CURSOR_KEY]
     else:
-        _items = results
+        _result = result
 
 func _get_errors(root: Dictionary):
-    if !root.has(ERRORS_KEY):
+    if !root.has(ERRORS_KEY) || root.get(ERRORS_KEY) == null:
         return
     _errors = root[ERRORS_KEY]
 
-func get_items():
-    return _items
+func get_result():
+    return _result
 
 func get_cursor():
     return _cursor
@@ -50,5 +53,11 @@ func get_cursor():
 func get_errors():
     return _errors
 
-func is_success():
-    return _errors == null and _items != null
+func has_result():
+    return _result != null
+
+func is_paginated():
+    return _cursor != null
+
+func has_errors():
+    return _errors != null

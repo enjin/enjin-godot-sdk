@@ -52,10 +52,10 @@ margin_top = 65.0
 margin_right = 270.0
 margin_bottom = 440.0
 size_flags_vertical = 3
-custom_constants/margin_top = 75
+custom_constants/margin_top = 60
 
 [node name="Form" type="VBoxContainer" parent="Margin/Panel/Margin/Components/Margin"]
-margin_top = 75.0
+margin_top = 60.0
 margin_right = 270.0
 margin_bottom = 375.0
 size_flags_vertical = 3
@@ -113,7 +113,7 @@ text = "Enter a valid password"
 [node name="Margin" type="MarginContainer" parent="Margin/Panel/Margin/Components/Margin/Form"]
 margin_top = 150.0
 margin_right = 270.0
-margin_bottom = 300.0
+margin_bottom = 315.0
 size_flags_vertical = 3
 custom_constants/margin_top = 10
 

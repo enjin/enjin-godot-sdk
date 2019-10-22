@@ -51,8 +51,8 @@ func _auth_user_callback(res: EnjinResponse, options: Dictionary = {}):
     if res.has_body():
         var gql_res: EnjinGraphqlResponse = EnjinGraphqlResponse.new(res)
         out.gql = gql_res
-        if gql_res.is_success():
-            var access_token = gql_res.get_items()[GQL_ACCESS_TOKENS][0][GQL_ACCESS_TOKEN]
+        if gql_res.has_result():
+            var access_token = gql_res.get_result()[GQL_ACCESS_TOKENS][0][GQL_ACCESS_TOKEN]
             _state.auth_user("%s %s" % [BEARER, access_token])
 
     if options.has(CALLBACK):

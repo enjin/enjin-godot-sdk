@@ -45,14 +45,23 @@ func _on_login_response(data: Dictionary):
     if Enjin.client.get_state().is_authed():
         get_tree().change_scene("res://addons/enjin/example/scenes/Main.tscn")
     else:
+        if data.gql != null and data.gql.has_errors():
+            show_errors()
         get_button().disabled = false
 
-func show(control: Control):
+func show(control: Label):
     control.set_visible_characters(-1)
 
+func hide(control: Label):
+    control.set_visible_characters(0)
+
+func show_errors():
+    show(email_error())
+    show(password_error())
+
 func hide_errors():
-    email_error().set_visible_characters(0)
-    password_error().set_visible_characters(0)
+    hide(email_error())
+    hide(password_error())
 
 func get_form() -> Node:
     return get_node(form)
