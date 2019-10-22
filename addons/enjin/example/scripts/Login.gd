@@ -2,11 +2,13 @@ extends CanvasLayer
 
 export(NodePath) var form
 
-var email_regex
+var _email_regex
+var _login_callback: EnjinCallback
 
 func _init():
-    email_regex = RegEx.new()
-    email_regex.compile("[^@]+@[^\\.]+\\..+")
+    _email_regex = RegEx.new()
+    _email_regex.compile("[^@]+@[^\\.]+\\..+")
+    _login_callback = EnjinCallback.new(self, "_on_login_response")
 
 func _ready():
     hide_errors()
@@ -24,7 +26,7 @@ func _on_login_pressed():
     if email.empty():
         show(email_error())
         valid = false
-    if !email_regex.search(email):
+    if !_email_regex.search(email):
         show(email_error())
         valid = false
     if password.empty():
@@ -34,18 +36,18 @@ func _on_login_pressed():
     if !valid:
         return
 
-    var options = {
-        "callback": EnjinCallback.new(self, "_on_login_response")
-    }
-    Enjin.client.auth_service().auth_user(email, password, options);
+    var udata = {}
+    udata.callback = _login_callback
+    Enjin.client.auth_service().auth_user(email, password, udata);
 
     get_button().disabled = true
 
-func _on_login_response(data: Dictionary):
+func _on_login_response(udata: Dictionary):
     if Enjin.client.get_state().is_authed():
         get_tree().change_scene("res://addons/enjin/example/scenes/Main.tscn")
     else:
-        if data.gql != null and data.gql.has_errors():
+        var gql = udata.gql
+        if gql != null and gql.has_errors():
             show_errors()
         get_button().disabled = false
 

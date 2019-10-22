@@ -25,7 +25,7 @@ func _init(base_url: String, connection_pool_size: int = 10):
     _mutex = Mutex.new()
     _thread.start(self, "_run")
 
-func enqueue(call: EnjinCall, callback: EnjinCallback, udata = null):
+func enqueue(call: EnjinCall, callback: EnjinCallback, udata: Dictionary = {}):
     _mutex.lock()
     _request_queue.push_back([null, call, callback, null, udata])
     _mutex.unlock()
@@ -92,7 +92,7 @@ func _complete_request(idx: int, req: Array):
     var call: EnjinCall = req[1]
     var callback: EnjinCallback = req[2]
     var response: PoolByteArray = req[3]
-    var udata = req[4]
+    var udata: Dictionary = req[4]
     # Get response code and headers
     var code = client.get_response_code()
     var headers = client.get_response_headers_as_dictionary()
@@ -104,8 +104,9 @@ func _complete_request(idx: int, req: Array):
         body = "failed"
     else:
         body = response.get_string_from_ascii()
+    udata.response = EnjinResponse.new(call, code, headers, body)
     # Call the request callback on the main thread
-    callback.complete_deffered_2(EnjinResponse.new(call, code, headers, body), udata)
+    callback.complete_deffered_1(udata)
 
 func _is_pool_full() -> bool:
     return _connection_pool_count >= _connection_pool_size
