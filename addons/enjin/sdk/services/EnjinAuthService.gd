@@ -1,7 +1,7 @@
 extends Reference
 
 # auth types
-const BEARER = "bearer"
+const BEARER = "Bearer"
 # keys
 const CALLBACK = "callback"
 const TOKEN_TYPE = "token_type"

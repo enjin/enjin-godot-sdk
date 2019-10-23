@@ -9,4 +9,4 @@ func _init(middleware: TrustedPlatformMiddleware):
     _middleware = middleware
 
 func get_user(input: EnjinUserInput, options: Dictionary = {}):
-    _middleware.submit_gql_request(input.create(), options)
+    _middleware.submit_gql_request(EnjinUserQueries.get_user(input), options)

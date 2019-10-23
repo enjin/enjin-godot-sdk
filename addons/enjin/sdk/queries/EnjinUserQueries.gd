@@ -9,13 +9,18 @@ query GetUser($id: Int,
                       name: $name,
                       me: $me)
     {
-        id
+        ...UserFields
     }
+}
+
+fragment UserFields on EnjinUser {
+    id
 }
 """
 
 static func get_user(input: EnjinUserInput):
     var body = {}
     body.query = GET_USER_QUERY
+    body.operationName = "GetUser"
     body.variables = input.create()
     return body
