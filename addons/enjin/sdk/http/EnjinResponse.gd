@@ -1,6 +1,8 @@
 extends Reference
 class_name EnjinResponse
 
+const EnjinCall = preload("res://addons/enjin/sdk/http/EnjinCall.gd")
+
 var _request: EnjinCall setget ,get_call
 var _code: int setget ,get_code
 var _headers: Dictionary setget ,get_headers

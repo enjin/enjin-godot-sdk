@@ -1,5 +1,6 @@
 extends Reference
-class_name EnjinCall
+
+const EnjinContentTypes = preload("res://addons/enjin/sdk/http/EnjinContentTypes.gd")
 
 var _method: int = HTTPClient.METHOD_GET setget set_method, get_method
 var _endpoint: String setget set_endpoint, get_endpoint

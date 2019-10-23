@@ -3,6 +3,8 @@ class_name TrustedPlatformClient
 
 const TrustedPlatformState = preload("res://addons/enjin/sdk/TrustedPlatformState.gd")
 const TrustedPlatformMiddleware = preload("res://addons/enjin/sdk/TrustedPlatformMiddleware.gd")
+const EnjinHttp = preload("res://addons/enjin/sdk/http/EnjinHttp.gd")
+const EnjinHosts = preload("res://addons/enjin/sdk/http/EnjinHosts.gd")
 const EnjinAuthService = preload("res://addons/enjin/sdk/services/EnjinAuthService.gd")
 const EnjinUserService = preload("res://addons/enjin/sdk/services/EnjinUserService.gd")
 

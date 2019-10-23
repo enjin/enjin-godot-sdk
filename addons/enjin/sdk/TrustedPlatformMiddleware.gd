@@ -1,6 +1,11 @@
 extends Reference
 
 const TrustedPlatformState = preload("res://addons/enjin/sdk/TrustedPlatformState.gd")
+const EnjinHttp = preload("res://addons/enjin/sdk/http/EnjinHttp.gd")
+const EnjinCall = preload("res://addons/enjin/sdk/http/EnjinCall.gd")
+const EnjinEndpoints = preload("res://addons/enjin/sdk/http/EnjinEndpoints.gd")
+const EnjinContentTypes = preload("res://addons/enjin/sdk/http/EnjinContentTypes.gd")
+const EnjinHeaders = preload("res://addons/enjin/sdk/http/EnjinHeaders.gd")
 
 var _http: EnjinHttp
 var _state: TrustedPlatformState

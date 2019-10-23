@@ -11,6 +11,8 @@ const GQL_ACCESS_TOKEN = "accessToken"
 
 const TrustedPlatformState = preload("res://addons/enjin/sdk/TrustedPlatformState.gd")
 const TrustedPlatformMiddleware = preload("res://addons/enjin/sdk/TrustedPlatformMiddleware.gd")
+const EnjinEndpoints = preload("res://addons/enjin/sdk/http/EnjinEndpoints.gd")
+const EnjinContentTypes = preload("res://addons/enjin/sdk/http/EnjinContentTypes.gd")
 const EnjinOauthQueries = preload("res://addons/enjin/sdk/queries/EnjinOauthQueries.gd")
 
 var _state: TrustedPlatformState

@@ -1,5 +1,4 @@
 extends Reference
-class_name EnjinHeaders
 
 # auth headers
 const AUTHORIZATION = "Authorization"

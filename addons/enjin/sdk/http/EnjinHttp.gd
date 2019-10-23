@@ -1,6 +1,6 @@
 extends Reference
-class_name EnjinHttp
 
+const EnjinCall = preload("res://addons/enjin/sdk/http/EnjinCall.gd")
 # Statuses
 const STATUS_CONNECTION_FAILED = "Unable to establish connection to host."
 # HTTP Status Groups
