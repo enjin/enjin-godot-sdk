@@ -8,6 +8,9 @@ var CONNECTING_STATUSES = [HTTPClient.STATUS_RESOLVING, HTTPClient.STATUS_CONNEC
 var ERROR_STATUSES = [HTTPClient.STATUS_CANT_RESOLVE, HTTPClient.STATUS_CANT_CONNECT, HTTPClient.STATUS_CONNECTION_ERROR, HTTPClient.STATUS_SSL_HANDSHAKE_ERROR]
 
 var _base_url: String
+var _port: int
+var _use_ssl: bool
+var _verify_host: bool
 var _thread: Thread
 var _sem: Semaphore
 var _mutex: Mutex
@@ -17,8 +20,11 @@ var _connection_pool_count = 0
 var _connection_pool = []
 var _request_queue = []
 
-func _init(base_url: String, connection_pool_size: int = 10):
+func _init(base_url: String, port: int = 443, use_ssl: bool = true, verify_host: bool = true, connection_pool_size: int = 10):
     _base_url = base_url
+    _port = port
+    _use_ssl = use_ssl
+    _verify_host = verify_host
     _connection_pool_size = connection_pool_size
     _thread = Thread.new()
     _sem = Semaphore.new()
@@ -124,7 +130,7 @@ func _connect_client(client: HTTPClient) -> bool:
     if client.get_status() == HTTPClient.STATUS_CONNECTED:
         return true
 
-    var result = client.connect_to_host(_base_url, 443, true, true)
+    var result = client.connect_to_host(_base_url, _port, _use_ssl, _verify_host)
     if result != OK:
         return false
 

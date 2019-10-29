@@ -1,7 +1,7 @@
 extends Reference
 
-var _auth_app_id
-var _auth_token
+var _auth_app_id = null
+var _auth_token = null
 
 func auth_user(token: String):
     _auth_token = token

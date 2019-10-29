@@ -1,15 +1,21 @@
 extends Reference
 class_name EnjinCallback
 
-var _instance: Object setget ,get_instance
-var _method: String setget ,get_method
+var _instance: Object = null setget set_instance,get_instance
+var _method: String = "" setget set_method,get_method
 
 func _init(instance: Object, method: String):
     _instance = instance
     _method = method
 
+func set_instance(instance : Object):
+    _instance = instance
+
 func get_instance() -> Object:
     return _instance
+
+func set_method(method : String):
+     _method = method
 
 func get_method() -> String:
     return _method

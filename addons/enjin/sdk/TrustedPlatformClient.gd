@@ -15,9 +15,9 @@ var _middleware: TrustedPlatformMiddleware
 var _auth_service: EnjinAuthService setget ,auth_service
 var _user_service: EnjinUserService setget ,user_service
 
-func _init(base_url: String = EnjinHosts.KOVAN):
+func _init(base_url: String = EnjinHosts.KOVAN, port: int = 443, use_ssl: bool = true, verify_host: bool = true):
     _base_url = base_url
-    _http = EnjinHttp.new(_base_url)
+    _http = EnjinHttp.new(_base_url, port, use_ssl, verify_host)
     _state = TrustedPlatformState.new()
     _middleware = TrustedPlatformMiddleware.new(_http, _state)
     _auth_service = EnjinAuthService.new(_state, _middleware)
