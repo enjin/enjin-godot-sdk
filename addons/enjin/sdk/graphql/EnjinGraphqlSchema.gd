@@ -99,28 +99,29 @@ fragment UserFragment on EnjinUser {
 }
 """ + IDENTITY_FRAGMENT
 
-# Query Arguments
-const GET_USER_ARGS = """    $id: Int,
-    $name: String,
-    $me: Boolean = true,
-    $withUserRoles: Boolean = false,
-    $withIdentities: Boolean = false,
-    $withIdentityRoles: Boolean = false,
-    $withWallet: Boolean = false
-    $withBalances: Boolean = true,
-    $withTokensCreated: Boolean = false,
-    $withTimestamps: Boolean = false,
-    $balAppId: Int,
-    $balTokenId: String,
-    $balVal: Int,
-    $balGt: Int,
-    $balGte: Int,
-    $balLt: Int
-    $balLte: Int,
-    $tokenIdFormat: TokenIdFormat,
-    $tokenIndexFormat: TokenIndexFormat"""
+# Arguments
+const USER_FRAGMENT_ARGS = """$withUserRoles: Boolean = false,
+$withIdentities: Boolean = false,
+$withIdentityRoles: Boolean = false,
+$withWallet: Boolean = false
+$withBalances: Boolean = true,
+$withTokensCreated: Boolean = false,
+$withTimestamps: Boolean = false,
+$balAppId: Int,
+$balTokenId: String,
+$balVal: Int,
+$balGt: Int,
+$balGte: Int,
+$balLt: Int
+$balLte: Int,
+$tokenIdFormat: TokenIdFormat,
+$tokenIndexFormat: TokenIndexFormat"""
+const GET_USER_ARGS = """%s,
+$id: Int,
+$name: String,
+$me: Boolean = true""" % USER_FRAGMENT_ARGS
 
-# Query Definitions
+# Query and Mutation Definitions
 const AUTH_USER_QUERY: String = """
 query Login($email: String!, $password: String!) {
     result: EnjinOauth(email: $email, password: $password) {
@@ -149,9 +150,10 @@ query GetUsers(
 """ % GET_USER_ARGS + USER_FRAGMENT
 const GET_USERS_PAGINATED_QUERY: String = """
 query GetUsers(
-%s
+%s,
+$pagination: PaginationInput!
 ) {
-    result: EnjinUsers(id: $id, name: $name, me: $me) {
+    result: EnjinUsers(id: $id, name: $name, me: $me, pagination: $pagination) {
         items {
             ...UserFragment
         }
@@ -161,6 +163,21 @@ query GetUsers(
     }
 }
 """ % GET_USER_ARGS + USER_FRAGMENT + PAGINATION_CURSOR_FRAGMENT
+const CREATE_USER_MUTATION: String = """
+mutation CreateUser(
+%s,
+$app_id: Int,
+$name: String!,
+$email: String,
+$password: String,
+$identity_id: Int,
+$role: String
+) {
+    result: CreateEnjinUser(app_id: $app_id, name: $name, email: $email, password: $password, identity_id: $identity_id, role: $role) {
+        ...UserFragment
+    }
+}
+""" % USER_FRAGMENT_ARGS + USER_FRAGMENT
 
 static func auth_user_query(var email: String, var password: String):
     print(GET_USER_QUERY)
@@ -172,10 +189,26 @@ static func auth_user_query(var email: String, var password: String):
     variables.password = password
     return body
 
-
-static func get_user(input: EnjinUserInput):
+static func get_user(input: GetUserInput):
     var body = {}
     body.query = GET_USER_QUERY
     body.operationName = "GetUser"
     body.variables = input.create()
+    return body
+
+static func get_users(input: GetUserInput):
+    var body = {}
+    body.operationName = "GetUsers"
+    body.variables = input.create()
+    if body.variables.pagination == null:
+        body.query = GET_USERS_QUERY
+    else:
+        body.query = GET_USERS_PAGINATED_QUERY
+    return body
+
+static func create_user(input: CreateUserInput):
+    var body = {}
+    body.operationName = "CreateUser"
+    body.variables = input.create()
+    body.query = CREATE_USER_MUTATION
     return body

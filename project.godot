@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
+"class": "CreateUserInput",
+"language": "GDScript",
+"path": "res://addons/enjin/sdk/inputs/CreateUserInput.gd"
+}, {
+"base": "Reference",
 "class": "EnjinCallback",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/http/EnjinCallback.gd"
@@ -30,9 +35,9 @@ _global_script_classes=[ {
 "path": "res://addons/enjin/sdk/http/EnjinResponse.gd"
 }, {
 "base": "Reference",
-"class": "EnjinUserInput",
+"class": "GetUserInput",
 "language": "GDScript",
-"path": "res://addons/enjin/sdk/inputs/EnjinUserInput.gd"
+"path": "res://addons/enjin/sdk/inputs/GetUserInput.gd"
 }, {
 "base": "Reference",
 "class": "TrustedPlatformClient",
@@ -40,11 +45,12 @@ _global_script_classes=[ {
 "path": "res://addons/enjin/sdk/TrustedPlatformClient.gd"
 } ]
 _global_script_class_icons={
+"CreateUserInput": "",
 "EnjinCallback": "",
 "EnjinGraphqlResponse": "",
 "EnjinHosts": "",
 "EnjinResponse": "",
-"EnjinUserInput": "",
+"GetUserInput": "",
 "TrustedPlatformClient": ""
 }
 

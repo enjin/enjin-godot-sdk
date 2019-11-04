@@ -1,17 +1,17 @@
 extends Reference
-class_name EnjinUserInput
+class_name GetUserInput
 
 var input: Dictionary = {}
 
-func id(id: int) -> EnjinUserInput:
+func id(id: int) -> GetUserInput:
     input.id = id
     return self
 
-func name(name: String) -> EnjinUserInput:
+func name(name: String) -> GetUserInput:
     input.name = name
     return self
 
-func me(me: bool) -> EnjinUserInput:
+func me(me: bool) -> GetUserInput:
     input.me = me
     return self
 
