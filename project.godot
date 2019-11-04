@@ -43,6 +43,11 @@ _global_script_classes=[ {
 "class": "TrustedPlatformClient",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/TrustedPlatformClient.gd"
+}, {
+"base": "Reference",
+"class": "UpdateUserInput",
+"language": "GDScript",
+"path": "res://addons/enjin/sdk/inputs/UpdateUserInput.gd"
 } ]
 _global_script_class_icons={
 "CreateUserInput": "",
@@ -51,7 +56,8 @@ _global_script_class_icons={
 "EnjinHosts": "",
 "EnjinResponse": "",
 "GetUserInput": "",
-"TrustedPlatformClient": ""
+"TrustedPlatformClient": "",
+"UpdateUserInput": ""
 }
 
 [application]

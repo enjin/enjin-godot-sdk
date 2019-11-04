@@ -16,3 +16,6 @@ func get_users(input: GetUserInput, options: Dictionary = {}):
 
 func create_user(input: CreateUserInput, options: Dictionary = {}):
     _middleware.submit_gql_request(EnjinGraphqlSchema.create_user(input), options)
+
+func update_user(input: UpdateUserInput, options: Dictionary = {}):
+    _middleware.submit_gql_request(EnjinGraphqlSchema.update_user(input), options)

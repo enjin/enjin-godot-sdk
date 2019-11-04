@@ -26,3 +26,6 @@ func identity_id(identity_id: int) -> CreateUserInput:
 func role(role: String) -> CreateUserInput:
     input.role = role
     return self
+
+func create() -> Dictionary:
+    return input

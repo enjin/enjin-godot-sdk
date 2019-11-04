@@ -123,8 +123,14 @@ $me: Boolean = true""" % USER_FRAGMENT_ARGS
 
 # Query and Mutation Definitions
 const AUTH_USER_QUERY: String = """
-query Login($email: String!, $password: String!) {
-    result: EnjinOauth(email: $email, password: $password) {
+query Login(
+$email: String!,
+$password: String!
+) {
+    result: EnjinOauth(
+        email: $email,
+        password: $password
+    ) {
         id,
         accessTokens
     }
@@ -134,7 +140,11 @@ const GET_USER_QUERY: String = """
 query GetUser(
 %s
 ) {
-    result: EnjinUser(id: $id, name: $name, me: $me) {
+    result: EnjinUser(
+        id: $id,
+        name: $name,
+        me: $me
+    ) {
         ...UserFragment
     }
 }
@@ -143,7 +153,11 @@ const GET_USERS_QUERY: String = """
 query GetUsers(
 %s
 ) {
-    result: EnjinUsers(id: $id, name: $name, me: $me) {
+    result: EnjinUsers(
+        id: $id,
+        name: $name,
+        me: $me
+    ) {
         ...UserFragment
     }
 }
@@ -153,7 +167,12 @@ query GetUsers(
 %s,
 $pagination: PaginationInput!
 ) {
-    result: EnjinUsers(id: $id, name: $name, me: $me, pagination: $pagination) {
+    result: EnjinUsers(
+        id: $id,
+        name: $name,
+        me: $me,
+        pagination: $pagination
+    ) {
         items {
             ...UserFragment
         }
@@ -173,7 +192,40 @@ $password: String,
 $identity_id: Int,
 $role: String
 ) {
-    result: CreateEnjinUser(app_id: $app_id, name: $name, email: $email, password: $password, identity_id: $identity_id, role: $role) {
+    result: CreateEnjinUser(
+        app_id: $app_id,
+        name: $name,
+        email: $email,
+        password: $password,
+        identity_id: $identity_id,
+        role: $role
+    ) {
+        ...UserFragment
+    }
+}
+""" % USER_FRAGMENT_ARGS + USER_FRAGMENT
+const UPDATE_USER_MUTATION: String = """
+mutation UpdateUser(
+%s,
+$id: Int,
+$name: String,
+$email: String,
+$password: String,
+$identity_id: Int,
+$roles: [String],
+$reset_password: Boolean,
+$reset_password_token: String
+) {
+    result: UpdateEnjinUser(
+        id: $id,
+        name: $name,
+        email: $email,
+        password: $password,
+        identity_id: $identity_id,
+        roles: $roles,
+        reset_password: $reset_password,
+        reset_password_token: $reset_password_token
+    ) {
         ...UserFragment
     }
 }
@@ -211,4 +263,11 @@ static func create_user(input: CreateUserInput):
     body.operationName = "CreateUser"
     body.variables = input.create()
     body.query = CREATE_USER_MUTATION
+    return body
+
+static func update_user(input: UpdateUserInput):
+    var body = {}
+    body.operationName = "UpdateUser"
+    body.variables = input.create()
+    body.query = UPDATE_USER_MUTATION
     return body
