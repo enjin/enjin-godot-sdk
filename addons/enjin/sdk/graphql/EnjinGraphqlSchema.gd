@@ -230,6 +230,18 @@ $reset_password_token: String
     }
 }
 """ % USER_FRAGMENT_ARGS + USER_FRAGMENT
+const DELETE_USER_MUTATION: String = """
+mutation DeleteUser(
+%s,
+$id: Int
+) {
+    result: DeleteEnjinUser(
+        id: $id
+    ) {
+        ...UserFragment
+    }
+}
+""" % USER_FRAGMENT_ARGS + USER_FRAGMENT
 
 static func auth_user_query(var email: String, var password: String):
     print(GET_USER_QUERY)
@@ -270,4 +282,11 @@ static func update_user(input: UpdateUserInput):
     body.operationName = "UpdateUser"
     body.variables = input.create()
     body.query = UPDATE_USER_MUTATION
+    return body
+
+static func delete_user(input: DeleteUserInput):
+    var body = {}
+    body.operationName = "DeleteUser"
+    body.variables = input.create()
+    body.query = DELETE_USER_MUTATION
     return body
