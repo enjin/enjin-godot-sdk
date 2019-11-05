@@ -244,49 +244,33 @@ $id: Int
 """ % USER_FRAGMENT_ARGS + USER_FRAGMENT
 
 static func auth_user_query(var email: String, var password: String):
-    print(GET_USER_QUERY)
-    var body = {}
-    var variables = {}
-    body.query = AUTH_USER_QUERY
-    body.variables = variables
-    variables.email = email
-    variables.password = password
-    return body
+    var vars = {}
+    vars.email = email
+    vars.password = password
+    return create_body(AUTH_USER_QUERY, vars, "Login")
 
 static func get_user(input: GetUserInput):
-    var body = {}
-    body.query = GET_USER_QUERY
-    body.operationName = "GetUser"
-    body.variables = input.create()
-    return body
+    return create_body(GET_USER_QUERY, input.create(), "GetUser")
 
 static func get_users(input: GetUserInput):
-    var body = {}
-    body.operationName = "GetUsers"
-    body.variables = input.create()
-    if body.variables.pagination == null:
-        body.query = GET_USERS_QUERY
-    else:
-        body.query = GET_USERS_PAGINATED_QUERY
-    return body
+    var vars = input.create()
+    var query = GET_USERS_QUERY
+    if vars.pagination != null:
+        query = GET_USERS_PAGINATED_QUERY
+    return create_body(query, vars, "GetUsers")
 
 static func create_user(input: CreateUserInput):
-    var body = {}
-    body.operationName = "CreateUser"
-    body.variables = input.create()
-    body.query = CREATE_USER_MUTATION
-    return body
+    return create_body(CREATE_USER_MUTATION, input.create(), "CreateUser")
 
 static func update_user(input: UpdateUserInput):
-    var body = {}
-    body.operationName = "UpdateUser"
-    body.variables = input.create()
-    body.query = UPDATE_USER_MUTATION
-    return body
+    return create_body(UPDATE_USER_MUTATION, input.create(), "UpdateUser")
 
 static func delete_user(input: DeleteUserInput):
+    return create_body(DELETE_USER_MUTATION, input.create(), "CreateUser")
+
+static func create_body(query: String, variables: Dictionary, operationName: String):
     var body = {}
-    body.operationName = "DeleteUser"
-    body.variables = input.create()
-    body.query = DELETE_USER_MUTATION
+    body.query = query
+    body.variables = variables
+    body.operationName = operationName
     return body
