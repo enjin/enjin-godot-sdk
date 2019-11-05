@@ -1,7 +1,5 @@
-extends Reference
+extends UserFragmentInput
 class_name CreateUserInput
-
-var input: Dictionary = {}
 
 func app_id(app_id: int) -> CreateUserInput:
     input.app_id = app_id
@@ -26,6 +24,3 @@ func identity_id(identity_id: int) -> CreateUserInput:
 func role(role: String) -> CreateUserInput:
     input.role = role
     return self
-
-func create() -> Dictionary:
-    return input

@@ -1,7 +1,5 @@
-extends Reference
+extends UserFragmentInput
 class_name UpdateUserInput
-
-var input: Dictionary = {}
 
 func id(id: int) -> UpdateUserInput:
     input.id = id
@@ -34,6 +32,3 @@ func reset_password(reset_password: bool) -> UpdateUserInput:
 func reset_password_token(reset_password_token: String) -> UpdateUserInput:
     input.reset_password_token = reset_password_token
     return self
-
-func create() -> Dictionary:
-    return input

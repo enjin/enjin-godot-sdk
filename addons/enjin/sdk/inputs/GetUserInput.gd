@@ -1,7 +1,5 @@
-extends Reference
+extends UserFragmentInput
 class_name GetUserInput
-
-var input: Dictionary = {}
 
 func id(id: int) -> GetUserInput:
     input.id = id
@@ -15,5 +13,6 @@ func me(me: bool) -> GetUserInput:
     input.me = me
     return self
 
-func create() -> Dictionary:
-    return input
+func pagination(pagination: PaginationInput) -> GetUserInput:
+    input.pagination = pagination.create()
+    return self

@@ -10,11 +10,16 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
+"class": "BaseInput",
+"language": "GDScript",
+"path": "res://addons/enjin/sdk/inputs/BaseInput.gd"
+}, {
+"base": "UserFragmentInput",
 "class": "CreateUserInput",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/inputs/CreateUserInput.gd"
 }, {
-"base": "Reference",
+"base": "UserFragmentInput",
 "class": "DeleteUserInput",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/inputs/DeleteUserInput.gd"
@@ -39,22 +44,33 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/http/EnjinResponse.gd"
 }, {
-"base": "Reference",
+"base": "UserFragmentInput",
 "class": "GetUserInput",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/inputs/GetUserInput.gd"
+}, {
+"base": "BaseInput",
+"class": "PaginationInput",
+"language": "GDScript",
+"path": "res://addons/enjin/sdk/inputs/PaginationInput.gd"
 }, {
 "base": "Reference",
 "class": "TrustedPlatformClient",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/TrustedPlatformClient.gd"
 }, {
-"base": "Reference",
+"base": "UserFragmentInput",
 "class": "UpdateUserInput",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/inputs/UpdateUserInput.gd"
+}, {
+"base": "BaseInput",
+"class": "UserFragmentInput",
+"language": "GDScript",
+"path": "res://addons/enjin/sdk/inputs/UserFragmentInput.gd"
 } ]
 _global_script_class_icons={
+"BaseInput": "",
 "CreateUserInput": "",
 "DeleteUserInput": "",
 "EnjinCallback": "",
@@ -62,8 +78,10 @@ _global_script_class_icons={
 "EnjinHosts": "",
 "EnjinResponse": "",
 "GetUserInput": "",
+"PaginationInput": "",
 "TrustedPlatformClient": "",
-"UpdateUserInput": ""
+"UpdateUserInput": "",
+"UserFragmentInput": ""
 }
 
 [application]
