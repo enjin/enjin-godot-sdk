@@ -1,0 +1,17 @@
+mutation {
+    result: UpdateEnjinIdentity(
+        id: $id,
+        app_id: $appId,
+        linking_code: $linkingCode
+        user_id: $userId
+        ethereum_address: $ethAddr
+    ) {
+        ...IdentityFragment
+    }
+}
+
+$id: Int
+$appId: Int
+$linkingCode: String
+$userId: Int
+$ethAddr: String

@@ -25,4 +25,4 @@ $valGt: Int
 $valGte: Int
 $valLt: Int
 $valLte: Int
-$pagination: PaginationInput
+$pagination: PaginationInput!

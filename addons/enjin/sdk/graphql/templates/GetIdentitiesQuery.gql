@@ -1,0 +1,15 @@
+query {
+    result: EnjinIdentities(
+        id: $id,
+        appId: $appId,
+        ethereum_address: $ethAddr,
+        linking_code: $linkingCode
+    ) {
+        ...IdentityFragment
+    }
+}
+
+$id: Int
+$appId: Int
+$ethAddr: String
+$linking_code: String

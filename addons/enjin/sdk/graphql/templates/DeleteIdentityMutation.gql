@@ -1,0 +1,11 @@
+mutation {
+    result: DeleteEnjinIdentity(
+        id: $id,
+        unlink: $unlink
+    ) {
+        ...IdentityFragment
+    }
+}
+
+$id: Int
+$unlink: Boolean
