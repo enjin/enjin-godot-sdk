@@ -1,0 +1,13 @@
+mutation {
+    result: UpdateEnjinRole(
+        name: $name,
+        new_name: $newName,
+        permissions: $permissions
+    ) {
+        ...RoleFragment
+    }
+}
+
+$name: String
+$newName: String
+$permissions: [String]
