@@ -1,0 +1,9 @@
+mutation {
+    result: DeleteEnjinUser(
+        id: $id
+    ) {
+        ...UserFragment
+    }
+}
+
+$id: Int

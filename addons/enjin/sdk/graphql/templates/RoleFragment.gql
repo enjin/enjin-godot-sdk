@@ -1,0 +1,10 @@
+fragment RoleFragment on EnjinRole {
+    id
+    name
+    appId
+    permissions @include(if: $withRolePermissions) {
+        ...PermissionFragment
+    }
+}
+
+$withRolePermissions: Boolean = false

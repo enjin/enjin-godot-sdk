@@ -1,0 +1,4 @@
+fragment PermissionFragment on EnjinPermission {
+    id
+    name
+}

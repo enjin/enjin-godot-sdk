@@ -1,0 +1,19 @@
+mutation {
+    result: CreateEnjinUser(
+        app_id: $appId,
+        name: $name,
+        email: $email,
+        password: $password,
+        identity_id: $identityId,
+        role: $role
+    ) {
+        ...UserFragment
+    }
+}
+
+$appId: Int
+$name: String
+$email: String
+$password: String
+$identityId: Int
+$role: String

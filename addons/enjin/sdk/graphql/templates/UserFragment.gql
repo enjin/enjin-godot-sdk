@@ -1,0 +1,17 @@
+fragment UserFragment on EnjinUser {
+    id
+    name
+    email
+    roles @include(if: $withUserRoles) {
+        ...RoleFragment
+    }
+    identities @include(if: $withUserIdentities) {
+        ...IdentityFragment
+    }
+    createdAt @include(if: $withUserTimestamps)
+    updatedAt @include(if: $withUserTimestamps)
+}
+
+$withUserRoles withUserRoles = false
+$withUserRoles withUserIdentities = false
+$withUserTimestamps: Boolean = false

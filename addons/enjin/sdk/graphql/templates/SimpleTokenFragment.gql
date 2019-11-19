@@ -1,0 +1,10 @@
+fragment SimpleTokenFragment on EnjinToken {
+    id(format: $tokenIdFormat)
+    name
+    appId
+    createdAt @include(if: $withTokenTimestamps)
+    updatedAt @include(if: $withTokenTimestamps)
+}
+
+$tokenIdFormat: TokenIdFormat
+$withTokenTimestamps: Boolean = false

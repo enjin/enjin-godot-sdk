@@ -1,0 +1,8 @@
+fragment SimpleBalanceFragment on EnjinBalance {
+    id(format: $balIdFormat)
+    index(format: $balIndexFormat)
+    value
+}
+
+$balIdFormat: TokenIdFormat
+$balIndexFormat: TokenIndexFormat
