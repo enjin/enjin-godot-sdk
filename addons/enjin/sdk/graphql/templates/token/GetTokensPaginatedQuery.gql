@@ -39,4 +39,4 @@ $firstBlock: Int
 $blockHeight: Int
 $markedForDelete: Boolean
 $sort: TokenSortInput
-$pagination: PaginationInput
+$pagination: PaginationInput!

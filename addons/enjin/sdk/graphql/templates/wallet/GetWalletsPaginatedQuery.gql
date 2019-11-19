@@ -1,0 +1,9 @@
+query {
+    result: EnjinWallets(
+        pagination: $pagination
+    ) {
+        ...WalletFragment
+    }
+}
+
+pagination: PaginationInput!

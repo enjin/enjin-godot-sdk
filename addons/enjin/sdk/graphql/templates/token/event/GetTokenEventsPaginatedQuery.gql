@@ -19,4 +19,4 @@ $id: Int
 $tokenId: String
 $eventType: TokenEventType
 $blockNumber: Int
-$pagination: PaginationInput
+$pagination: PaginationInput!
