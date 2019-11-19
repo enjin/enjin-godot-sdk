@@ -1,0 +1,9 @@
+mutation {
+    result: DeleteEnjinRequest(
+        id: $id
+    ) {
+        ...TransactionFragment
+    }
+}
+
+$id: Int!
