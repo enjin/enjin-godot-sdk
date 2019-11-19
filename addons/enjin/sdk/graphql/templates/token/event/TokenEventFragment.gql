@@ -1,0 +1,21 @@
+fragment TokenEventFragment on TokenEvent {
+    id
+    tokenId
+    event
+    param1 @include(if: $withEventParams)
+    param2 @include(if: $withEventParams)
+    param3 @include(if: $withEventParams)
+    param4 @include(if: $withEventParams)
+    param5 @include(if: $withEventParams)
+    blockNumber @include(if: $withBlockNumber)
+    token @include(if: $withEventToken) {
+        ...SimpleTokenFragment
+    }
+    createdAt @include(if: $withTokenEventTimestamps)
+    updatedAt @include(if: $withTokenEventTimestamps)
+}
+
+$withEventParams: Boolean = true
+$withBlockNumber: Boolean = true
+$withEventToken: Boolean = false
+$withTokenEventTimestamps: Boolean = false

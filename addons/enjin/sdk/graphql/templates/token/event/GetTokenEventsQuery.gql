@@ -1,0 +1,15 @@
+query {
+    result: EnjinTokenEvents(
+        id: $id,
+        token_id: $tokenId,
+        event: $eventType,
+        blockNumber: $blockNumber
+    ) {
+        ...TokenEventFragment
+    }
+}
+
+$id: Int
+$tokenId: String
+$eventType: TokenEventType
+$blockNumber: Int
