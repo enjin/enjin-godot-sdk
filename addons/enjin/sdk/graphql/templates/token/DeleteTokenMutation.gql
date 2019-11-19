@@ -1,0 +1,9 @@
+mutation {
+    result: DeleteEnjinToken(
+        token_id: $id
+    ) {
+        ...TokenFragment
+    }
+}
+
+$id: String!

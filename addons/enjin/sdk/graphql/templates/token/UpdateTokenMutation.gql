@@ -1,0 +1,13 @@
+mutation {
+    result: UpdateEnjinToken(
+        id: $id,
+        app_id: $appId,
+        fromBlockchain: $fromBlockchain
+    ) {
+        ...TokenFragment
+    }
+}
+
+$id: String!
+$appId: Int
+$fromBlockchain: Boolean

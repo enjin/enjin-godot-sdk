@@ -15,7 +15,7 @@ fragment WalletFragment on EnjinWallet {
         ...SimpleBalanceFragment
     }
     tokensCreated @include(if: $withTokensCreated) {
-        ...SimpleTokenFragment
+        ...TokenFragment
     }
 }
 

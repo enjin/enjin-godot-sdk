@@ -9,7 +9,7 @@ fragment TokenEventFragment on TokenEvent {
     param5 @include(if: $withEventParams)
     blockNumber @include(if: $withBlockNumber)
     token @include(if: $withEventToken) {
-        ...SimpleTokenFragment
+        ...TokenFragment
     }
     createdAt @include(if: $withTokenEventTimestamps)
     updatedAt @include(if: $withTokenEventTimestamps)

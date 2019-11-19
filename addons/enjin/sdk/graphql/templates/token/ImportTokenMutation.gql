@@ -1,0 +1,11 @@
+mutation {
+    result: CreateEnjinToken(
+        appId: $appId,
+        id: $id
+    ) {
+        ...TokenFragment
+    }
+}
+
+$id: String!
+$appId: Int!
