@@ -1,0 +1,21 @@
+mutation {
+    result: UpdateEnjinApp(
+        id: $id,
+        name: $name,
+        description: $description,
+        image: $image,
+        secret: $generateNewSecret,
+        revoke: $revokeSecret,
+        invite: $inviteUserInput
+    ) {
+        ...AppFragment
+    }
+}
+
+$id: Int
+$name: String
+$description: String
+$image: String
+$generateNewSecret: Boolean
+$revokeSecret: Boolean
+$inviteUserInput: UserInput

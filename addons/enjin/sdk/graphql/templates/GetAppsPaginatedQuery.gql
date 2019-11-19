@@ -1,0 +1,20 @@
+query {
+    result: EnjinApps(
+        id: $id,
+        name: $name,
+        me: $me,
+        pagination: $pagination
+    ) {
+        items {
+            ...AppFragment
+        }
+        cursor {
+            ...PaginationCursorFragment
+        }
+    }
+}
+
+$id: Int
+$name: String
+$me: Boolean
+$pagination: PaginationInput!
