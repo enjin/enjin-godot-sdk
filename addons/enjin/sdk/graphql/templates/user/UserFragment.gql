@@ -12,6 +12,6 @@ fragment UserFragment on EnjinUser {
     updatedAt @include(if: $withUserTimestamps)
 }
 
-$withUserRoles withUserRoles = false
-$withUserRoles withUserIdentities = false
+$withUserRoles: Boolean = false
+$withUserIdentities: Boolean = false
 $withUserTimestamps: Boolean = false
