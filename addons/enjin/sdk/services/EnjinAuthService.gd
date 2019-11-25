@@ -13,7 +13,9 @@ const TrustedPlatformState = preload("res://addons/enjin/sdk/TrustedPlatformStat
 const TrustedPlatformMiddleware = preload("res://addons/enjin/sdk/TrustedPlatformMiddleware.gd")
 const EnjinEndpoints = preload("res://addons/enjin/sdk/http/EnjinEndpoints.gd")
 const EnjinContentTypes = preload("res://addons/enjin/sdk/http/EnjinContentTypes.gd")
-const EnjinGraphqlSchema = preload("res://addons/enjin/sdk/graphql/EnjinGraphqlSchema.gd")
+#const EnjinGraphqlSchema = preload("res://addons/enjin/sdk/graphql/EnjinGraphqlSchema.gd")
+const EnjinGraphqlQueryBuilder = preload("res://addons/enjin/sdk/graphql/EnjinGraphqlQueryBuilder.gd")
+
 
 var _state: TrustedPlatformState
 var _middleware: TrustedPlatformMiddleware
@@ -26,9 +28,12 @@ func _init(state: TrustedPlatformState, middleware: TrustedPlatformMiddleware):
 
 func auth_user(email: String, password: String, udata: Dictionary = {}):
     _state.clear_auth()
-    var body = EnjinGraphqlSchema.auth_user_query(email, password)
+    
+    var vars = {}
+    vars.email = email
+    vars.password = password
     # Enqueue Request
-    _middleware.submit_gql_request_cb(body, _auth_user_cb, udata)
+    _middleware.execute_gql_query("LoginUserQuery", vars, udata, _auth_user_cb)
 
 func auth_app(app_id: int, secret: String, udata: Dictionary = {}):
     _state.clear_auth()

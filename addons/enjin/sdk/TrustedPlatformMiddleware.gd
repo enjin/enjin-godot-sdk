@@ -6,14 +6,17 @@ const EnjinCall = preload("res://addons/enjin/sdk/http/EnjinCall.gd")
 const EnjinEndpoints = preload("res://addons/enjin/sdk/http/EnjinEndpoints.gd")
 const EnjinContentTypes = preload("res://addons/enjin/sdk/http/EnjinContentTypes.gd")
 const EnjinHeaders = preload("res://addons/enjin/sdk/http/EnjinHeaders.gd")
+const EnjinGraphqlQueryBuilder = preload("res://addons/enjin/sdk/graphql/EnjinGraphqlQueryBuilder.gd")
 
 var _http: EnjinHttp
 var _state: TrustedPlatformState
+var _query_builder: EnjinGraphqlQueryBuilder.GQLBuilder
 var _gql_callback: EnjinCallback
 
-func _init(http: EnjinHttp, state: TrustedPlatformState):
+func _init(http: EnjinHttp, state: TrustedPlatformState, query_builder):
     _http = http
     _state = state
+    _query_builder = query_builder
     _gql_callback = EnjinCallback.new(self, "_graphql_callback")
 
 func post(endpoint: String, body: String) -> EnjinCall:
@@ -37,6 +40,16 @@ func submit_gql_request(body: Dictionary, udata: Dictionary = {}):
 
 func submit_gql_request_cb(body: Dictionary, callback: EnjinCallback, udata: Dictionary = {}):
     _http.enqueue(graphql(body), callback, udata)
+
+func build_query_request(var query_name: String, variables: Dictionary, var operationName: String = "") -> String:
+    return EnjinGraphqlQueryBuilder.build_query_request(query_name, variables, operationName)
+
+func execute_gql_query(query_name: String, input: Dictionary = {}, udata: Dictionary = {}, var callback = null):
+    var request_body = EnjinGraphqlQueryBuilder.build_query_request(query_name, input, query_name)
+    var cbck = _gql_callback
+    if callback:
+        cbck = callback
+    submit_gql_request_cb(request_body, cbck, udata)
 
 func process_graphql_data(udata: Dictionary):
     var response: EnjinResponse = udata.response

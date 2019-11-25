@@ -83,7 +83,10 @@ func _init():
 func Start():
     server.listen(8080)
 
-func SetResponse(in_request : String, out_response : String):
+func Stop():
+    pass
+
+func SetResponse(in_request : String, out_response : String, folder : String):
     if not HasResponse(in_request):
         var request_hash : int = in_request.hash()
     

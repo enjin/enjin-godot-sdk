@@ -4,24 +4,25 @@ class GQLTemplate:
     var _path: String
     var _arguments: Dictionary = {}
     var _body: String = ""
+    var _is_cached: bool = false
     
     func _init(var path: String):
         _path = path
     
-    func GetPath():
+    func get_path():
         return _path
     
-    func AddArgument(var arg_name: String, var arg_type = null, var default_value = null):
+    func add_argument(var arg_name: String, var arg_type = null, var default_value = null):
         if not _arguments.has(arg_name):
             _arguments[arg_name] = {"type": arg_type, "default_value": default_value}
-        
-    func GetArguments() -> Dictionary:
+    
+    func get_arguments() -> Dictionary:
         return _arguments
     
-    func ListArguments(var separator: String = "\n") -> String:
+    func list_arguments(var separator: String = "\n") -> String:
         var ret = ""
-        for arg_name in GetArguments().keys():
-            var arg = GetArguments().get(arg_name)
+        for arg_name in get_arguments().keys():
+            var arg = get_arguments().get(arg_name)
             var default_value_ending = ""
             var argument_type = ""
             if arg.type:
@@ -31,18 +32,18 @@ class GQLTemplate:
             ret += "$" + arg_name + argument_type + default_value_ending + separator
         return ret.rstrip(separator)
     
-    func MergeWith(var other: GQLTemplate):
-        var other_arguments = other.GetArguments()
+    func merge_with(var other: GQLTemplate):
+        var other_arguments = other.get_arguments()
         for key in other_arguments.keys():
             if not _arguments.has(key):
                 _arguments[key] = other_arguments[key]
         
-        SetBody(GetBody() + other.GetBody())
+        set_body(get_body() + other.get_body())
     
-    func SetBody(var body: String):
+    func set_body(var body: String):
         _body = body
     
-    func GetBody() -> String:
+    func get_body() -> String:
         return _body
 
 
@@ -51,11 +52,11 @@ class GQLBuilder:
     
     const tamplates_path = "res://addons/enjin/sdk/graphql/templates/"
     
-    var FragmentDB: Dictionary = {}
-    var QueryDB: Dictionary = {}
-    var MutationDB: Dictionary = {}
+    var fragment_db: Dictionary = {}
+    var query_db: Dictionary = {}
+    var mutation_db: Dictionary = {}
     
-    func RegisterQL(var gql_file_path: String):
+    func register_ql(var gql_file_path: String):
         var gql_file = File.new()
         gql_file.open(gql_file_path, File.READ)
         
@@ -75,15 +76,15 @@ class GQLBuilder:
                 #Populate DB
                 var gql = gql_file.get_as_text()
                 var key = gql_file_path.get_file().trim_suffix("."+gql_file_path.get_extension())
-                if is_query and not QueryDB.has(key):
-                    QueryDB[key] = GQLTemplate.new(gql_file_path)
-                if is_mutation and not MutationDB.has(key):
-                    MutationDB[key] = GQLTemplate.new(gql_file_path)
-                if is_fragment and not FragmentDB.has(key):
-                    FragmentDB[key] = GQLTemplate.new(gql_file_path)
+                if is_query and not query_db.has(key):
+                    query_db[key] = GQLTemplate.new(gql_file_path)
+                if is_mutation and not mutation_db.has(key):
+                    mutation_db[key] = GQLTemplate.new(gql_file_path)
+                if is_fragment and not fragment_db.has(key):
+                    fragment_db[key] = GQLTemplate.new(gql_file_path)
                 break
             
-    func Scan(var path: Array, var curr_folder: String):
+    func scan(var path: Array, var curr_folder: String):
         #print("====== " + curr_folder + " =======")
         var directory = Directory.new()
         directory.change_dir(curr_folder)
@@ -96,26 +97,26 @@ class GQLBuilder:
                 if directory.current_is_dir():
                     if file != "." and file != "..":
                         path.append(file)
-                        Scan(path, curr_folder + file + "/")
+                        scan(path, curr_folder + file + "/")
                 else:
-                    RegisterQL(curr_folder + file)
+                    register_ql(curr_folder + file)
     
     func _init():
         pass
     
-    func ScanAll():
-        Scan([], tamplates_path)
+    func scan_all():
+        scan([], tamplates_path)
     
-    func GetQueryDB() -> Dictionary:
-        return QueryDB
+    func get_query_db() -> Dictionary:
+        return query_db
 
-    func GetMutationDB() -> Dictionary:
-        return MutationDB
+    func get_mutation_db() -> Dictionary:
+        return mutation_db
 
-    func GetFragmentDB() -> Dictionary:
-        return FragmentDB
+    func get_fragment_db() -> Dictionary:
+        return fragment_db
     
-    func UseFolder(var path: String):
+    func add_folder(var path: String):
         var folders = path.get_base_dir().trim_prefix(self.tamplates_path)
         
         #Re-scan (probably not necessary)
@@ -125,9 +126,9 @@ class GQLBuilder:
             var folder = node_path.get_name(folder_id)
             key_array.append(folder)
         
-        Scan(key_array, path)
+        scan(key_array, path)
     
-    func ReadQL(var gql_file_path: String, var in_gql_template: GQLTemplate) -> GQLTemplate:
+    func read_ql(var gql_file_path: String, var in_gql_template: GQLTemplate) -> GQLTemplate:
         var filename = gql_file_path.get_file().trim_suffix("."+gql_file_path.get_extension())
         var ret = ""
         
@@ -153,12 +154,12 @@ class GQLBuilder:
             var is_argument = tmp_line.begins_with("$")
             var is_fragment_reference = tmp_line.begins_with("...")
             
-            if is_query and QueryDB.has(key):
-                gql_template = QueryDB[key]
-            if is_mutation and MutationDB.has(key):
-                gql_template = MutationDB[key]
-            if is_fragment and FragmentDB.has(key):
-                gql_template = FragmentDB[key]
+            if is_query and query_db.has(key):
+                gql_template = query_db[key]
+            if is_mutation and mutation_db.has(key):
+                gql_template = mutation_db[key]
+            if is_fragment and fragment_db.has(key):
+                gql_template = fragment_db[key]
             
             if is_query:
                 line = line.replace("query", "query " + filename + "(\n" + "%s" + "\n)")
@@ -183,12 +184,12 @@ class GQLBuilder:
                 
                 var argument_name = tmp_line.substr(0, col_pos).trim_prefix("$")
                 
-                gql_template.AddArgument(argument_name, type, default_value)
+                gql_template.add_argument(argument_name, type, default_value)
 
             if is_fragment_reference:
                 #Find fragment in DB
                 var fragment_name = tmp_line.trim_prefix("...")
-                if FragmentDB.has(fragment_name):
+                if fragment_db.has(fragment_name):
                     #Found fragment, include
                     includes.append(fragment_name)
             
@@ -196,34 +197,47 @@ class GQLBuilder:
                 ret += line + "\n"
 
         if gql_template:
-            gql_template.SetBody(ret)
+            gql_template.set_body(ret)
 
         for include in includes:
-            var tmp_template = ReadQL(FragmentDB[include].GetPath(), gql_template)
+            var tmp_template = read_ql(fragment_db[include].get_path(), gql_template)
             if gql_template:
-                gql_template.MergeWith(tmp_template)
+                gql_template.merge_with(tmp_template)
 
         return gql_template
 
-static func FindTemplate(var query_name) -> GQLTemplate:
+static func find_template(var query_name) -> GQLTemplate:
     var gql_builder = GQLBuilder.new()
     
-    gql_builder.UseFolder(GQLBuilder.tamplates_path)
-    var QueryDB = gql_builder.GetQueryDB()
-    var MutationDB = gql_builder.GetMutationDB()
+    gql_builder.add_folder(GQLBuilder.tamplates_path)
+    var query_db = gql_builder.get_query_db()
+    var mutation_db = gql_builder.get_mutation_db()
     
     var query_template = null
     
-    if QueryDB.has(query_name):
-        query_template = gql_builder.ReadQL(QueryDB[query_name].GetPath(), null)
+    if query_db.has(query_name):
+        query_template = gql_builder.read_ql(query_db[query_name].get_path(), null)
         return query_template
-    if MutationDB.has(query_name):
-        query_template = gql_builder.ReadQL(MutationDB[query_name].GetPath(), null)
+    if mutation_db.has(query_name):
+        query_template = gql_builder.read_ql(mutation_db[query_name].get_path(), null)
         return query_template
     
     return query_template
 
-static func BuildQuery(var query_name) -> String:
-    var query_template = FindTemplate(query_name)
-    var query = query_template.GetBody() % query_template.ListArguments(",\n")
+static func build_query(var query_name: String) -> String:
+    var query_template = find_template(query_name)
+    var query = query_template.get_body() % query_template.list_arguments(",\n")
     return query
+
+static func build_query_request(var query_name: String, variables: Dictionary, operationName: String = "") -> String:
+    var query = build_query(query_name)
+    
+    var request_body = {}
+    request_body.query = query
+    request_body.variables = variables
+    if operationName != "":
+        request_body.operationName = operationName
+    else:
+        request_body.operationName = query_name
+    
+    return request_body
