@@ -6,4 +6,4 @@ query {
     }
 }
 
-pagination: PaginationInput!
+$pagination: PaginationInput!

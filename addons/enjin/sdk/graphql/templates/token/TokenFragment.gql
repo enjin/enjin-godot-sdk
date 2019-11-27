@@ -29,7 +29,7 @@ fragment TokenFragment on EnjinToken {
 $tokenIdFormat: TokenIdFormat
 $replaceUriParams: Boolean
 $withTokenIndex: Boolean = false
-$withCreator: String
+$withCreator: Boolean = false
 $withTokenBlocks: Boolean = false
 $withTokenIcon: Boolean = false
 $withMeltDetails: Boolean = false
