@@ -24,11 +24,6 @@ func _init(base_url: String = EnjinHosts.KOVAN, port: int = 443, use_ssl: bool =
     _auth_service = EnjinAuthService.new(_state, _middleware)
     _user_service = EnjinUserService.new(_middleware)
 
-    var size: int =_middleware._schema._operation_registry.size()
-    print("operations: %s" % size)
-    var op = _middleware._schema.get_template("GetUserQuery")
-    print(op._compiled_template)
-
 func get_state() -> TrustedPlatformState:
     return _state
 
