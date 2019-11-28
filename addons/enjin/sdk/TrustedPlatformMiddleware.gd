@@ -42,10 +42,10 @@ func submit_gql_request_cb(body: Dictionary, callback: EnjinCallback, udata: Dic
     _http.enqueue(graphql(body), callback, udata)
 
 func build_query_request(var query_name: String, variables: Dictionary, var operationName: String = "") -> String:
-    return _schema.build_query_request(query_name, variables, operationName)
+    return _schema.build_request_body(query_name, variables, operationName)
 
 func execute_gql_query(query_name: String, input: Dictionary = {}, udata: Dictionary = {}, var callback = null):
-    var request_body = _schema.build_query_request(query_name, input, query_name)
+    var request_body = _schema.build_request_body(query_name, input, query_name)
     var cbck = _gql_callback
     if callback:
         cbck = callback

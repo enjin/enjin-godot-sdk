@@ -6,6 +6,7 @@ const TrustedPlatformClient = preload("res://addons/enjin/sdk/TrustedPlatformCli
 const EnjinCallback = preload("res://addons/enjin/sdk/http/EnjinCallback.gd")
 const EnjinGraphqlSchema = preload("res://addons/enjin/sdk/graphql/EnjinGraphqlSchema.gd")
 
+var _schema: EnjinGraphqlSchema
 var _cached_client: TrustedPlatformClient
 var _trusted_client: TrustedPlatformClient
 
@@ -15,6 +16,7 @@ var enjin_http_server = null
 var doubled_class_instance = null
 
 func before_all():
+    _schema = EnjinGraphqlSchema.new()
     enjin_http_server = EnjinHttpServer.new()
     enjin_http_server.Start()
 
@@ -55,7 +57,10 @@ func test_TrustedPlatformClient_auth_user():
     var sha256_username = username.sha256_text()
     var sha256_password = password.sha256_text()
 
-    var auth_query_body = to_json(EnjinGraphqlSchema.auth_user_query(sha256_username, sha256_password))
+    var variables = {}
+    variables.email = sha256_username
+    variables.password = sha256_password
+    var auth_query_body = to_json(_schema.build_request_body("LoginUserQuery", variables))
 
     var use_cache = enjin_http_server.HasResponse(auth_query_body)
     if use_cache:
