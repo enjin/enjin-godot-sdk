@@ -117,9 +117,9 @@ func _compile_templates():
             var is_mutation: bool = compiled_op.begins_with("mutation")
 
             if is_query:
-                compiled_op = compiled_op.replace("query", "query "+op_name+"(\n%s\n)" % _args_to_list(args))
+                compiled_op = compiled_op.replace("query", "query (\n%s\n)" % _args_to_list(args))
             if is_mutation:
-                compiled_op = compiled_op.replace("mutation", "mutation "+op_name+"(\n%s\n)" % _args_to_list(args))
+                compiled_op = compiled_op.replace("mutation", "mutation (\n%s\n)" % _args_to_list(args))
 
         op._compiled_template = compiled_op
         op._is_cached = true
@@ -162,8 +162,6 @@ func build_request_body(template_name: String, variables: Dictionary, operationN
     request_body.variables = variables
     if operationName != "":
         request_body.operationName = operationName
-    else:
-        request_body.operationName = template_name
 
     return request_body
 

@@ -45,7 +45,7 @@ func build_query_request(var query_name: String, variables: Dictionary, var oper
     return _schema.build_request_body(query_name, variables, operationName)
 
 func execute_gql_query(query_name: String, input: Dictionary = {}, udata: Dictionary = {}, var callback = null):
-    var request_body = _schema.build_request_body(query_name, input, query_name)
+    var request_body = _schema.build_request_body(query_name, input)
     var cbck = _gql_callback
     if callback:
         cbck = callback
