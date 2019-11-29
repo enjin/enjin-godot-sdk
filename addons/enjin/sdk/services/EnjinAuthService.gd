@@ -19,18 +19,20 @@ const EnjinGraphqlSchema = preload("res://addons/enjin/sdk/graphql/EnjinGraphqlS
 var _state: TrustedPlatformState
 var _middleware: TrustedPlatformMiddleware
 var _auth_user_cb: EnjinCallback
+var _auth_app_cb: EnjinCallback
 
 func _init(state: TrustedPlatformState, middleware: TrustedPlatformMiddleware):
     _state = state
     _middleware = middleware
     _auth_user_cb = EnjinCallback.new(self, "_auth_user_callback")
+    _auth_app_cb = EnjinCallback.new(self, "_auth_app_callback")
 
 func auth_user(email: String, password: String, udata: Dictionary = {}):
     _state.clear_auth()
     var vars = {}
     vars.email = email
     vars.password = password
-    _middleware.execute_gql_query("LoginUserQuery", vars, udata, _auth_user_cb)
+    _middleware.execute_gql("LoginUserQuery", vars, udata, _auth_user_cb)
 
 func auth_app(app_id: int, secret: String, udata: Dictionary = {}):
     _state.clear_auth()
@@ -41,11 +43,8 @@ func auth_app(app_id: int, secret: String, udata: Dictionary = {}):
         "client_secret": secret
     }
     # Create call
-    var call = _middleware.post(EnjinEndpoints.OAUTH_TOKEN, to_json(body))
-    call.set_content_type(EnjinContentTypes.APPLICATION_JSON)
-    var cb = EnjinCallback.new(self, "_auth_app_callback")
-    # Enqueue Request
-    _middleware._http.enqueue(call, cb, udata)
+    var call = _middleware.post(EnjinEndpoints.OAUTH_TOKEN, to_json(body), EnjinContentTypes.APPLICATION_JSON_UTF8)
+    _middleware.execute_post_cb(call, _auth_app_cb, udata)
 
 func _auth_user_callback(udata: Dictionary):
     _middleware.process_graphql_data(udata)

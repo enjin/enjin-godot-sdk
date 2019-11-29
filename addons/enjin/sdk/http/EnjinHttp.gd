@@ -112,7 +112,8 @@ func _complete_request(idx: int, req: Array):
         body = response.get_string_from_ascii()
     udata.response = EnjinResponse.new(call, code, headers, body)
     # Call the request callback on the main thread
-    callback.complete_deffered_1(udata)
+    if callback != null:
+        callback.complete_deffered_1(udata)
 
 func _is_pool_full() -> bool:
     return _connection_pool_count >= _connection_pool_size

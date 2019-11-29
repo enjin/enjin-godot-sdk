@@ -19,42 +19,36 @@ func _init(http: EnjinHttp, state: TrustedPlatformState):
     _schema = EnjinGraphqlSchema.new()
     _gql_callback = EnjinCallback.new(self, "_graphql_callback")
 
-func post(endpoint: String, body: String) -> EnjinCall:
+func execute_post(call: EnjinCall, udata: Dictionary = {}):
+    execute_post_cb(call, udata.callback, udata)
+
+func execute_post_cb(call: EnjinCall, callback: EnjinCallback, udata: Dictionary = {}):
+    _http.enqueue(call, callback, udata)
+
+func execute_gql(op_name: String, vars: Dictionary = {}, udata: Dictionary = {}, callback = _gql_callback):
+    var body = _schema.build_request_body(op_name, vars)
+    _http.enqueue(_graphql(body), callback, udata)
+
+func post(endpoint: String, body: String, content_type: String) -> EnjinCall:
     var call = EnjinCall.new()
     call.set_method(HTTPClient.METHOD_POST)
     call.set_endpoint(endpoint)
     call.set_body(body)
+    call.set_content_type(content_type)
     return call
-
-func graphql(body: Dictionary = {}):
-    var call = post(EnjinEndpoints.GRAPHQL, to_json(body))
-    call.set_content_type(EnjinContentTypes.APPLICATION_JSON_UTF8)
-    if _state._auth_app_id != null:
-        call.add_header(EnjinHeaders.X_APP_ID, str(_state._auth_app_id))
-    if _state._auth_token != null:
-        call.add_header(EnjinHeaders.AUTHORIZATION, _state._auth_token)
-    return call
-
-func submit_gql_request(body: Dictionary, udata: Dictionary = {}):
-    submit_gql_request_cb(body, _gql_callback, udata)
-
-func submit_gql_request_cb(body: Dictionary, callback: EnjinCallback, udata: Dictionary = {}):
-    _http.enqueue(graphql(body), callback, udata)
-
-func build_query_request(var query_name: String, variables: Dictionary, var operationName: String = "") -> String:
-    return _schema.build_request_body(query_name, variables, operationName)
-
-func execute_gql_query(query_name: String, input: Dictionary = {}, udata: Dictionary = {}, var callback = null):
-    var request_body = _schema.build_request_body(query_name, input)
-    var cbck = _gql_callback
-    if callback:
-        cbck = callback
-    submit_gql_request_cb(request_body, cbck, udata)
 
 func process_graphql_data(udata: Dictionary):
     var response: EnjinResponse = udata.response
     if response != null and response.has_body():
         udata.gql = EnjinGraphqlResponse.new(response)
+
+func _graphql(body: Dictionary = {}):
+    var call = post(EnjinEndpoints.GRAPHQL, to_json(body), EnjinContentTypes.APPLICATION_JSON_UTF8)
+    if _state._auth_app_id != null:
+        call.add_header(EnjinHeaders.X_APP_ID, str(_state._auth_app_id))
+    if _state._auth_token != null:
+        call.add_header(EnjinHeaders.AUTHORIZATION, _state._auth_token)
+    return call
 
 func _graphql_callback(udata: Dictionary):
     var callback: EnjinCallback = udata.callback
