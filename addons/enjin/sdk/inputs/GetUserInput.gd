@@ -14,5 +14,6 @@ func me(me: bool) -> GetUserInput:
     return self
 
 func pagination(pagination: PaginationInput) -> GetUserInput:
-    input.pagination = pagination.create()
+    if pagination:
+        input.pagination = pagination.create()
     return self

@@ -53,11 +53,11 @@ func get_cursor():
 func get_errors():
     return _errors
 
-func has_result():
+func has_result() -> bool:
     return _result != null
 
-func is_paginated():
+func is_paginated() -> bool:
     return _cursor != null
 
-func has_errors():
+func has_errors() -> bool:
     return _errors != null

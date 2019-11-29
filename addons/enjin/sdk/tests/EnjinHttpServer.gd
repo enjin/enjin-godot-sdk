@@ -1,8 +1,10 @@
 extends "res://addons/gut/test.gd"
 
 var server : TCP_Server = null
-var response_cache_folder : String = "user://"
+var response_cache_folder : String = "user://gut_testserver_responses"
 var directory = Directory.new()
+var using_cache: bool = true
+var counter = 0
 
 class ActiveConnection:
     extends Object
@@ -54,8 +56,11 @@ class ActiveConnection:
                     content = request.right(request.length() - value.to_int())
             
             var body = ""
+            
+            #Todo: scan for all folders
             if _cached_server.HasResponse(content):
                 body = _cached_server.GetResponse(content)
+            
             
             var return_data = "HTTP/1.0 200 OK" + "\r\n"
             return_data += "Content-Type: application/json;" + "\r\n"
@@ -66,8 +71,6 @@ class ActiveConnection:
             return_data += body
             peerstream.stream_peer.put_data(PoolByteArray(return_data.to_ascii()))
             
-            Disconnect()
-            
     func Disconnect():
         connection.disconnect_from_host()
 
@@ -77,21 +80,41 @@ func _init():
     print("server initialized")
     server = TCP_Server.new()
     
-    if directory.dir_exists(response_cache_folder):
-        directory.change_dir(response_cache_folder)
+    if not directory.dir_exists(response_cache_folder):
+        directory.make_dir_recursive(response_cache_folder)
+        if directory.open(response_cache_folder) == OK:
+            using_cache = true
+        else:
+            using_cache = false
+
 
 func Start():
     server.listen(8080)
 
 func Stop():
-    pass
+    server.stop()
+
+func ResetCounter():
+    counter = 0
+
+func ExpectDifferentResponse():
+    counter += 1
 
 func SetResponse(in_request : String, out_response : String, folder : String):
-    if not HasResponse(in_request):
-        var request_hash : int = in_request.hash()
+    if not using_cache:
+        return
+    var request = in_request + str(counter)
+    if not HasResponse(request):
+        var request_hash : String = request.sha256_text()
     
-        var tmp_filename = response_cache_folder + "/" + str(request_hash) + ".rcache"
+        var target_dir = response_cache_folder + "/" + folder
+    
+        if not directory.dir_exists(target_dir):
+            directory.make_dir_recursive(target_dir)
+    
+        var tmp_filename = target_dir + "/" + request_hash + ".rcache"
         print(tmp_filename)
+        print(out_response)
     
         var cache = File.new()
         cache.open(tmp_filename, File.WRITE)
@@ -101,22 +124,71 @@ func SetResponse(in_request : String, out_response : String, folder : String):
         cache.close()
 
 func HasResponse(in_request : String) -> bool:
-    var request_hash : int = in_request.hash()
-    var tmp_filename = response_cache_folder + "/" + str(request_hash) + ".rcache"
+    if not using_cache:
+        return false
+    var request = in_request + str(counter)
+    var request_hash : String = request.sha256_text()
+    var tmp_directory = Directory.new()
     
-    if directory.file_exists(tmp_filename):
-        return true
+    if tmp_directory.dir_exists(response_cache_folder):
+        if tmp_directory.open(response_cache_folder) != OK:
+            return false
+    
+    
+    if(!tmp_directory.list_dir_begin()):
+        while true:
+            var script_folder_name = tmp_directory.get_next()
+            if not tmp_directory.current_is_dir():
+                continue
+            if script_folder_name == "":
+                break
+           
+            
+            
+            var tmp_filename = response_cache_folder + "/" + script_folder_name + "/" + request_hash + ".rcache"
+            
+            if tmp_directory.file_exists(tmp_filename):
+                print("found cache")
+                return true
     
     return false
 
 func GetResponse(in_request : String) -> String:
-    var request_hash : int = in_request.hash()
-    var tmp_filename = response_cache_folder + "/" + str(request_hash) + ".rcache"
+    if not using_cache:
+        return ""
+    var request = in_request + str(counter)
+    var request_hash : String = request.sha256_text()
+    
+    var cache_file_path: String
+    
+    var tmp_directory = Directory.new()
+    
+    if tmp_directory.dir_exists(response_cache_folder):
+        if tmp_directory.open(response_cache_folder) != OK:
+            return ""
+    
+    if(!tmp_directory.list_dir_begin()):
+        while true:
+            var script_folder_name = tmp_directory.get_next()
+            if not tmp_directory.current_is_dir():
+                continue
+            if script_folder_name == "":
+                break
+           
+            
+            
+            var tmp_filename = response_cache_folder + "/" + script_folder_name + "/" + request_hash + ".rcache"
+            
+            if tmp_directory.file_exists(tmp_filename):
+                print("found cache")
+                cache_file_path = tmp_filename
+                break
+    
     var cached_response : String = ""
     
-    if directory.file_exists(tmp_filename):
+    if directory.file_exists(cache_file_path):
         var cache = File.new()
-        cache.open(tmp_filename, File.READ)
+        cache.open(cache_file_path, File.READ)
         
         cached_response = cache.get_as_text()
         

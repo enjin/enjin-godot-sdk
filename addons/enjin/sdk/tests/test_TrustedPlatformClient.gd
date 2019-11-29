@@ -97,7 +97,7 @@ func test_TrustedPlatformClient_auth_user():
                 token.accessToken = token.accessToken.sha256_text()
 
             if not enjin_http_server.HasResponse(auth_query_body):
-                enjin_http_server.SetResponse(auth_query_body, to_json(jsbody))
+                enjin_http_server.SetResponse(auth_query_body, to_json(jsbody), get_script().resource_path.get_file())
 
     #Check if authenticated
     var is_authed = false
