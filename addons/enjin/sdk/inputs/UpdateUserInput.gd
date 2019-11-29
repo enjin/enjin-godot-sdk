@@ -18,7 +18,7 @@ func password(password: String) -> UpdateUserInput:
     return self
 
 func identity_id(identity_id: int) -> UpdateUserInput:
-    input.identity_id = identity_id
+    input.identityId = identity_id
     return self
 
 func role(roles: Array) -> UpdateUserInput:
@@ -26,9 +26,9 @@ func role(roles: Array) -> UpdateUserInput:
     return self
 
 func reset_password(reset_password: bool) -> UpdateUserInput:
-    input.reset_password = reset_password
+    input.resetPassword = reset_password
     return self
 
 func reset_password_token(reset_password_token: String) -> UpdateUserInput:
-    input.reset_password_token = reset_password_token
+    input.resetPasswordToken = reset_password_token
     return self

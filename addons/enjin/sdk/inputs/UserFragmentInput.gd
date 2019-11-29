@@ -25,9 +25,9 @@ func with_tokens_created(withTokensCreated: bool) -> UserFragmentInput:
     input.withTokensCreated = withTokensCreated
     return self
 
-func with_timestamps(withTimestamps: bool) -> UserFragmentInput:
-    input.withTimestamps = withTimestamps
-    return self
+#func with_timestamps(withTimestamps: bool) -> UserFragmentInput:
+#    input.withTimestamps = withTimestamps
+#    return self
 
 func bal_app_id(balAppId: int) -> UserFragmentInput:
     input.balAppId = balAppId
@@ -61,6 +61,10 @@ func token_id_format(tokenIdFormat: String) -> UserFragmentInput:
     input.tokenIdFormat = tokenIdFormat
     return self
 
-func token_index_format(tokenIndexFormat: String) -> UserFragmentInput:
-    input.tokenIndexFormat = tokenIndexFormat
+#func token_index_format(tokenIndexFormat: String) -> UserFragmentInput:
+#    input.tokenIndexFormat = tokenIndexFormat
+#    return self
+
+func with_token_index(withTokenIndex: bool) -> UserFragmentInput:
+    input.withTokenIndex = withTokenIndex
     return self
