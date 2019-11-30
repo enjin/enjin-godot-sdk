@@ -154,14 +154,12 @@ func get_template(template_name) -> GraphqlTemplate:
 func has_template(template_name) -> bool:
     return _operation_registry.has(template_name)
 
-func build_request_body(template_name: String, variables: Dictionary, operationName: String = "") -> String:
+func build_request_body(template_name: String, variables: Dictionary) -> String:
     var template: GraphqlTemplate = get_template(template_name)
 
     var request_body = {}
     request_body.query = template.get_compiled_template()
     request_body.variables = variables
-    if operationName != "":
-        request_body.operationName = operationName
 
     return request_body
 
