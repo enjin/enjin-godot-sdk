@@ -1,5 +1,4 @@
 extends Reference
-class_name BaseInput
 
 var vars: Dictionary = {}
 

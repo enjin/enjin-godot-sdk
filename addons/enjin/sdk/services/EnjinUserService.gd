@@ -11,7 +11,10 @@ func get_user(input: GetUserInput, udata: Dictionary = {}):
     _middleware.execute_gql("GetUserQuery", input.create(), udata)
 
 func get_users(input: GetUserInput, udata: Dictionary = {}):
-    _middleware.execute_gql("GetUsersQuery", input.create(), udata)
+    if udata.has("pagination"):
+        _middleware.execute_gql("GetUsersPaginatedQuery", input.create(), udata)
+    else:
+        _middleware.execute_gql("GetUsersQuery", input.create(), udata)
 
 func create_user(input: CreateUserInput, udata: Dictionary = {}):
     _middleware.execute_gql("CreateUserMutation", input.create(), udata)

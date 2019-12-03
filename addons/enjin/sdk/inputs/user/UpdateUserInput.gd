@@ -1,4 +1,4 @@
-extends UserFragmentInput
+extends "./BaseUserInput.gd"
 class_name UpdateUserInput
 
 func id(id: int) -> UpdateUserInput:

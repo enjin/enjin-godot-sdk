@@ -12,7 +12,7 @@ fragment WalletFragment on EnjinWallet {
         value_lt: $balLt,
         value_lte: $balLte
     ) @include(if: $withBalances) {
-        ...SimpleBalanceFragment
+        ...BalanceFragment
     }
     tokensCreated @include(if: $withTokensCreated) {
         ...TokenFragment
