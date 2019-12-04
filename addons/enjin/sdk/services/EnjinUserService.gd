@@ -10,7 +10,7 @@ func _init(middleware: TrustedPlatformMiddleware):
 func get_user(input: GetUserInput, udata: Dictionary = {}):
     _middleware.execute_gql("GetUserQuery", input.create(), udata)
 
-func get_users(input: GetUserInput, udata: Dictionary = {}):
+func get_users(input: GetUsersInput, udata: Dictionary = {}):
     if udata.has("pagination"):
         _middleware.execute_gql("GetUsersPaginatedQuery", input.create(), udata)
     else:

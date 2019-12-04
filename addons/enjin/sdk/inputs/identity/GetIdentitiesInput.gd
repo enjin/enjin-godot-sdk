@@ -1,10 +1,12 @@
 extends "./GetIdentityInput.gd"
 class_name GetIdentitiesInput
 
-var paginated_i: EnjinSdkInputs.PaginatedInput
+const PaginatedInput = preload("res://addons/enjin/sdk/inputs/PaginatedInput.gd").PaginatedInput
+
+var paginated_i: PaginatedInput
 
 func _init():
-    paginated_i = EnjinSdkInputs.PaginatedInput.new(vars)
+    paginated_i = PaginatedInput.new(vars)
 
 func app_id(appId: int) -> GetIdentitiesInput:
     vars.appId = appId

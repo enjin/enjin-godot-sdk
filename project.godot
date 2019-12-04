@@ -59,11 +59,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/http/EnjinResponse.gd"
 }, {
-"base": "Reference",
-"class": "EnjinSdkInputs",
-"language": "GDScript",
-"path": "res://addons/enjin/sdk/inputs/EnjinSdkInputs.gd"
-}, {
 "base": "",
 "class": "GetBalancesInput",
 "language": "GDScript",
@@ -125,7 +120,6 @@ _global_script_class_icons={
 "EnjinGraphqlResponse": "",
 "EnjinHosts": "",
 "EnjinResponse": "",
-"EnjinSdkInputs": "",
 "GetBalancesInput": "",
 "GetIdentitiesInput": "",
 "GetIdentityInput": "",

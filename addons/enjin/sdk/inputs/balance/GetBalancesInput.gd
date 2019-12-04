@@ -1,12 +1,15 @@
 extends "../BaseInput.gd"
 class_name GetBalancesInput
 
-var balance_i: EnjinSdkInputs.BalanceFragmentInput
-var paginated_i: EnjinSdkInputs.PaginatedInput
+const BalanceFragmentInput = preload("res://addons/enjin/sdk/inputs/balance/BalanceFragmentInput.gd").BalanceFragmentInput
+const PaginatedInput = preload("res://addons/enjin/sdk/inputs/PaginatedInput.gd").PaginatedInput
+
+var balance_i: BalanceFragmentInput
+var paginated_i: PaginatedInput
 
 func _init():
-    balance_i = EnjinSdkInputs.BalanceFragmentInput.new(vars)
-    paginated_i = EnjinSdkInputs.PaginatedInput.new(vars)
+    balance_i = BalanceFragmentInput.new(vars)
+    paginated_i = PaginatedInput.new(vars)
 
 func app_id(appId: int) -> GetBalancesInput:
     vars.appId = appId

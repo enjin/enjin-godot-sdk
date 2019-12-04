@@ -1,6 +1,8 @@
 extends "../BaseInput.gd"
 
-var role_i: EnjinSdkInputs.RoleFragmentInput
+const RoleFragmentInput = preload("res://addons/enjin/sdk/inputs/role/RoleFragmentInput.gd").RoleFragmentInput
+
+var role_i: RoleFragmentInput
 
 func _init():
-    role_i = EnjinSdkInputs.RoleFragmentInput.new(vars)
+    role_i = RoleFragmentInput.new(vars)
