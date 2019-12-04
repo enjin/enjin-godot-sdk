@@ -24,3 +24,9 @@ func update_token(input: UpdateTokenInput, udata: Dictionary = {}):
 
 func delete_token(input: DeleteTokenInput, udata: Dictionary = {}):
     _middleware.execute_gql("DeleteTokenMutation", input.create(), udata)
+
+func get_token_events(input: GetTokenEventsInput, udata: Dictionary = {}):
+    if udata.has("pagination"):
+        _middleware.execute_gql("GetTokenEventsPaginatedQuery", input.create(), udata)
+    else:
+        _middleware.execute_gql("GetTokenEventsQuery", input.create(), udata)
