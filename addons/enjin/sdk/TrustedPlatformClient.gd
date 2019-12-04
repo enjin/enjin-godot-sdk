@@ -14,6 +14,7 @@ const EnjinWalletService = preload("res://addons/enjin/sdk/services/EnjinWalletS
 const EnjinTokenService = preload("res://addons/enjin/sdk/services/EnjinTokenService.gd")
 const EnjinRequestService = preload("res://addons/enjin/sdk/services/EnjinRequestService.gd")
 const EnjinPlatformService = preload("res://addons/enjin/sdk/services/EnjinPlatformService.gd")
+const EnjinAppService = preload("res://addons/enjin/sdk/services/EnjinAppsService.gd")
 
 var _base_url: String
 var _http: EnjinHttp
@@ -22,12 +23,13 @@ var _middleware: TrustedPlatformMiddleware
 var _auth_service: EnjinAuthService setget ,auth_service
 var _user_service: EnjinUserService setget ,user_service
 var _identity_service: EnjinIdentityService setget ,identity_service
-var _balance_service: EnjinBalanceService setget, balance_service
-var _role_service: EnjinRoleService setget, role_service
-var _wallet_service: EnjinWalletService setget, wallet_service
-var _token_service: EnjinTokenService setget, token_service
-var _request_service: EnjinRequestService setget, request_service
-var _platform_service: EnjinPlatformService setget, platform_service
+var _balance_service: EnjinBalanceService setget ,balance_service
+var _role_service: EnjinRoleService setget ,role_service
+var _wallet_service: EnjinWalletService setget ,wallet_service
+var _token_service: EnjinTokenService setget ,token_service
+var _request_service: EnjinRequestService setget ,request_service
+var _platform_service: EnjinPlatformService setget ,platform_service
+var _app_service: EnjinAppService setget ,app_service
 
 func _init(base_url: String = EnjinHosts.KOVAN, port: int = 443, use_ssl: bool = true, verify_host: bool = true):
     _base_url = base_url
@@ -44,6 +46,7 @@ func _init(base_url: String = EnjinHosts.KOVAN, port: int = 443, use_ssl: bool =
     _token_service = EnjinTokenService.new(_middleware)
     _request_service = EnjinRequestService.new(_middleware)
     _platform_service = EnjinPlatformService.new(_middleware)
+    _app_service = EnjinAppService.new(_middleware)
 
 func get_state() -> TrustedPlatformState:
     return _state
@@ -74,3 +77,6 @@ func request_service() -> EnjinRequestService:
 
 func platform_service() -> EnjinPlatformService:
     return _platform_service
+
+func app_service() -> EnjinAppService:
+    return _app_service
