@@ -1,5 +1,5 @@
 extends "./BaseWalletInput.gd"
-class_name GetWalletInput
+class_name GetWalletsInput
 
 const PaginatedInput = preload("res://addons/enjin/sdk/inputs/PaginatedInput.gd").PaginatedInput
 
