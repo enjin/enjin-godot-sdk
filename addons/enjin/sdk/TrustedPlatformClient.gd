@@ -13,6 +13,7 @@ const EnjinRoleService = preload("res://addons/enjin/sdk/services/EnjinRoleServi
 const EnjinWalletService = preload("res://addons/enjin/sdk/services/EnjinWalletService.gd")
 const EnjinTokenService = preload("res://addons/enjin/sdk/services/EnjinTokenService.gd")
 const EnjinRequestService = preload("res://addons/enjin/sdk/services/EnjinRequestService.gd")
+const EnjinPlatformService = preload("res://addons/enjin/sdk/services/EnjinPlatformService.gd")
 
 var _base_url: String
 var _http: EnjinHttp
@@ -26,6 +27,7 @@ var _role_service: EnjinRoleService setget, role_service
 var _wallet_service: EnjinWalletService setget, wallet_service
 var _token_service: EnjinTokenService setget, token_service
 var _request_service: EnjinRequestService setget, request_service
+var _platform_service: EnjinPlatformService setget, platform_service
 
 func _init(base_url: String = EnjinHosts.KOVAN, port: int = 443, use_ssl: bool = true, verify_host: bool = true):
     _base_url = base_url
@@ -41,6 +43,7 @@ func _init(base_url: String = EnjinHosts.KOVAN, port: int = 443, use_ssl: bool =
     _wallet_service = EnjinWalletService.new(_middleware)
     _token_service = EnjinTokenService.new(_middleware)
     _request_service = EnjinRequestService.new(_middleware)
+    _platform_service = EnjinPlatformService.new(_middleware)
 
 func get_state() -> TrustedPlatformState:
     return _state
@@ -68,3 +71,6 @@ func token_service() -> EnjinTokenService:
 
 func request_service() -> EnjinRequestService:
     return _request_service
+
+func platform_service() -> EnjinPlatformService:
+    return _platform_service

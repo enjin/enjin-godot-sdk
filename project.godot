@@ -90,6 +90,11 @@ _global_script_classes=[ {
 "path": "res://addons/enjin/sdk/inputs/identity/GetIdentityInput.gd"
 }, {
 "base": "",
+"class": "GetPlatformInput",
+"language": "GDScript",
+"path": "res://addons/enjin/sdk/inputs/platform/GetPlatformInput.gd"
+}, {
+"base": "",
 "class": "GetRequestsInput",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/inputs/request/GetRequestsInput.gd"
@@ -138,6 +143,11 @@ _global_script_classes=[ {
 "class": "ImportTokenInput",
 "language": "GDScript",
 "path": "res://addons/enjin/sdk/inputs/token/ImportTokenInput.gd"
+}, {
+"base": "",
+"class": "SearchInput",
+"language": "GDScript",
+"path": "res://addons/enjin/sdk/inputs/platform/SearchInput.gd"
 }, {
 "base": "Reference",
 "class": "TrustedPlatformClient",
@@ -196,6 +206,7 @@ _global_script_class_icons={
 "GetBalancesInput": "",
 "GetIdentitiesInput": "",
 "GetIdentityInput": "",
+"GetPlatformInput": "",
 "GetRequestsInput": "",
 "GetRolesInput": "",
 "GetTokenEventsInput": "",
@@ -206,6 +217,7 @@ _global_script_class_icons={
 "GetWalletInput": "",
 "GetWalletsInput": "",
 "ImportTokenInput": "",
+"SearchInput": "",
 "TrustedPlatformClient": "",
 "UnlinkAppInput": "",
 "UnlinkIdentityInput": "",
