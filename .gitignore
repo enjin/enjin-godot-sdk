@@ -5,3 +5,7 @@
 # Godot
 /.import
 /export_presets.cfg
+
+# JetBrains
+/.idea
+*.iml
