@@ -2,7 +2,7 @@
 
 [ext_resource path="res://addons/enjin/example/scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://addons/enjin/example/prefabs/Mob.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/enjin/example/prefabs/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/enjin/example/prefabs/PlayerShip.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/enjin/example/views/HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/enjin/example/art/House In a Forest Loop.ogg" type="AudioStream" id=5]
 [ext_resource path="res://addons/enjin/example/art/gameover.wav" type="AudioStream" id=6]

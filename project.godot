@@ -261,7 +261,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Enjin-Godot-Plugin"
-run/main_scene="res://addons/enjin/example/scenes/Login.tscn"
+run/main_scene="res://addons/enjin/example/scenes/Platformer.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -299,6 +299,14 @@ save={
 
 limits/debugger_stdout/max_chars_per_second=16384
 
+[physics]
+
+2d/default_gravity=500
+
 [rendering]
 
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
+quality/filters/anisotropic_filter_level=1
+quality/shadows/filter_mode=0
 environment/default_environment="res://default_env.tres"

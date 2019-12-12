@@ -1,37 +1,42 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://addons/enjin/example/scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://addons/enjin/example/art/playerGrey_walk1.png" type="Texture" id=2]
-[ext_resource path="res://addons/enjin/example/art/playerGrey_walk2.png" type="Texture" id=3]
-[ext_resource path="res://addons/enjin/example/art/playerGrey_up1.png" type="Texture" id=4]
-[ext_resource path="res://addons/enjin/example/art/playerGrey_up2.png" type="Texture" id=5]
+[ext_resource path="res://addons/enjin/example/art/king/king_Walk_0.png" type="Texture" id=2]
+[ext_resource path="res://addons/enjin/example/art/king/king_Walk_1.png" type="Texture" id=3]
+[ext_resource path="res://addons/enjin/example/art/king/king_Walk_2.png" type="Texture" id=4]
+[ext_resource path="res://addons/enjin/example/art/king/king_Walk_3.png" type="Texture" id=5]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
 "loop": true,
-"name": "right",
-"speed": 5.0
+"name": "Walk",
+"speed": 4.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
+"frames": [ ExtResource( 2 ) ],
 "loop": true,
-"name": "up",
-"speed": 5.0
+"name": "Idle",
+"speed": 1.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 26.6154
-height = 11.6603
+radius = 27.7968
+height = 43.6107
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="RigidBody2D"]
+mode = 2
+gravity_scale = 5.0
+linear_damp = 0.0
 script = ExtResource( 1 )
+jump_max = 1200
+jump_min = 400
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-scale = Vector2( 0.5, 0.5 )
+scale = Vector2( 5, 5 )
 frames = SubResource( 1 )
-animation = "up"
+animation = "Idle"
+playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.136734, -1.16229 )
+position = Vector2( 2.37868, 29.0934 )
 shape = SubResource( 2 )
-[connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
