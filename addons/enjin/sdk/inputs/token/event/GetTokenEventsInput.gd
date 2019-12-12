@@ -19,7 +19,7 @@ func id(id: int) -> GetTokenEventsInput:
     return self
 
 func token_id(tokenId: String) -> GetTokenEventsInput:
-    vars.tokenid = tokenId
+    vars.tokenId = tokenId
     return self
 
 func type(eventType: String) -> GetTokenEventsInput:

@@ -13,5 +13,5 @@ query {
 $id: Int
 $appId: Int
 $ethAddr: String
-$linking_code: String
+$linkingCode: String
 $pagination: PaginationInput!
