@@ -1,51 +1,79 @@
-extends Area2D
-signal hit
+extends RigidBody2D
 
-export var speed = 400
-var screen_size: Vector2
+const Direction = {
+    ZERO = Vector2(0, 0),
+    LEFT = Vector2(-1, 0),
+    RIGHT = Vector2(1, 0),
+    UP = Vector2(0, -1),
+    DOWN = Vector2(0, 1)
+}
 
-func _ready():
-    screen_size = get_viewport_rect().size
-    hide()
+export var acceleration = 10000
+export var walk_max = 400
+export var jump_max = 1000
+export var jump_min = 500
+export var fall_max = 1000
+
+var directional_force = Direction.ZERO
+var last_horizontal_dir = Direction.RIGHT
+var last_vertical_dir = Direction.DOWN
+var on_ground = false
 
 func _process(delta):
-    if !visible:
-        return
+    var velocity = get_linear_velocity()
 
-    var velocity = Vector2()
+    if on_ground and directional_force.y < 0:
+        on_ground = false
+    elif not on_ground and velocity.y == 0:
+        on_ground = true
 
-    if Input.is_action_pressed("ui_right"):
-        velocity.x += 1
-    if Input.is_action_pressed("ui_left"):
-        velocity.x -= 1
-    if Input.is_action_pressed("ui_down"):
-        velocity.y += 1
-    if Input.is_action_pressed("ui_up"):
-        velocity.y -= 1
     if velocity.length() > 0:
-        velocity = velocity.normalized() * speed
         $AnimatedSprite.play()
     else:
         $AnimatedSprite.stop()
 
     if velocity.x != 0:
-        $AnimatedSprite.animation = "right"
-        $AnimatedSprite.flip_v = false
-        $AnimatedSprite.flip_h = velocity.x < 0
-    elif velocity.y != 0:
-        $AnimatedSprite.animation = "up"
-        $AnimatedSprite.flip_v = velocity.y > 0
+        $AnimatedSprite.animation = "Walk"
+    else:
+        $AnimatedSprite.animation = "Idle"
 
-    position += velocity * delta
-    position.x = clamp(position.x, 0, screen_size.x)
-    position.y = clamp(position.y, 0, screen_size.y)
+    $AnimatedSprite.flip_h = last_horizontal_dir.x < 0
 
-func _on_Player_body_entered(body):
-    hide()
-    emit_signal("hit")
-    $CollisionShape2D.set_deferred("disabled", true)
+    if velocity.y < 0:
+        last_vertical_dir = Direction.UP
+    elif velocity.y > 0:
+        last_vertical_dir = Direction.DOWN
 
-func start(pos):
-    position = pos
-    show()
-    $CollisionShape2D.disabled = false
+    if velocity.x < 0:
+        last_horizontal_dir = Direction.LEFT
+    elif velocity.x > 0:
+        last_horizontal_dir = Direction.RIGHT
+
+func _integrate_forces(state):
+    var final_force = Vector2()
+
+    directional_force = Direction.ZERO
+
+    get_input(state)
+
+    final_force = state.get_linear_velocity() + (directional_force * acceleration)
+    final_force.x = clamp(final_force.x, -walk_max, walk_max)
+    final_force.y = clamp(final_force.y, -jump_max, fall_max)
+
+    if Input.is_action_just_released("ui_up") and final_force.y < -jump_min:
+        final_force.y = -jump_min
+
+    state.set_linear_velocity(final_force)
+
+func get_input(state):
+    directional_force.x = 0
+
+    # apply horizontal force
+    if Input.is_action_pressed("ui_right"):
+        directional_force += Direction.RIGHT
+    if Input.is_action_pressed("ui_left"):
+        directional_force += Direction.LEFT
+
+    # apply vertical force
+    if on_ground and Input.is_action_pressed("ui_up"):
+        directional_force += Direction.UP
