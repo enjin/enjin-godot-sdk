@@ -1,19 +1,42 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://addons/enjin/example/scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://addons/enjin/example/art/king/king_Walk_0.png" type="Texture" id=2]
-[ext_resource path="res://addons/enjin/example/art/king/king_Walk_1.png" type="Texture" id=3]
-[ext_resource path="res://addons/enjin/example/art/king/king_Walk_2.png" type="Texture" id=4]
-[ext_resource path="res://addons/enjin/example/art/king/king_Walk_3.png" type="Texture" id=5]
+[ext_resource path="res://addons/enjin/example/art/king/king_Jump_2.png" type="Texture" id=2]
+[ext_resource path="res://addons/enjin/example/art/king/king_Jump_3.png" type="Texture" id=3]
+[ext_resource path="res://addons/enjin/example/art/king/king_Walk_0.png" type="Texture" id=4]
+[ext_resource path="res://addons/enjin/example/art/king/king_Walk_1.png" type="Texture" id=5]
+[ext_resource path="res://addons/enjin/example/art/king/king_Walk_2.png" type="Texture" id=6]
+[ext_resource path="res://addons/enjin/example/art/king/king_Walk_3.png" type="Texture" id=7]
+[ext_resource path="res://addons/enjin/example/art/king/king_Run_0.png" type="Texture" id=8]
+[ext_resource path="res://addons/enjin/example/art/king/king_Run_1.png" type="Texture" id=9]
+[ext_resource path="res://addons/enjin/example/art/king/king_Run_2.png" type="Texture" id=10]
+[ext_resource path="res://addons/enjin/example/art/king/king_Run_3.png" type="Texture" id=11]
+[ext_resource path="res://addons/enjin/example/art/king/king_Jump_0.png" type="Texture" id=12]
+[ext_resource path="res://addons/enjin/example/art/king/king_Jump_1.png" type="Texture" id=13]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": false,
+"name": "Fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "Walk",
 "speed": 4.0
 }, {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "Run",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": false,
+"name": "Jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 1.0
@@ -23,13 +46,11 @@ animations = [ {
 radius = 27.7968
 height = 43.6107
 
-[node name="Player" type="RigidBody2D"]
-mode = 2
-gravity_scale = 5.0
-linear_damp = 0.0
+[node name="Player" type="KinematicBody2D" groups=[
+"player",
+]]
+collision_mask = 2
 script = ExtResource( 1 )
-jump_max = 1200
-jump_min = 400
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )
