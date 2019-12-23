@@ -1,18 +1,21 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://addons/enjin/example/scripts/Platformer.gd" type="Script" id=1]
 [ext_resource path="res://addons/enjin/example/art/environment/tiles.png" type="Texture" id=2]
 [ext_resource path="res://addons/enjin/example/prefabs/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/enjin/example/prefabs/Coin.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/enjin/example/scripts/PlayerHud.gd" type="Script" id=5]
-[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_0.png" type="Texture" id=6]
-[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_1.png" type="Texture" id=7]
-[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_2.png" type="Texture" id=8]
-[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_3.png" type="Texture" id=9]
-[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_4.png" type="Texture" id=10]
-[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_5.png" type="Texture" id=11]
-[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_6.png" type="Texture" id=12]
-[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_7.png" type="Texture" id=13]
+[ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_back.png" type="Texture" id=6]
+[ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_front.png" type="Texture" id=7]
+[ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_content.png" type="Texture" id=8]
+[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_0.png" type="Texture" id=9]
+[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_1.png" type="Texture" id=10]
+[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_2.png" type="Texture" id=11]
+[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_3.png" type="Texture" id=12]
+[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_4.png" type="Texture" id=13]
+[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_5.png" type="Texture" id=14]
+[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_6.png" type="Texture" id=15]
+[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_7.png" type="Texture" id=16]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -38,20 +41,20 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 [sub_resource type="AnimatedTexture" id=3]
 frames = 8
 fps = 8.0
-frame_0/texture = ExtResource( 6 )
-frame_1/texture = ExtResource( 7 )
+frame_0/texture = ExtResource( 9 )
+frame_1/texture = ExtResource( 10 )
 frame_1/delay_sec = 0.0
-frame_2/texture = ExtResource( 8 )
+frame_2/texture = ExtResource( 11 )
 frame_2/delay_sec = 0.0
-frame_3/texture = ExtResource( 9 )
+frame_3/texture = ExtResource( 12 )
 frame_3/delay_sec = 0.0
-frame_4/texture = ExtResource( 10 )
+frame_4/texture = ExtResource( 13 )
 frame_4/delay_sec = 0.0
-frame_5/texture = ExtResource( 11 )
+frame_5/texture = ExtResource( 14 )
 frame_5/delay_sec = 0.0
-frame_6/texture = ExtResource( 12 )
+frame_6/texture = ExtResource( 15 )
 frame_6/delay_sec = 0.0
-frame_7/texture = ExtResource( 13 )
+frame_7/texture = ExtResource( 16 )
 frame_7/delay_sec = 0.0
 
 [sub_resource type="DynamicFontData" id=4]
@@ -101,37 +104,69 @@ position = Vector2( 1881, 526 )
 margin_right = 1920.0
 margin_bottom = 1080.0
 rect_pivot_offset = Vector2( 914, 479 )
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="HUD" type="HBoxContainer" parent="Canvas/Margin"]
-margin_right = 118.0
-margin_bottom = 76.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
+[node name="Header" type="VBoxContainer" parent="Canvas/Margin"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 script = ExtResource( 5 )
 
-[node name="CoinImg" type="TextureRect" parent="Canvas/Margin/HUD"]
+[node name="HealthDisplay" type="MarginContainer" parent="Canvas/Margin/Header"]
+margin_right = 1900.0
+
+[node name="Scaler" type="Node2D" parent="Canvas/Margin/Header/HealthDisplay"]
+position = Vector2( 0, -80 )
+scale = Vector2( 4, 4 )
+
+[node name="Progress" type="TextureProgress" parent="Canvas/Margin/Header/HealthDisplay/Scaler"]
+margin_top = 20.0
+margin_right = 84.0
+margin_bottom = 42.0
+size_flags_horizontal = 2
+size_flags_vertical = 6
+size_flags_stretch_ratio = 0.0
+max_value = 3.0
+value = 3.0
+rounded = true
+texture_under = ExtResource( 6 )
+texture_over = ExtResource( 7 )
+texture_progress = ExtResource( 8 )
+tint_progress = Color( 0.988235, 0, 0, 1 )
+
+[node name="CoinDisplay" type="HBoxContainer" parent="Canvas/Margin/Header"]
+margin_left = 1782.0
+margin_top = 4.0
+margin_right = 1900.0
+margin_bottom = 80.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="CoinImg" type="TextureRect" parent="Canvas/Margin/Header/CoinDisplay"]
 margin_top = 6.0
 margin_right = 64.0
 margin_bottom = 70.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_horizontal = 2
-size_flags_vertical = 6
+size_flags_vertical = 4
 texture = SubResource( 3 )
 expand = true
 
-[node name="CoinCount" type="Label" parent="Canvas/Margin/HUD"]
+[node name="CoinCount" type="Label" parent="Canvas/Margin/Header/CoinDisplay"]
 margin_left = 68.0
 margin_right = 118.0
 margin_bottom = 76.0
 grow_horizontal = 0
 grow_vertical = 0
 rect_min_size = Vector2( 50, 50 )
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 custom_fonts/font = SubResource( 5 )
 text = "0"
-align = 1
 valign = 1
-[connection signal="update_hud" from="Player" to="Canvas/Margin/HUD" method="update_hud"]
+[connection signal="update_hud" from="." to="Canvas/Margin/Header" method="update_hud"]
+[connection signal="update_hud" from="Player" to="Canvas/Margin/Header" method="update_hud"]
