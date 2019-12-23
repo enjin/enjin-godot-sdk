@@ -11,6 +11,7 @@ export var sprint_jump_mod = 0.35
 
 var velocity: Vector2 = Vector2(0, 0)
 var coins: int = 0
+var health: int = 3
 
 func _physics_process(delta):
     var moving = false
