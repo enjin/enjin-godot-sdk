@@ -1,79 +1,65 @@
-extends RigidBody2D
+extends KinematicBody2D
+signal update_hud
 
-const Direction = {
-    ZERO = Vector2(0, 0),
-    LEFT = Vector2(-1, 0),
-    RIGHT = Vector2(1, 0),
-    UP = Vector2(0, -1),
-    DOWN = Vector2(0, 1)
-}
+const FLOOR: Vector2 = Vector2(0, -1)
 
-export var acceleration = 10000
-export var walk_max = 400
-export var jump_max = 1000
-export var jump_min = 500
-export var fall_max = 1000
+export var speed = 300
+export var gravity = 30
+export var jump_mod = 2.8
+export var sprint_mod = 1.75
+export var sprint_jump_mod = 0.35
 
-var directional_force = Direction.ZERO
-var last_horizontal_dir = Direction.RIGHT
-var last_vertical_dir = Direction.DOWN
-var on_ground = false
+var velocity: Vector2 = Vector2(0, 0)
+var coins: int = 0
 
-func _process(delta):
-    var velocity = get_linear_velocity()
+func _physics_process(delta):
+    var moving = false
+    var sprinting = Input.is_key_pressed(KEY_SHIFT)
 
-    if on_ground and directional_force.y < 0:
-        on_ground = false
-    elif not on_ground and velocity.y == 0:
-        on_ground = true
-
-    if velocity.length() > 0:
-        $AnimatedSprite.play()
-    else:
-        $AnimatedSprite.stop()
-
-    if velocity.x != 0:
-        $AnimatedSprite.animation = "Walk"
-    else:
-        $AnimatedSprite.animation = "Idle"
-
-    $AnimatedSprite.flip_h = last_horizontal_dir.x < 0
-
-    if velocity.y < 0:
-        last_vertical_dir = Direction.UP
-    elif velocity.y > 0:
-        last_vertical_dir = Direction.DOWN
-
-    if velocity.x < 0:
-        last_horizontal_dir = Direction.LEFT
-    elif velocity.x > 0:
-        last_horizontal_dir = Direction.RIGHT
-
-func _integrate_forces(state):
-    var final_force = Vector2()
-
-    directional_force = Direction.ZERO
-
-    get_input(state)
-
-    final_force = state.get_linear_velocity() + (directional_force * acceleration)
-    final_force.x = clamp(final_force.x, -walk_max, walk_max)
-    final_force.y = clamp(final_force.y, -jump_max, fall_max)
-
-    if Input.is_action_just_released("ui_up") and final_force.y < -jump_min:
-        final_force.y = -jump_min
-
-    state.set_linear_velocity(final_force)
-
-func get_input(state):
-    directional_force.x = 0
-
-    # apply horizontal force
     if Input.is_action_pressed("ui_right"):
-        directional_force += Direction.RIGHT
-    if Input.is_action_pressed("ui_left"):
-        directional_force += Direction.LEFT
+        velocity.x = speed
+        moving = true
+    elif Input.is_action_pressed("ui_left"):
+        velocity.x = -speed
+        moving = true
+    elif !is_on_floor():
+        # Lerping the horizontal velocity to 0 when jumping/falling
+        # to create a smoother transition
+        velocity.x = lerp(velocity.x, 0, 0.025)
+    else:
+        velocity.x = 0
 
-    # apply vertical force
-    if on_ground and Input.is_action_pressed("ui_up"):
-        directional_force += Direction.UP
+    if Input.is_action_pressed("ui_up") and is_on_floor():
+        if sprinting:
+            velocity.y = -speed * (jump_mod + sprint_jump_mod)
+        else:
+            velocity.y = -speed * jump_mod
+
+    if moving and sprinting:
+        velocity.x *= sprint_mod
+
+    velocity.y += gravity
+
+    # Set sprite animation to play
+    if velocity.y != 0 and !is_on_floor():
+        if velocity.y < 0 and !$AnimatedSprite.animation == "Jump":
+            $AnimatedSprite.play("Jump")
+        elif velocity.y > 0 and !$AnimatedSprite.animation == "Fall":
+            $AnimatedSprite.play("Fall")
+    elif velocity.x != 0:
+        if sprinting:
+            $AnimatedSprite.play("Run")
+        else:
+            $AnimatedSprite.play("Walk")
+    else:
+        $AnimatedSprite.play("Idle")
+
+    # Flip sprite animation to face direction of movement
+    if velocity.x != 0:
+        $AnimatedSprite.flip_h = velocity.x < 0
+
+    velocity = move_and_slide(velocity, FLOOR)
+
+func add_coins(amount: int):
+    coins += amount
+    emit_signal("update_hud", self)
