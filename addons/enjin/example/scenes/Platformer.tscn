@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://addons/enjin/example/scripts/Platformer.gd" type="Script" id=1]
 [ext_resource path="res://addons/enjin/example/art/environment/EnvironmentTileset.tres" type="TileSet" id=2]
@@ -16,6 +16,18 @@
 [ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_5.png" type="Texture" id=14]
 [ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_6.png" type="Texture" id=15]
 [ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_7.png" type="Texture" id=16]
+[ext_resource path="res://addons/enjin/example/fonts/Roboto64.tres" type="DynamicFont" id=17]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 20.4, 22.2 )
+
+[sub_resource type="DynamicFontData" id=2]
+font_path = "res://addons/enjin/example/fonts/Roboto-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=5]
+size = 24
+use_filter = true
+font_data = SubResource( 2 )
 
 [sub_resource type="AnimatedTexture" id=1]
 frames = 8
@@ -35,14 +47,6 @@ frame_6/texture = ExtResource( 15 )
 frame_6/delay_sec = 0.0
 frame_7/texture = ExtResource( 16 )
 frame_7/delay_sec = 0.0
-
-[sub_resource type="DynamicFontData" id=2]
-font_path = "res://addons/enjin/example/fonts/Roboto-Regular.ttf"
-
-[sub_resource type="DynamicFont" id=3]
-size = 64
-use_filter = true
-font_data = SubResource( 2 )
 
 [node name="Platformer" type="Node2D"]
 script = ExtResource( 1 )
@@ -70,13 +74,58 @@ scale = Vector2( 5, 5 )
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( -65535, 8, 0, -65534, 9, 0, -65533, 9, 0, -65532, 9, 0, -65531, 9, 0, -65530, 9, 0, -65529, 9, 0, -65528, 9, 0, -65527, 9, 0, -65526, 9, 0, -65525, 9, 0, -65524, 9, 0, -65523, 9, 0, -65522, 9, 0, -65521, 9, 0, -65520, 9, 0, -65519, 9, 0, -65518, 9, 0, -65517, 9, 0, -65516, 9, 0, -65515, 9, 0, -65514, 9, 0, -65513, 9, 0, -65512, 10, 0, 1, 6, 0, 24, 4, 0, 65537, 6, 0, 65560, 4, 0, 131073, 6, 0, 131096, 4, 0, 196609, 6, 0, 196632, 4, 0, 262145, 6, 0, 262160, 1, 0, 262161, 0, 0, 262162, 0, 0, 262163, 2, 0, 262168, 4, 0, 327681, 6, 0, 327704, 4, 0, 393217, 6, 0, 393240, 4, 0, 458753, 6, 0, 458762, 1, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 2, 0, 458775, 1, 0, 458776, 4, 0, 524289, 6, 0, 524312, 4, 0, 589825, 6, 0, 589840, 1, 0, 589841, 0, 0, 589842, 0, 0, 589843, 0, 0, 589844, 2, 0, 589848, 4, 0, 655361, 6, 0, 655376, 4, 0, 655380, 6, 0, 655384, 4, 0, 720897, 6, 0, 720898, 0, 0, 720899, 0, 0, 720900, 0, 0, 720901, 0, 0, 720902, 0, 0, 720903, 0, 0, 720904, 536870912, 0, 720905, 536870912, 0, 720906, 536870913, 0, 720910, 536870914, 0, 720911, 536870912, 0, 720912, 4, 0, 720916, 6, 0, 720917, 0, 0, 720918, 0, 0, 720919, 0, 0, 720920, 4, 0, 786433, 6, 0, 786442, 6, 0, 786446, 4, 0, 786456, 4, 0, 851969, 6, 0, 851978, 6, 0, 851982, 4, 0, 851992, 4, 0, 917505, 6, 0, 917514, 6, 0, 917518, 4, 0, 917528, 4, 0, 983041, 6, 0, 983050, 6, 0, 983054, 4, 0, 983064, 4, 0, 1048577, 6, 0, 1048586, 6, 0, 1048590, 4, 0, 1048600, 4, 0, 1114113, 6, 0, 1114122, 6, 0, 1114126, 4, 0, 1114136, 4, 0, 1179649, 6, 0, 1179658, 6, 0, 1179662, 4, 0, 1179672, 4, 0, 1245185, 6, 0, 1245194, 6, 0, 1245198, 4, 0, 1245208, 4, 0, 1310721, 6, 0, 1310730, 6, 0, 1310734, 4, 0, 1310744, 4, 0 )
+tile_data = PoolIntArray( -65535, 8, 0, -65534, 9, 0, -65533, 9, 0, -65532, 9, 0, -65531, 9, 0, -65530, 9, 0, -65529, 9, 0, -65528, 9, 0, -65527, 9, 0, -65526, 9, 0, -65525, 9, 0, -65524, 9, 0, -65523, 9, 0, -65522, 9, 0, -65521, 9, 0, -65520, 9, 0, -65519, 9, 0, -65518, 9, 0, -65517, 9, 0, -65516, 9, 0, -65515, 9, 0, -65514, 9, 0, -65513, 9, 0, -65512, 10, 0, 1, 6, 0, 24, 4, 0, 65537, 6, 0, 65560, 4, 0, 131073, 6, 0, 131096, 4, 0, 196609, 6, 0, 196632, 4, 0, 262145, 6, 0, 262160, 1, 0, 262161, 0, 0, 262162, 0, 0, 262163, 2, 0, 262168, 4, 0, 327681, 6, 0, 327704, 4, 0, 393217, 6, 0, 393220, 12, 0, 393240, 4, 0, 458753, 6, 0, 458762, 1, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 2, 0, 458775, 1, 0, 458776, 4, 0, 524289, 6, 0, 524312, 4, 0, 589825, 6, 0, 589840, 1, 0, 589841, 0, 0, 589842, 0, 0, 589843, 0, 0, 589844, 2, 0, 589848, 4, 0, 655361, 6, 0, 655376, 4, 0, 655380, 6, 0, 655384, 4, 0, 720897, 6, 0, 720898, 0, 0, 720899, 0, 0, 720900, 0, 0, 720901, 0, 0, 720902, 0, 0, 720903, 0, 0, 720904, 536870912, 0, 720905, 536870912, 0, 720906, 536870913, 0, 720910, 536870914, 0, 720911, 536870912, 0, 720912, 4, 0, 720916, 6, 0, 720917, 0, 0, 720918, 0, 0, 720919, 0, 0, 720920, 4, 0, 786433, 6, 0, 786442, 6, 0, 786446, 4, 0, 786456, 4, 0, 851969, 6, 0, 851978, 6, 0, 851982, 4, 0, 851992, 4, 0, 917505, 6, 0, 917514, 6, 0, 917518, 4, 0, 917528, 4, 0, 983041, 6, 0, 983050, 6, 0, 983054, 4, 0, 983064, 4, 0, 1048577, 6, 0, 1048586, 6, 0, 1048590, 4, 0, 1048600, 4, 0, 1114113, 6, 0, 1114122, 6, 0, 1114126, 4, 0, 1114136, 4, 0, 1179649, 6, 0, 1179658, 6, 0, 1179662, 4, 0, 1179672, 4, 0, 1245185, 6, 0, 1245194, 6, 0, 1245198, 4, 0, 1245208, 4, 0, 1310721, 6, 0, 1310730, 6, 0, 1310734, 4, 0, 1310744, 4, 0 )
+
+[node name="Exit" type="Area2D" parent="Foreground"]
+position = Vector2( 86, 139.4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Foreground/Exit"]
+position = Vector2( 10, 14 )
+shape = SubResource( 4 )
+
+[node name="TaskInfo" type="Label" parent="Foreground/Exit"]
+margin_left = -20.4
+margin_top = -64.0
+margin_right = 279.6
+margin_bottom = 36.0
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 5 )
+text = "Fetch all coins and return to the exit to send them to your Enjin wallet!"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="ObstacleInfo" type="Label" parent="Foreground"]
+margin_left = 61.0
+margin_top = 75.4
+margin_right = 381.0
+margin_bottom = 200.4
+rect_scale = Vector2( 0.2, 0.2 )
+rect_pivot_offset = Vector2( 133, 60.0001 )
+custom_fonts/font = SubResource( 5 )
+text = "Hold shift to run and press space to jump to clear the pit!"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="PitInfo" type="Label" parent="Foreground"]
+margin_left = -5.60004
+margin_top = 139.4
+margin_right = 334.4
+margin_bottom = 264.4
+rect_scale = Vector2( 0.2, 0.2 )
+rect_pivot_offset = Vector2( 133, 60.0001 )
+custom_fonts/font = SubResource( 5 )
+text = "Fall into the pit too many times and the level will restart"
+align = 1
+valign = 1
+autowrap = true
 
 [node name="Spawn" type="Position2D" parent="."]
-position = Vector2( 1043, 479 )
+position = Vector2( 482, 793 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1043, 479 )
+position = Vector2( 480, 793 )
 
 [node name="Camera" type="Camera2D" parent="Player"]
 current = true
@@ -152,8 +201,9 @@ grow_horizontal = 0
 grow_vertical = 0
 rect_min_size = Vector2( 50, 50 )
 size_flags_horizontal = 0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = ExtResource( 17 )
 text = "0"
 valign = 1
 [connection signal="update_hud" from="." to="Canvas/Margin" method="update_hud"]
+[connection signal="body_entered" from="Foreground/Exit" to="." method="exit_entered"]
 [connection signal="update_hud" from="Player" to="Canvas/Margin" method="update_hud"]

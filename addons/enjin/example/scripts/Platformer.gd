@@ -20,3 +20,9 @@ func _process(delta):
 func respawn(player):
     player.position.x = $Spawn.position.x
     player.position.y = $Spawn.position.y
+
+func exit_entered(body):
+    if $Player.coins == 3:
+        print("can exit!")
+    else:
+        print("need more coins")
