@@ -8,10 +8,12 @@ export var gravity = 30
 export var jump_mod = 2.8
 export var sprint_mod = 1.75
 export var sprint_jump_mod = 0.35
+export var jump_cooldown = 0.08
 
 var velocity: Vector2 = Vector2(0, 0)
 var coins: int = 0
 var health: int = 3
+var jump_cooldown_remaining: float = 0
 
 func _physics_process(delta):
     var moving = false
@@ -30,7 +32,12 @@ func _physics_process(delta):
     else:
         velocity.x = 0
 
-    if Input.is_action_pressed("ui_up") and is_on_floor():
+    if is_on_floor() and jump_cooldown_remaining != 0.0:
+        jump_cooldown_remaining = max(0.0, jump_cooldown_remaining - delta)
+
+    if Input.is_action_pressed("ui_up") and is_on_floor() and jump_cooldown_remaining == 0.0:
+        jump_cooldown_remaining = jump_cooldown
+
         if sprinting:
             velocity.y = -speed * (jump_mod + sprint_jump_mod)
         else:
