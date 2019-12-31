@@ -18,18 +18,18 @@
 [ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_7.png" type="Texture" id=16]
 [ext_resource path="res://addons/enjin/example/fonts/Roboto64.tres" type="DynamicFont" id=17]
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20.4, 22.2 )
 
 [sub_resource type="DynamicFontData" id=2]
 font_path = "res://addons/enjin/example/fonts/Roboto-Regular.ttf"
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=3]
 size = 24
 use_filter = true
 font_data = SubResource( 2 )
 
-[sub_resource type="AnimatedTexture" id=1]
+[sub_resource type="AnimatedTexture" id=4]
 frames = 8
 fps = 8.0
 frame_0/texture = ExtResource( 9 )
@@ -81,7 +81,7 @@ position = Vector2( 86, 139.4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Foreground/Exit"]
 position = Vector2( 10, 14 )
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="TaskInfo" type="Label" parent="Foreground/Exit"]
 margin_left = -20.4
@@ -89,7 +89,7 @@ margin_top = -64.0
 margin_right = 279.6
 margin_bottom = 36.0
 rect_scale = Vector2( 0.2, 0.2 )
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 text = "Fetch all coins and return to the exit to send them to your Enjin wallet!"
 align = 1
 valign = 1
@@ -102,7 +102,7 @@ margin_right = 381.0
 margin_bottom = 200.4
 rect_scale = Vector2( 0.2, 0.2 )
 rect_pivot_offset = Vector2( 133, 60.0001 )
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 text = "Hold shift to run and press space to jump to clear the pit!"
 align = 1
 valign = 1
@@ -115,7 +115,7 @@ margin_right = 334.4
 margin_bottom = 264.4
 rect_scale = Vector2( 0.2, 0.2 )
 rect_pivot_offset = Vector2( 133, 60.0001 )
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 text = "Fall into the pit too many times and the level will restart"
 align = 1
 valign = 1
@@ -190,7 +190,7 @@ margin_bottom = 70.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_horizontal = 2
 size_flags_vertical = 4
-texture = SubResource( 1 )
+texture = SubResource( 4 )
 expand = true
 
 [node name="CoinCount" type="Label" parent="Canvas/Margin/CoinDisplay"]

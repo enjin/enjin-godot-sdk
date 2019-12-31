@@ -260,7 +260,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Enjin-Godot-Plugin"
+config/name="Enjin-Godot-SDK"
 run/main_scene="res://addons/enjin/example/scenes/Platformer.tscn"
 config/icon="res://icon.png"
 
