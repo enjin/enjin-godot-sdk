@@ -16,15 +16,3 @@ func description(description: String) -> UpdateAppInput:
 func image(image: String) -> UpdateAppInput:
     vars.image = image
     return self
-
-func generate_new_secret(generateNewSecret: bool) -> UpdateAppInput:
-    vars.generateNewSecret = generateNewSecret
-    return self
-
-func revoke_secret(revokeSecret: bool) -> UpdateAppInput:
-    vars.revokeSecret = revokeSecret
-    return self
-
-func invite_user(inviteUserInput: Dictionary) -> UpdateAppInput:
-    vars.inviteUserInput = inviteUserInput
-    return self

@@ -1,6 +1,10 @@
 extends "./RequestDataInput.gd".RequestDataInput
 class_name CreateRequestInput
 
+func tx_type(txType: String) -> CreateRequestInput:
+    vars.txType = txType
+    return self
+
 func app_id(appId: int) -> CreateRequestInput:
     vars.appId = appId
     return self

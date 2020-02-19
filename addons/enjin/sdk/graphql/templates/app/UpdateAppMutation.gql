@@ -13,6 +13,3 @@ $id: Int
 $name: String
 $description: String
 $image: String
-$generateNewSecret: Boolean
-$revokeSecret: Boolean
-$inviteUserInput: UserInput

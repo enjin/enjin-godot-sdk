@@ -15,5 +15,4 @@ query {
 
 $id: Int
 $name: String
-$me: Boolean
 $pagination: PaginationInput!

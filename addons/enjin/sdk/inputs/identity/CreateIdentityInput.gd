@@ -1,6 +1,10 @@
 extends "./BaseIdentityInput.gd"
 class_name CreateIdentityInput
 
+func app_id(appId: int) -> CreateIdentityInput:
+    vars.appId = appId
+    return self
+
 func user_id(userId: int) -> CreateIdentityInput:
     vars.userId = userId
     return self

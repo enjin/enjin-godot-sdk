@@ -2,10 +2,6 @@ class IdentityFragmentInput extends "../BaseInput.gd":
     func _init(vars_in: Dictionary).(vars_in):
         pass
 
-    func with_roles(withIdentityRoles: bool) -> IdentityFragmentInput:
-        vars.withIdentityRoles = withIdentityRoles
-        return self
-
     func with_wallet(withWallet: bool) -> IdentityFragmentInput:
         vars.withWallet = withWallet
         return self

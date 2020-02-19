@@ -11,8 +11,12 @@ func _init():
     balance_i = BalanceFragmentInput.new(vars)
     paginated_i = PaginatedInput.new(vars)
 
-func app_id(appId: int) -> GetBalancesInput:
-    vars.appId = appId
+func app_ids(appIds: Array) -> GetBalancesInput:
+    vars.appIds = appIds
+    return self
+
+func eth_addr(ethAddr: String) -> GetBalancesInput:
+    vars.ethAddress = ethAddr
     return self
 
 func token_id(tokenId: String) -> GetBalancesInput:
