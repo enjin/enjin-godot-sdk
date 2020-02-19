@@ -3,9 +3,6 @@ fragment IdentityFragment on EnjinIdentity {
     appId
     linkingCode @include(if: $withLinkingCode)
     linkingCodeQr(size: $linkingCodeQrSize) @include(if: $withLinkingCodeQr)
-    roles @include(if: $withIdentityRoles) {
-        ...RoleFragment
-    }
     wallet @include(if: $withWallet) {
         ...WalletFragment
     }
@@ -16,6 +13,5 @@ fragment IdentityFragment on EnjinIdentity {
 $withLinkingCode: Boolean = false
 $withLinkingCodeQr: Boolean = false
 $linkingCodeQrSize: Int
-$withIdentityRoles: Boolean = false
 $withWallet: Boolean = false
 $withIdentityTimestamps: Boolean = false

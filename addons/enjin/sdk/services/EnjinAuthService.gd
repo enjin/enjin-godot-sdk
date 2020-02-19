@@ -71,4 +71,4 @@ func _auth_app_callback(udata: Dictionary):
                 _state.auth_app(udata.app_id, "%s %s" % [data[TOKEN_TYPE], data[ACCESS_TOKEN]])
 
     if callback != null:
-        callback.complete_deferred_1(udata)
+        callback.complete_deffered_1(udata)

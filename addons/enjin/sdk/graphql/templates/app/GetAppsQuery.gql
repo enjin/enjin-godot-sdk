@@ -1,8 +1,7 @@
 query {
     result: EnjinApps(
         id: $id,
-        name: $name,
-        me: $me
+        name: $name
     ) {
         ...AppFragment
     }
@@ -10,4 +9,3 @@ query {
 
 $id: Int
 $name: String
-$me: Boolean

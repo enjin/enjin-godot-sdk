@@ -6,7 +6,6 @@ fragment TokenEventFragment on TokenEvent {
     param2 @include(if: $withEventParams)
     param3 @include(if: $withEventParams)
     param4 @include(if: $withEventParams)
-    param5 @include(if: $withEventParams)
     blockNumber @include(if: $withBlockNumber)
     token @include(if: $withEventToken) {
         ...TokenFragment

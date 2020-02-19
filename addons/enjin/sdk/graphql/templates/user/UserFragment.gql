@@ -1,10 +1,9 @@
 fragment UserFragment on EnjinUser {
     id
     name
-    email
-    roles @include(if: $withUserRoles) {
-        ...RoleFragment
-    }
+    accessTokens @include(if: $withUserAccessTokens)
+    isPlayer
+    emailVerified
     identities @include(if: $withUserIdentities) {
         ...IdentityFragment
     }
@@ -12,6 +11,6 @@ fragment UserFragment on EnjinUser {
     updatedAt @include(if: $withUserTimestamps)
 }
 
-$withUserRoles: Boolean = false
+$withUserAccessTokens: Boolean = false
 $withUserIdentities: Boolean = false
 $withUserTimestamps: Boolean = false

@@ -2,7 +2,7 @@ query {
     result: EnjinUsers(
         id: $id,
         name: $name,
-        me: $me,
+        email: $email,
         pagination: $pagination
     ) {
         items {
@@ -16,5 +16,5 @@ query {
 
 $id: Int
 $name: String
-$me: Boolean
+$email: String
 $pagination: PaginationInput!

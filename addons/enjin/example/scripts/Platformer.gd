@@ -23,6 +23,5 @@ func respawn(player):
 
 func exit_entered(body):
     if $Player.coins == 3:
+        # TODO: Implement level complete and send to player wallet
         print("can exit!")
-    else:
-        print("need more coins")

@@ -9,3 +9,6 @@
 # JetBrains
 /.idea
 *.iml
+
+# Project
+/working

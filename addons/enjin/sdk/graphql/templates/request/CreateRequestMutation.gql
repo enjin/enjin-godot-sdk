@@ -12,6 +12,7 @@ mutation {
         mint_token_data: $mintTokenData,
         melt_token_data: $meltTokenData,
         send_token_data: $sendTokenData,
+        send_enjin_data: $sendEnjData,
         advanced_send_token_data: $advancedSendTokenData,
         update_item_name_data: $updateItemNameData,
         set_item_uri_data: $setItemUriData,
@@ -46,6 +47,7 @@ $completeTradeData: CompleteTradeInput
 $mintTokenData: MintTokenInput
 $meltTokenData: MeltTokenInput
 $sendTokenData: SendTokenInput
+$sendEnjData: SendEnjInput
 $advancedSendTokenData: AdvancedSendTokenInput
 $updateItemNameData: UpdateItemNameInput
 $setItemUriData: SetItemUriInput

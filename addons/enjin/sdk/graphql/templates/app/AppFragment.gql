@@ -12,9 +12,6 @@ fragment AppFragment on EnjinApp {
     owner @include(if: $withOwner) {
         id
     }
-    roles @include(if: $withAppRoles) {
-        ...RoleFragment
-    }
     tokenCount @include(if: $withTokenCount)
     createdAt @include(if: $withAppTimestamps)
     updatedAt @include(if: $withAppTimestamps)
@@ -26,6 +23,5 @@ $withLinkingCodeQr: Boolean = false
 $linkingCodeQrSize: Int
 $withCurrentUserIdentity: Boolean = false
 $withOwner: Boolean = false
-$withAppRoles: Boolean = false
 $withTokenCount: Boolean = false
 $withAppTimestamps: Boolean = false

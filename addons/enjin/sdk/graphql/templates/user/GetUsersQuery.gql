@@ -2,7 +2,7 @@ query {
     result: EnjinUsers(
         id: $id,
         name: $name,
-        me: $me
+        email: $email
     ) {
         ...UserFragment
     }
@@ -10,4 +10,4 @@ query {
 
 $id: Int
 $name: String
-$me: Boolean
+$email: String

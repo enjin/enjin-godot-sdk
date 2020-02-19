@@ -1,18 +1,17 @@
 query {
     result: EnjinTransactions(
         id: $id,
-        transaction_id: $txId,
-        identity_id: $identityId,
+        transactionId: $txId,
+        identityId: $identityId,
         type: $txType,
-        recipient_id: $recipientId,
-        recipient_address: $recipientAddr,
-        sender_or_recipient_id: $senderOrRecipientId,
-        token_id: $tokenId,
+        recipientId: $recipientId,
+        recipientAddress: $recipientAddr,
+        senderOrRecipientId: $senderOrRecipientId,
+        tokenId: $tokenId,
         value: $value,
-        state: $txState,
-        state_in: $txStateIn,
-        sort_by: $sort,
-        can_broadcast_only: $broadcastOnly,
+        states: $txStateIn,
+        sortBy: $sort,
+        onlyBroadcastable: $broadcastOnly
         pagination: $pagination
     ) {
         items {

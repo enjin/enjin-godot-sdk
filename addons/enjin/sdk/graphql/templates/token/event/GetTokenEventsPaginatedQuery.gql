@@ -1,7 +1,7 @@
 query {
     result: EnjinTokenEvents(
         id: $id,
-        token_id: $tokenId,
+        tokenId: $tokenId,
         event: $eventType,
         blockNumber: $blockNumber,
         pagination: $pagination
