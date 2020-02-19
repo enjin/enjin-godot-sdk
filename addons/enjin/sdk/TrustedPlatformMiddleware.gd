@@ -27,7 +27,11 @@ func execute_post_cb(call: EnjinCall, callback: EnjinCallback, udata: Dictionary
 
 func execute_gql(op_name: String, vars: Dictionary = {}, udata: Dictionary = {}, callback = _gql_callback):
     var body = _schema.build_request_body(op_name, vars)
-    _http.enqueue(_graphql(body), callback, udata)
+    var call = _graphql(body)
+
+    udata.call = call
+
+    _http.enqueue(call, callback, udata)
 
 func post(endpoint: String, body: String, content_type: String) -> EnjinCall:
     var call = EnjinCall.new()
@@ -51,7 +55,7 @@ func _graphql(body: Dictionary = {}):
     return call
 
 func _graphql_callback(udata: Dictionary):
-    var callback: EnjinCallback = udata.callback
+    var callback: EnjinCallback = udata.callback if udata.has("callback") else null
     if callback == null:
         return
     process_graphql_data(udata)

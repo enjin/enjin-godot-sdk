@@ -24,4 +24,29 @@ func respawn(player):
 func exit_entered(body):
     if $Player.coins == 3:
         # TODO: Implement level complete and send to player wallet
-        print("can exit!")
+        send_tokens()
+
+func send_tokens():
+    var settings = Enjin.settings
+    var client = Enjin.client
+    var service = client.request_service()
+    var input = CreateRequestInput.new()
+    var udata = { "callback": EnjinCallback.new(self, "_send_token_callback") }
+
+    input.app_id(settings.app.id)
+    input.tx_type("SEND")
+    input.identity_id(settings.developer.ident_id)
+    input.send_token({
+            "token_id": settings.token.id,
+            "recipient_identity_id": settings.player.ident_id,
+            "value": $Player.coins
+        })
+
+    service.create_request(input, udata)
+
+func _send_token_callback(udata: Dictionary):
+#    print("Call: %s" % udata.call.get_body())
+    print("URL: %s" % Enjin.client._base_url)
+    if udata.gql.has_errors():
+        print("Errors: %s" % PoolStringArray(udata.gql.get_errors()).join(","))
+    get_tree().reload_current_scene()

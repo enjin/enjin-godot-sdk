@@ -2,7 +2,7 @@ mutation {
     result: CreateEnjinRequest(
         appId: $appId,
         ethAddress: $ethAddr,
-        identity_id: $identityId,
+        identityId: $identityId,
         type: $txType,
         test: $test,
         dummy: $dummy,
@@ -12,7 +12,7 @@ mutation {
         mint_token_data: $mintTokenData,
         melt_token_data: $meltTokenData,
         send_token_data: $sendTokenData,
-        send_enjin_data: $sendEnjData,
+        send_enj_data: $sendEnjData,
         advanced_send_token_data: $advancedSendTokenData,
         update_item_name_data: $updateItemNameData,
         set_item_uri_data: $setItemUriData,
@@ -21,7 +21,7 @@ mutation {
         approve_item_data: $approveItemData,
         set_transferable_data: $setTransferableData,
         set_melt_fee_data: $setMeltFeeData,
-        decrease_max_melt_fee_data: $setMaxMeltFeeData,
+        decrease_max_melt_fee_data: $decreaseMaxMeltFeeData,
         set_transfer_fee_data: $setTransferFeeData,
         decrease_max_transfer_fee_data: $decreaseMaxTransferFeeData,
         release_reserve_data: $releaseReserveData,
@@ -56,7 +56,6 @@ $approveEnjData: ApproveEnjInput
 $approveItemData: ApproveItemInput
 $setTransferableData: SetTransferableInput
 $setMeltFeeData: SetMeltFeeInput
-$setMaxMeltFeeData: SetMaxMeltFeeInput
 $decreaseMaxMeltFeeData: DecreaseMaxMeltFeeInput
 $setTransferFeeData: SetTransferFeeInput
 $decreaseMaxTransferFeeData: DecreaseMaxTransferFeeInput

@@ -1,4 +1,4 @@
-fragment TokenEventFragment on TokenEvent {
+fragment TokenEventFragment on EnjinTokenEvent {
     id
     tokenId
     event
