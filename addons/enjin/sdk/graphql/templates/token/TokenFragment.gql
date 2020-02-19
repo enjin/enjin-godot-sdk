@@ -4,7 +4,6 @@ fragment TokenFragment on EnjinToken {
     name
     appId
     nonFungible
-    transferable
     creator @include(if: $withCreator)
     blockHeight @include(if: $withTokenBlocks)
     firstBlock @include(if: $withTokenBlocks)
@@ -21,6 +20,7 @@ fragment TokenFragment on EnjinToken {
     transferFeeSettings @include(if: $withTransferSettings) {
         ...TokenTransferFeeSettingsFragment
     }
+    transferable @include(if: $withTransferSettings)
     itemURI(replace_uri_parameters: $replaceUriParams) @include(if: $withItemUri)
     createdAt @include(if: $withTokenTimestamps)
     updatedAt @include(if: $withTokenTimestamps)

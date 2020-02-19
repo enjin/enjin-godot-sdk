@@ -4,9 +4,6 @@ mutation {
         name: $name,
         description: $description,
         image: $image,
-        secret: $generateNewSecret,
-        revoke: $revokeSecret,
-        invite: $inviteUserInput
     ) {
         ...AppFragment
     }

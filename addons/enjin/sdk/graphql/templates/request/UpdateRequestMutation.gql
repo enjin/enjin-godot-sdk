@@ -1,7 +1,6 @@
 mutation {
     result: UpdateEnjinRequest(
         id: $id,
-        type: $txType,
         rebroadcast: $rebroadcast
         create_token_data: $createTokenData,
         create_trade_data: $createTradeData,
@@ -9,6 +8,7 @@ mutation {
         mint_token_data: $mintTokenData,
         melt_token_data: $meltTokenData,
         send_token_data: $sendTokenData,
+        send_enjin_data: $sendEnjData,
         advanced_send_token_data: $advancedSendTokenData,
         update_item_name_data: $updateItemNameData,
         set_item_uri_data: $setItemUriData,
@@ -32,7 +32,6 @@ mutation {
 }
 
 $id: Int
-$txType: TransactionType
 $rebroadcast: RebroadcastType
 $createTokenData: CreateTokenInput
 $createTradeData: CreateTradeInput
@@ -40,6 +39,7 @@ $completeTradeData: CompleteTradeInput
 $mintTokenData: MintTokenInput
 $meltTokenData: MeltTokenInput
 $sendTokenData: SendTokenInput
+$sendEnjData: SendEnjInput
 $advancedSendTokenData: AdvancedSendTokenInput
 $updateItemNameData: UpdateItemNameInput
 $setItemUriData: SetItemUriInput

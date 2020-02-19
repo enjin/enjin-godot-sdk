@@ -2,8 +2,8 @@ query {
     result: EnjinIdentities(
         id: $id,
         appId: $appId,
-        ethereum_address: $ethAddr,
-        linking_code: $linkingCode,
+        ethAddress: $ethAddr,
+        linkingCode: $linkingCode,
         pagination: $pagination
     ) {
         ...IdentityFragment

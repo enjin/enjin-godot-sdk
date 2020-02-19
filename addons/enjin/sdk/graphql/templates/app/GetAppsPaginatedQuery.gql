@@ -2,7 +2,6 @@ query {
     result: EnjinApps(
         id: $id,
         name: $name,
-        me: $me,
         pagination: $pagination
     ) {
         items {

@@ -13,7 +13,7 @@ query {
         firstBlock: $firstBlock,
         blockHeight: $blockHeight,
         markedForDelete: $markedForDelete,
-        sort_by: $sort
+        sortBy: $sort
     ) {
         ...TokenFragment
     }
