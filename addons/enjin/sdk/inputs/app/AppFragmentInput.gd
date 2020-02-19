@@ -26,10 +26,6 @@ class AppFragmentInput extends "../BaseInput.gd":
         vars.withOwner = withOwner
         return self
 
-    func with_app_roles(withAppRoles: bool) -> AppFragmentInput:
-        vars.withAppRoles = withAppRoles
-        return self
-
     func with_token_count(withTokenCount: bool) -> AppFragmentInput:
         vars.withTokenCount = withTokenCount
         return self

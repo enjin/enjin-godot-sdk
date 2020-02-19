@@ -9,7 +9,6 @@ const EnjinAuthService = preload("res://addons/enjin/sdk/services/EnjinAuthServi
 const EnjinUserService = preload("res://addons/enjin/sdk/services/EnjinUserService.gd")
 const EnjinIdentityService = preload("res://addons/enjin/sdk/services/EnjinIdentityService.gd")
 const EnjinBalanceService = preload("res://addons/enjin/sdk/services/EnjinBalanceService.gd")
-const EnjinRoleService = preload("res://addons/enjin/sdk/services/EnjinRoleService.gd")
 const EnjinWalletService = preload("res://addons/enjin/sdk/services/EnjinWalletService.gd")
 const EnjinTokenService = preload("res://addons/enjin/sdk/services/EnjinTokenService.gd")
 const EnjinRequestService = preload("res://addons/enjin/sdk/services/EnjinRequestService.gd")
@@ -24,7 +23,6 @@ var _auth_service: EnjinAuthService setget ,auth_service
 var _user_service: EnjinUserService setget ,user_service
 var _identity_service: EnjinIdentityService setget ,identity_service
 var _balance_service: EnjinBalanceService setget ,balance_service
-var _role_service: EnjinRoleService setget ,role_service
 var _wallet_service: EnjinWalletService setget ,wallet_service
 var _token_service: EnjinTokenService setget ,token_service
 var _request_service: EnjinRequestService setget ,request_service
@@ -41,7 +39,6 @@ func _init(base_url: String = EnjinHosts.KOVAN, port: int = 443, use_ssl: bool =
     _user_service = EnjinUserService.new(_middleware)
     _identity_service = EnjinIdentityService.new(_middleware)
     _balance_service = EnjinBalanceService.new(_middleware)
-    _role_service = EnjinRoleService.new(_middleware)
     _wallet_service = EnjinWalletService.new(_middleware)
     _token_service = EnjinTokenService.new(_middleware)
     _request_service = EnjinRequestService.new(_middleware)
@@ -62,9 +59,6 @@ func identity_service() -> EnjinIdentityService:
 
 func balance_service() -> EnjinBalanceService:
     return _balance_service
-
-func role_service() -> EnjinRoleService:
-    return _role_service
 
 func wallet_service() -> EnjinWalletService:
     return _wallet_service

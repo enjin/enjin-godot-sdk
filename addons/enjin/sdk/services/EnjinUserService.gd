@@ -18,9 +18,3 @@ func get_users(input: GetUsersInput, udata: Dictionary = {}):
 
 func create_user(input: CreateUserInput, udata: Dictionary = {}):
     _middleware.execute_gql("CreateUserMutation", input.create(), udata)
-
-func update_user(input: UpdateUserInput, udata: Dictionary = {}):
-    _middleware.execute_gql("UpdateUserMutation", input.create(), udata)
-
-func delete_user(input: DeleteUserInput, udata: Dictionary = {}):
-    _middleware.execute_gql("DeleteUserMutation", input.create(), udata)

@@ -49,6 +49,7 @@ frame_7/texture = ExtResource( 16 )
 frame_7/delay_sec = 0.0
 
 [node name="Platformer" type="Node2D"]
+editor/display_folded = true
 script = ExtResource( 1 )
 
 [node name="Background" type="TileMap" parent="."]

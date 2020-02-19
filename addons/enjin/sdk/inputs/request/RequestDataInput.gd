@@ -1,8 +1,4 @@
 class RequestDataInput extends "./BaseRequestInput.gd":
-    func tx_type(txType: String) -> RequestDataInput:
-        vars.txType = txType
-        return self
-
     func create_token(data: Dictionary) -> RequestDataInput:
         vars.createTokenData = data
         return self
@@ -23,8 +19,12 @@ class RequestDataInput extends "./BaseRequestInput.gd":
         vars.meltTokenData = data
         return self
 
-    func send(data: Dictionary) -> RequestDataInput:
+    func send_token(data: Dictionary) -> RequestDataInput:
         vars.sendTokenData = data
+        return self
+
+    func send_enj(data: Dictionary) -> RequestDataInput:
+        vars.sendEnjData = data
         return self
 
     func advanced_send(data: Dictionary) -> RequestDataInput:

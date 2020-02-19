@@ -44,10 +44,6 @@ func value(value: String) -> GetRequestsInput:
     vars.value = value
     return self
 
-func tx_state(txState: String) -> GetRequestsInput:
-    vars.txState = txState
-    return self
-
 func tx_state_in(txStateIn: Array) -> GetRequestsInput:
     vars.txStateIn = txStateIn
     return self

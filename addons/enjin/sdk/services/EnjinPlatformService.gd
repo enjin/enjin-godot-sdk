@@ -10,9 +10,3 @@ func _init(middleware: TrustedPlatformMiddleware):
 
 func get_platform(input: GetPlatformInput, udata: Dictionary = {}):
     _middleware.execute_gql("GetPlatformQuery", input.create(), udata)
-
-func search(input: SearchInput, udata: Dictionary = {}):
-    _middleware.execute_gql("SearchQuery", input.create(), udata)
-
-func get_block_height(udata: Dictionary = {}):
-    _middleware.execute_gql("GetBlockHeightQuery", EMPTY_DICTIONARY, udata)

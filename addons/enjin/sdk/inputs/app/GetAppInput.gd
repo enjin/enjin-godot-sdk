@@ -8,7 +8,3 @@ func id(id: int) -> GetAppInput:
 func name(name: String) -> GetAppInput:
     vars.name = name
     return self
-
-func me(me: bool) -> GetAppInput:
-    vars.me = me
-    return self
