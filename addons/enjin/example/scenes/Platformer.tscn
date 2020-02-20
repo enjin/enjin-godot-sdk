@@ -1,10 +1,10 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
-[ext_resource path="res://addons/enjin/example/scripts/Platformer.gd" type="Script" id=1]
+[ext_resource path="res://addons/enjin/example/scripts/client/PlatformerClient.gd" type="Script" id=1]
 [ext_resource path="res://addons/enjin/example/art/environment/EnvironmentTileset.tres" type="TileSet" id=2]
 [ext_resource path="res://addons/enjin/example/prefabs/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/enjin/example/prefabs/Coin.tscn" type="PackedScene" id=4]
-[ext_resource path="res://addons/enjin/example/scripts/PlayerHud.gd" type="Script" id=5]
+[ext_resource path="res://addons/enjin/example/scripts/client/PlayerHud.gd" type="Script" id=5]
 [ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_back.png" type="Texture" id=6]
 [ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_front.png" type="Texture" id=7]
 [ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_content.png" type="Texture" id=8]
@@ -17,6 +17,7 @@
 [ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_6.png" type="Texture" id=15]
 [ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_7.png" type="Texture" id=16]
 [ext_resource path="res://addons/enjin/example/fonts/Roboto64.tres" type="DynamicFont" id=17]
+[ext_resource path="res://addons/enjin/example/prefabs/EndingPopup.tscn" type="PackedScene" id=18]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20.4, 22.2 )
@@ -49,7 +50,6 @@ frame_7/texture = ExtResource( 16 )
 frame_7/delay_sec = 0.0
 
 [node name="Platformer" type="Node2D"]
-editor/display_folded = true
 script = ExtResource( 1 )
 
 [node name="Background" type="TileMap" parent="."]
@@ -71,6 +71,7 @@ format = 1
 tile_data = PoolIntArray( 524298, 536870918, 0, 524302, 536870916, 0, 589834, 536870918, 0, 589838, 536870916, 0, 655370, 536870918, 0, 655374, 536870916, 0, 720897, 1, 0, 720906, 536870918, 0, 720910, 536870916, 0, 720912, 2, 0, 720916, 1, 0, 720920, 2, 0 )
 
 [node name="Foreground" type="TileMap" parent="."]
+editor/display_folded = true
 scale = Vector2( 5, 5 )
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 16, 16 )
@@ -205,6 +206,13 @@ size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 17 )
 text = "0"
 valign = 1
+
+[node name="Ending" parent="Canvas" instance=ExtResource( 18 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 [connection signal="update_hud" from="." to="Canvas/Margin" method="update_hud"]
 [connection signal="body_entered" from="Foreground/Exit" to="." method="exit_entered"]
 [connection signal="update_hud" from="Player" to="Canvas/Margin" method="update_hud"]

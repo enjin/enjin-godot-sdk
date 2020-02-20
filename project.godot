@@ -201,6 +201,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Enjin="*res://addons/enjin/example/scripts/Enjin.gd"
+PlatformServer="*res://addons/enjin/example/scripts/server/PlatformerServer.gd"
 
 [debug]
 

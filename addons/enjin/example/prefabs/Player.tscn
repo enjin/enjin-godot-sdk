@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://addons/enjin/example/scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://addons/enjin/example/scripts/client/Player.gd" type="Script" id=1]
 [ext_resource path="res://addons/enjin/example/art/king/king_Jump_2.png" type="Texture" id=2]
 [ext_resource path="res://addons/enjin/example/art/king/king_Jump_3.png" type="Texture" id=3]
 [ext_resource path="res://addons/enjin/example/art/king/king_Walk_0.png" type="Texture" id=4]
@@ -13,6 +13,7 @@
 [ext_resource path="res://addons/enjin/example/art/king/king_Walk_3.png" type="Texture" id=11]
 [ext_resource path="res://addons/enjin/example/art/king/king_Jump_0.png" type="Texture" id=12]
 [ext_resource path="res://addons/enjin/example/art/king/king_Jump_1.png" type="Texture" id=13]
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
