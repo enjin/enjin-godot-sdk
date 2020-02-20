@@ -6,6 +6,8 @@ const WRITE_MODE = WebSocketPeer.WRITE_MODE_BINARY
 
 export var respawn_height = 1500
 
+var PacketId = Enums.PacketId
+
 var _client
 
 func _ready():
@@ -34,14 +36,14 @@ func _connection_error():
 
 func coins_collected(amount: int):
     var packet = {
-        "id": 0,
+        "id": PacketId.coins_collected,
         "amount": amount
     }
     send_data(packet)
 
 func exiting():
     var packet = {
-        "id": 1
+        "id": PacketId.exiting
     }
     send_data(packet)
 
@@ -77,6 +79,6 @@ func _data_received():
     var packet = _client.get_peer(1).get_packet()
     var data = bytes2var(packet)
     print(data)
-    if data.id == 2:
+    if data.id == PacketId.end_game:
         $Canvas/Ending.show()
         get_tree().paused = true

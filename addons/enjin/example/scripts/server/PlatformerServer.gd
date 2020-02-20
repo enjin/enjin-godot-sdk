@@ -2,6 +2,8 @@ extends Node
 
 const PORT = 11011
 
+var PacketId = Enums.PacketId
+
 var _server = WebSocketServer.new()
 var _clients = {}
 var _write_mode = WebSocketPeer.WRITE_MODE_BINARY
@@ -34,10 +36,10 @@ func _data_received(id):
     print("Data received from %s" % id)
     var packet = _server.get_peer(id).get_packet()
     var data = bytes2var(packet)
-    if data.id == 0:
+    if data.id == PacketId.coins_collected:
         print("collected")
         _tokens_collected += 1
-    elif data.id == 1:
+    elif data.id == PacketId.exiting:
         send_tokens()
         _tokens_collected = 0
 
@@ -49,11 +51,11 @@ func _data_received(id):
         yield(t, "timeout")
 
         t.queue_free()
-        reset(id)
+        end_game(id)
 
-func reset(id):
+func end_game(id):
     var packet = {
-        "id": 2
+        "id": PacketId.end_game
     }
     send_data(id, packet)
 
