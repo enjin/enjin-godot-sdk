@@ -70,4 +70,5 @@ func _physics_process(delta):
 
 func add_coins(amount: int):
     coins += amount
+    get_parent().coins_collected(amount)
     emit_signal("update_hud", self)
