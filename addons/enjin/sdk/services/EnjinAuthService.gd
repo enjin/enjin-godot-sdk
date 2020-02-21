@@ -34,6 +34,13 @@ func auth_user(email: String, password: String, udata: Dictionary = {}):
     vars.password = password
     _middleware.execute_gql("LoginUserQuery", vars, udata, _auth_user_cb)
 
+func auth_player(id: String, udata: Dictionary = {}):
+    if !_state.is_authed_as_app():
+        return false
+    var vars = {}
+    vars.id = id
+    _middleware.execute_gql("AuthPlayerQuery", vars, udata)
+
 func auth_app(app_id: int, secret: String, udata: Dictionary = {}):
     _state.clear_auth()
     udata.app_id = app_id
