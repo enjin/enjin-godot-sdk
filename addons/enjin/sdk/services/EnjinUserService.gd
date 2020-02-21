@@ -16,5 +16,7 @@ func get_users(input: GetUsersInput, udata: Dictionary = {}):
     else:
         _middleware.execute_gql("GetUsersQuery", input.create(), udata)
 
-func create_user(input: CreateUserInput, udata: Dictionary = {}):
-    _middleware.execute_gql("CreateUserMutation", input.create(), udata)
+func create_user(name: String, udata: Dictionary = {}):
+    var vars = {}
+    vars.name = name
+    _middleware.execute_gql("CreateUserMutation", vars, udata)

@@ -28,9 +28,7 @@ func execute_post_cb(call: EnjinCall, callback: EnjinCallback, udata: Dictionary
 func execute_gql(op_name: String, vars: Dictionary = {}, udata: Dictionary = {}, callback = _gql_callback):
     var body = _schema.build_request_body(op_name, vars)
     var call = _graphql(body)
-
     udata.call = call
-
     _http.enqueue(call, callback, udata)
 
 func post(endpoint: String, body: String, content_type: String) -> EnjinCall:
