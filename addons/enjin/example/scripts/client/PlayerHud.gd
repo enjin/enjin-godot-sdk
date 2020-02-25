@@ -1,5 +1,6 @@
 extends Container
 
 func update_hud(player):
-    $CoinDisplay/CoinCount.text = str(player.coins)
-    $HealthBar/Progress.value = player.health
+    print("hude update")
+    $Coins/Amount.text = str(player.coins)
+    $Health/ProgressBar.value = player.health

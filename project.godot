@@ -213,7 +213,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Enjin-Godot-SDK"
-run/main_scene="res://addons/enjin/example/scenes/Level-1.tscn"
+run/main_scene="res://addons/enjin/example/scenes/Game.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -274,6 +274,13 @@ save={
 "events": [  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Environment"
+2d_physics/layer_3="Items"
+2d_physics/layer_4="Enemies"
+
 [network]
 
 limits/debugger_stdout/max_chars_per_second=16384
@@ -286,6 +293,7 @@ limits/debugger_stdout/max_chars_per_second=16384
 
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
+quality/2d/use_pixel_snap=true
 quality/filters/anisotropic_filter_level=1
 quality/shadows/filter_mode=0
 environment/default_environment="res://default_env.tres"

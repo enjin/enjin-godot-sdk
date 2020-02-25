@@ -1,5 +1,4 @@
 extends Node2D
-signal update_hud
 
 # Constants
 const DEFAULT_SETTINGS: Dictionary = {
@@ -22,9 +21,6 @@ var _identity: Dictionary
 # Callbacks
 var _fetch_player_data_callback: EnjinCallback
 
-# Exports
-export var respawn_height = 1500
-
 func _init():
     _settings = Settings.new(DEFAULT_SETTINGS, SETTINGS_FILE_NAME)
     _client = WebSocketClient.new()
@@ -45,14 +41,9 @@ func _ready():
 
     _client.connect_to_url("localhost:%d" % _settings.data().connection.port)
 
-    respawn($Player)
-
 func _process(delta):
     if _client.get_connection_status() != WebSocketClient.CONNECTION_DISCONNECTED:
         _client.poll()
-
-    if $Player.position.y > respawn_height:
-        out_of_bounds()
 
 func _connection_established(protocol):
     handshake()
@@ -107,7 +98,7 @@ func load_identity(data):
         download_and_show_qr_code(linkingCode)
 
     var wallet = _identity.wallet
-    print(var2str(wallet))
+    # todo
 
 func get_identity(identities):
     for identity in identities:
@@ -117,7 +108,7 @@ func get_identity(identities):
     return null
 
 func download_and_show_qr_code(url: String):
-    if $Canvas/QR/Rect.texture == null:
+    if $UI/LinkWallet/Rect.texture == null:
         var http_request = HTTPRequest.new()
         add_child(http_request)
         http_request.connect("request_completed", self, "_qr_code_request_complete")
@@ -128,7 +119,7 @@ func download_and_show_qr_code(url: String):
         show_qr_code()
 
 func show_qr_code():
-    $Canvas/QR.show()
+    $UI/LinkWallet.show()
     get_tree().paused = true
 
 func handshake():
@@ -147,23 +138,10 @@ func send_token(name: String, amount: int):
     }
     WebSocketHelper.send_packet(_client, packet)
 
-func out_of_bounds():
-    var player_dead = $Player.damage(1)
-
-    if player_dead:
-        get_tree().reload_current_scene()
-    else:
-        respawn($Player)
-        emit_signal("update_hud", $Player)
-
-func respawn(player):
-    player.position.x = $Spawn.position.x
-    player.position.y = $Spawn.position.y
-
 func exit_entered(body):
     if $Player.coins == 3:
         send_token("shard", $Player.coins)
-        $Canvas/Ending.show()
+        $UI/GameComplete.show()
         $Timer.set_wait_time(.5)
         $Timer.start()
         yield($Timer, "timeout")
@@ -187,7 +165,7 @@ func _qr_code_request_complete(result, response_code, headers, body):
     # Create texture rectangle
     var texture = ImageTexture.new()
     texture.create_from_image(image)
-    $Canvas/QR/Rect.texture = texture
+    $UI/LinkWallet/Rect.texture = texture
     show_qr_code()
 
 func _wallet_linked():
