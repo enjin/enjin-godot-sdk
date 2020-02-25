@@ -1,24 +1,7 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://addons/enjin/example/art/environment/EnvironmentTileset.tres" type="TileSet" id=1]
-[ext_resource path="res://addons/enjin/example/prefabs/Coin.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/enjin/example/prefabs/EndingPopup.tscn" type="PackedScene" id=3]
-[ext_resource path="res://addons/enjin/example/prefabs/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://addons/enjin/example/scripts/client/PlatformerClient.gd" type="Script" id=5]
-[ext_resource path="res://addons/enjin/example/scripts/client/PlayerHud.gd" type="Script" id=6]
-[ext_resource path="res://addons/enjin/example/fonts/Roboto64.tres" type="DynamicFont" id=7]
-[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_0.png" type="Texture" id=8]
-[ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_front.png" type="Texture" id=9]
-[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_4.png" type="Texture" id=10]
-[ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_back.png" type="Texture" id=11]
-[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_1.png" type="Texture" id=12]
-[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_7.png" type="Texture" id=13]
-[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_2.png" type="Texture" id=14]
-[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_5.png" type="Texture" id=15]
-[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_6.png" type="Texture" id=16]
-[ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_content.png" type="Texture" id=17]
-[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_3.png" type="Texture" id=18]
-[ext_resource path="res://addons/enjin/example/prefabs/QrPopup.tscn" type="PackedScene" id=19]
+[ext_resource path="res://addons/enjin/example/prefabs/Coin.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/enjin/example/art/environment/EnvironmentTileset.tres" type="TileSet" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20.4, 22.2 )
@@ -31,31 +14,11 @@ size = 24
 use_filter = true
 font_data = SubResource( 2 )
 
-[sub_resource type="AnimatedTexture" id=4]
-frames = 8
-fps = 8.0
-frame_0/texture = ExtResource( 8 )
-frame_1/texture = ExtResource( 12 )
-frame_1/delay_sec = 0.0
-frame_2/texture = ExtResource( 14 )
-frame_2/delay_sec = 0.0
-frame_3/texture = ExtResource( 18 )
-frame_3/delay_sec = 0.0
-frame_4/texture = ExtResource( 10 )
-frame_4/delay_sec = 0.0
-frame_5/texture = ExtResource( 15 )
-frame_5/delay_sec = 0.0
-frame_6/texture = ExtResource( 16 )
-frame_6/delay_sec = 0.0
-frame_7/texture = ExtResource( 13 )
-frame_7/delay_sec = 0.0
-
 [node name="Level-1" type="Node2D"]
-script = ExtResource( 5 )
 
 [node name="Background" type="TileMap" parent="."]
 scale = Vector2( 5, 5 )
-tile_set = ExtResource( 1 )
+tile_set = ExtResource( 2 )
 cell_size = Vector2( 16, 16 )
 collision_layer = 0
 collision_mask = 0
@@ -64,7 +27,7 @@ tile_data = PoolIntArray( -851982, 5, 0, -851981, 5, 0, -851980, 5, 0, -851979, 
 
 [node name="Midground" type="TileMap" parent="."]
 scale = Vector2( 5, 5 )
-tile_set = ExtResource( 1 )
+tile_set = ExtResource( 2 )
 cell_size = Vector2( 16, 16 )
 collision_layer = 0
 collision_mask = 0
@@ -73,7 +36,7 @@ tile_data = PoolIntArray( 524298, 536870918, 0, 524302, 536870916, 0, 589834, 53
 
 [node name="Foreground" type="TileMap" parent="."]
 scale = Vector2( 5, 5 )
-tile_set = ExtResource( 1 )
+tile_set = ExtResource( 2 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( -65535, 8, 0, -65534, 9, 0, -65533, 9, 0, -65532, 9, 0, -65531, 9, 0, -65530, 9, 0, -65529, 9, 0, -65528, 9, 0, -65527, 9, 0, -65526, 9, 0, -65525, 9, 0, -65524, 9, 0, -65523, 9, 0, -65522, 9, 0, -65521, 9, 0, -65520, 9, 0, -65519, 9, 0, -65518, 9, 0, -65517, 9, 0, -65516, 9, 0, -65515, 9, 0, -65514, 9, 0, -65513, 9, 0, -65512, 10, 0, 1, 6, 0, 24, 4, 0, 65537, 6, 0, 65560, 4, 0, 131073, 6, 0, 131096, 4, 0, 196609, 6, 0, 196632, 4, 0, 262145, 6, 0, 262160, 1, 0, 262161, 0, 0, 262162, 0, 0, 262163, 2, 0, 262168, 4, 0, 327681, 6, 0, 327704, 4, 0, 393217, 6, 0, 393220, 12, 0, 393240, 4, 0, 458753, 6, 0, 458762, 1, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 2, 0, 458775, 1, 0, 458776, 4, 0, 524289, 6, 0, 524312, 4, 0, 589825, 6, 0, 589840, 1, 0, 589841, 0, 0, 589842, 0, 0, 589843, 0, 0, 589844, 2, 0, 589848, 4, 0, 655361, 6, 0, 655376, 4, 0, 655380, 6, 0, 655384, 4, 0, 720897, 6, 0, 720898, 0, 0, 720899, 0, 0, 720900, 0, 0, 720901, 0, 0, 720902, 0, 0, 720903, 0, 0, 720904, 536870912, 0, 720905, 536870912, 0, 720906, 536870913, 0, 720910, 536870914, 0, 720911, 536870912, 0, 720912, 4, 0, 720916, 6, 0, 720917, 0, 0, 720918, 0, 0, 720919, 0, 0, 720920, 4, 0, 786433, 6, 0, 786442, 6, 0, 786446, 4, 0, 786456, 4, 0, 851969, 6, 0, 851978, 6, 0, 851982, 4, 0, 851992, 4, 0, 917505, 6, 0, 917514, 6, 0, 917518, 4, 0, 917528, 4, 0, 983041, 6, 0, 983050, 6, 0, 983054, 4, 0, 983064, 4, 0, 1048577, 6, 0, 1048586, 6, 0, 1048590, 4, 0, 1048600, 4, 0, 1114113, 6, 0, 1114122, 6, 0, 1114126, 4, 0, 1114136, 4, 0, 1179649, 6, 0, 1179658, 6, 0, 1179662, 4, 0, 1179672, 4, 0, 1245185, 6, 0, 1245194, 6, 0, 1245198, 4, 0, 1245208, 4, 0, 1310721, 6, 0, 1310730, 6, 0, 1310734, 4, 0, 1310744, 4, 0 )
@@ -96,6 +59,9 @@ text = "Fetch all coins and return to the exit to send them to your Enjin wallet
 align = 1
 valign = 1
 autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ObstacleInfo" type="Label" parent="Foreground"]
 margin_left = 61.0
@@ -123,103 +89,16 @@ align = 1
 valign = 1
 autowrap = true
 
-[node name="Spawn" type="Position2D" parent="."]
-position = Vector2( 482, 793 )
+[node name="Coins" type="Node" parent="Foreground"]
 
-[node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 480, 793 )
-
-[node name="Camera" type="Camera2D" parent="Player"]
-current = true
-smoothing_enabled = true
-editor_draw_drag_margin = true
-
-[node name="Coins" type="Node" parent="."]
-
-[node name="Coin" parent="Coins" instance=ExtResource( 2 )]
+[node name="Coin" parent="Foreground/Coins" instance=ExtResource( 1 )]
+visible = false
 position = Vector2( 1347, 285 )
 
-[node name="Coin2" parent="Coins" instance=ExtResource( 2 )]
+[node name="Coin2" parent="Foreground/Coins" instance=ExtResource( 1 )]
+visible = false
 position = Vector2( 1471, 687 )
 
-[node name="Coin3" parent="Coins" instance=ExtResource( 2 )]
+[node name="Coin3" parent="Foreground/Coins" instance=ExtResource( 1 )]
+visible = false
 position = Vector2( 1881, 526 )
-
-[node name="Canvas" type="CanvasLayer" parent="."]
-
-[node name="Margin" type="MarginContainer" parent="Canvas"]
-margin_right = 1920.0
-margin_bottom = 1080.0
-rect_pivot_offset = Vector2( 914, 479 )
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-script = ExtResource( 6 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="HealthBar" type="Node2D" parent="Canvas/Margin"]
-position = Vector2( 20, -60 )
-scale = Vector2( 4, 4 )
-
-[node name="Progress" type="TextureProgress" parent="Canvas/Margin/HealthBar"]
-margin_top = 20.0
-margin_right = 84.0
-margin_bottom = 42.0
-size_flags_horizontal = 2
-size_flags_vertical = 6
-size_flags_stretch_ratio = 0.0
-max_value = 3.0
-value = 3.0
-rounded = true
-texture_under = ExtResource( 11 )
-texture_over = ExtResource( 9 )
-texture_progress = ExtResource( 17 )
-tint_progress = Color( 0.988235, 0, 0, 1 )
-
-[node name="CoinDisplay" type="HBoxContainer" parent="Canvas/Margin"]
-margin_left = 1802.0
-margin_top = 20.0
-margin_right = 1920.0
-margin_bottom = 96.0
-size_flags_horizontal = 8
-size_flags_vertical = 0
-
-[node name="CoinImg" type="TextureRect" parent="Canvas/Margin/CoinDisplay"]
-margin_top = 6.0
-margin_right = 64.0
-margin_bottom = 70.0
-rect_min_size = Vector2( 64, 64 )
-size_flags_horizontal = 2
-size_flags_vertical = 4
-texture = SubResource( 4 )
-expand = true
-
-[node name="CoinCount" type="Label" parent="Canvas/Margin/CoinDisplay"]
-margin_left = 68.0
-margin_right = 118.0
-margin_bottom = 76.0
-grow_horizontal = 0
-grow_vertical = 0
-rect_min_size = Vector2( 50, 50 )
-size_flags_horizontal = 0
-custom_fonts/font = ExtResource( 7 )
-text = "0"
-valign = 1
-
-[node name="Ending" parent="Canvas" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 1920.0
-margin_bottom = 1080.0
-
-[node name="QR" parent="Canvas" instance=ExtResource( 19 )]
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.25
-one_shot = true
-[connection signal="update_hud" from="." to="Canvas/Margin" method="update_hud"]
-[connection signal="body_entered" from="Foreground/Exit" to="." method="exit_entered"]
-[connection signal="update_hud" from="Player" to="Canvas/Margin" method="update_hud"]
-[connection signal="wallet_linked" from="Canvas/QR" to="." method="_wallet_linked"]
