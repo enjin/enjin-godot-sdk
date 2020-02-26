@@ -39,16 +39,16 @@ extents = Vector2( 24, 290 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 21, 485 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 8.26428, 25.3354 )
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 14.0434, 24.931 )
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 11, 60 )
 
-[sub_resource type="AnimatedTexture" id=5]
+[sub_resource type="AnimatedTexture" id=8]
 frames = 8
 fps = 8.0
 frame_0/texture = ExtResource( 9 )
@@ -233,7 +233,7 @@ script = ExtResource( 26 )
 [node name="StaticBody2D" type="StaticBody2D" parent="Level/Gate"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Gate/StaticBody2D"]
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 
 [node name="Gate Trigger" type="Area2D" parent="Level/Gate"]
 position = Vector2( -28.8167, 3.54041 )
@@ -241,14 +241,14 @@ collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Gate/Gate Trigger"]
 position = Vector2( 5.83829, -3.6292 )
-shape = SubResource( 7 )
+shape = SubResource( 6 )
 
 [node name="Exit" type="Area2D" parent="Level"]
 position = Vector2( 10308, 695 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Exit"]
 position = Vector2( -3, 8 )
-shape = SubResource( 8 )
+shape = SubResource( 7 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -318,7 +318,7 @@ margin_bottom = 70.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_horizontal = 2
 size_flags_vertical = 4
-texture = SubResource( 5 )
+texture = SubResource( 8 )
 expand = true
 
 [node name="Amount" type="Label" parent="UI/HUD/HBoxContainer/Coins"]
