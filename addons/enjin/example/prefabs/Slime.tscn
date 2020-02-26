@@ -66,7 +66,6 @@ position = Vector2( 0, 7.62939e-06 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 1 )
 animation = "move"
-frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -78,14 +77,12 @@ shape = SubResource( 2 )
 position = Vector2( -20, 16 )
 rotation = 0.785398
 enabled = true
-cast_to = Vector2( 0, 50 )
 collision_mask = 2
 
 [node name="RightGroundRay" type="RayCast2D" parent="."]
 position = Vector2( 21, 17 )
 rotation = -0.785398
 enabled = true
-cast_to = Vector2( 0, 50 )
 collision_mask = 2
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_animation_complete"]
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_frame_change"]

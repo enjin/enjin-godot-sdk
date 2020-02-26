@@ -16,6 +16,7 @@ var coins: int = 0
 var health: int = 3
 var jump_cooldown_remaining: float = 0
 var climbing: bool = false
+var has_key: bool = false
 
 func _physics_process(delta):
     var moving = false
@@ -103,3 +104,6 @@ func _ladder_entered(body):
 
 func _ladder_exited(body):
     climbing = false
+
+func key_grabbed(body):
+    has_key = true
