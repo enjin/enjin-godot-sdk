@@ -21,6 +21,9 @@ const DEFAULT_SETTINGS: Dictionary = {
         },
         "key": {
             "id": ""
+        },
+        "health_upgrade": {
+            "id": ""
         }
     }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_front.png" type="Texture" id=1]
 [ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_back.png" type="Texture" id=2]
@@ -27,6 +27,8 @@
 [ext_resource path="res://addons/enjin/example/art/Gate.png" type="Texture" id=25]
 [ext_resource path="res://addons/enjin/example/scripts/client/Gate.gd" type="Script" id=26]
 [ext_resource path="res://addons/enjin/example/prefabs/Crown.tscn" type="PackedScene" id=27]
+[ext_resource path="res://addons/enjin/example/art/heart.png" type="Texture" id=28]
+[ext_resource path="res://addons/enjin/example/prefabs/LoadingPopup.tscn" type="PackedScene" id=29]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 234 )
@@ -49,7 +51,10 @@ extents = Vector2( 14.0434, 24.931 )
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 11, 60 )
 
-[sub_resource type="AnimatedTexture" id=8]
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 23, 19 )
+
+[sub_resource type="AnimatedTexture" id=9]
 frames = 8
 fps = 8.0
 frame_0/texture = ExtResource( 9 )
@@ -253,6 +258,17 @@ shape = SubResource( 7 )
 
 [node name="Crown" parent="Level" instance=ExtResource( 27 )]
 
+[node name="HealthUpgrade" type="Area2D" parent="Level"]
+position = Vector2( 9457, -161 )
+
+[node name="Sprite" type="Sprite" parent="Level/HealthUpgrade"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 28 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/HealthUpgrade"]
+position = Vector2( -1, -6 )
+shape = SubResource( 8 )
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HUD" type="MarginContainer" parent="UI"]
@@ -321,7 +337,7 @@ margin_bottom = 70.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_horizontal = 2
 size_flags_vertical = 4
-texture = SubResource( 8 )
+texture = SubResource( 9 )
 expand = true
 
 [node name="Amount" type="Label" parent="UI/HUD/HBoxContainer/Coins"]
@@ -344,10 +360,11 @@ margin_bottom = 1080.0
 
 [node name="LinkWallet" parent="UI" instance=ExtResource( 17 )]
 
+[node name="Loading" parent="UI" instance=ExtResource( 29 )]
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
-[connection signal="update_hud" from="Player" to="UI/HUD" method="update_hud"]
 [connection signal="body_entered" from="Level/Ladders/Ladder" to="Player" method="_ladder_entered"]
 [connection signal="body_exited" from="Level/Ladders/Ladder" to="Player" method="_ladder_exited"]
 [connection signal="body_entered" from="Level/Ladders/Ladder2" to="Player" method="_ladder_entered"]
@@ -356,15 +373,18 @@ one_shot = true
 [connection signal="body_exited" from="Level/Ladders/Ladder3" to="Player" method="_ladder_exited"]
 [connection signal="body_entered" from="Level/Ladders/Ladder4" to="Player" method="_ladder_entered"]
 [connection signal="body_exited" from="Level/Ladders/Ladder4" to="Player" method="_ladder_exited"]
-[connection signal="body_entered" from="Level/Key" to="UI/HUD" method="key_grabbed"]
-[connection signal="body_entered" from="Level/Key" to="." method="key_grabbed"]
 [connection signal="body_entered" from="Level/Key" to="Level" method="key_grabbed"]
+[connection signal="body_entered" from="Level/Key" to="." method="key_grabbed"]
+[connection signal="body_entered" from="Level/Key" to="UI/HUD" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Key" to="Player" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Gate/Gate Trigger" to="Level/Gate" method="player_entered_gate"]
 [connection signal="body_entered" from="Level/Exit" to="." method="exit_entered"]
-[connection signal="body_entered" from="Level/Crown" to="." method="crown_grabbed"]
 [connection signal="body_entered" from="Level/Crown" to="Level" method="crown_grabbed"]
+[connection signal="body_entered" from="Level/Crown" to="." method="crown_grabbed"]
 [connection signal="body_entered" from="Level/Crown" to="Player" method="crown_grabbed"]
+[connection signal="body_entered" from="Level/HealthUpgrade" to="Level" method="health_upgrade_grabbed"]
+[connection signal="body_entered" from="Level/HealthUpgrade" to="." method="health_upgrade_grabbed"]
+[connection signal="body_entered" from="Level/HealthUpgrade" to="Player" method="health_upgrade_grabbed"]
 [connection signal="wallet_linked" from="UI/LinkWallet" to="." method="_wallet_linked"]
 
 [editable path="Level/Key"]

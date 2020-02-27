@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/enjin/example/fonts/EndingTitle.tres" type="DynamicFont" id=1]
+
+[node name="Loading" type="Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -125.0
+margin_top = -41.5
+margin_right = 125.0
+margin_bottom = 41.5
+custom_fonts/font = ExtResource( 1 )
+text = "Loading"
+align = 1
+valign = 1
