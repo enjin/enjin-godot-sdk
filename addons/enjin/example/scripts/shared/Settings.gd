@@ -6,23 +6,28 @@ enum LoadStatus {
     FAILED_TO_OPEN
 }
 
-const WORKING_DIR = "res://working/enjin/"
+const WORKING_DIR = "res://working/config"
+const USER_DIR = "user://config"
 
 var _data setget ,data
+var _directory
 var _file_path
 
 var _config: ConfigFile = ConfigFile.new()
 
 func _init(defaults: Dictionary, file_name: String):
     _data = defaults
-    _file_path = "%s%s" % [WORKING_DIR, file_name]
+    _directory = "%s/config" % get_game_directory() if OS.has_feature("standalone") else WORKING_DIR
+    print(_directory)
+    _file_path = "%s/%s" % [_directory, file_name]
 
 func save(overwrite: bool = false):
     var dir: Directory = Directory.new()
-    var dir_exists: bool = dir.dir_exists(WORKING_DIR)
-
+    var dir_exists: bool = dir.dir_exists(_directory)
     if !dir_exists:
-        dir.make_dir_recursive(WORKING_DIR)
+        var error = dir.make_dir_recursive(_directory)
+        print("Error creating directories. Error code: %s" % error)
+        return
 
     var file_exists: bool = dir.file_exists(_file_path)
 
@@ -47,3 +52,7 @@ func load():
 
 func data() -> Dictionary:
     return _data
+
+static func get_game_directory():
+    var ex_path = OS.get_executable_path()
+    return ex_path.substr(0, ex_path.find_last("\\"))
