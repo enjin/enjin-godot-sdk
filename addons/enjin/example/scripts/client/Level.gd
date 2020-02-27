@@ -27,3 +27,6 @@ func key_grabbed(body):
 
 func crown_grabbed(body):
     $Crown.queue_free()
+
+func health_upgrade_grabbed(body):
+    $HealthUpgrade.queue_free()

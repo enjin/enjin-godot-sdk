@@ -18,6 +18,7 @@ var _tp_client: TrustedPlatformClient
 var _app_id: int
 var _tokens
 var _identity: Dictionary
+var _loaded: bool = false
 # Callbacks
 var _fetch_player_data_callback: EnjinCallback
 
@@ -38,6 +39,8 @@ func _init():
 func _ready():
     if !_settings_valid():
         get_tree().quit()
+
+    $UI/Loading.show()
 
     _client.connect_to_url("localhost:%d" % _settings.data().connection.port)
 
@@ -112,6 +115,13 @@ func load_identity(data):
             $Player.has_key = true
             $Level/Key.queue_free()
             $UI/HUD/HBoxContainer/Key.show()
+        elif bal.id == _tokens.health_upgrade.id:
+            $Player.max_health = 5
+            $Player.health += 2
+            $Level/HealthUpgrade.queue_free()
+
+    _loaded = true
+    $UI/Loading.hide()
 
 func get_identity(identities):
     for identity in identities:
@@ -132,6 +142,7 @@ func download_and_show_qr_code(url: String):
         show_qr_code()
 
 func show_qr_code():
+    $UI/Loading.hide()
     $UI/LinkWallet.show()
     get_tree().paused = true
 
@@ -187,4 +198,8 @@ func _qr_code_request_complete(result, response_code, headers, body):
     show_qr_code()
 
 func _wallet_linked():
+    $UI/Loading.show()
     fetch_player_data()
+
+func health_upgrade_grabbed(body):
+    send_token("health_upgrade", 1)

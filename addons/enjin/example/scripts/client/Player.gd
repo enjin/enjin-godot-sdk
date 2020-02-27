@@ -1,5 +1,4 @@
 extends KinematicBody2D
-signal update_hud
 
 const FLOOR: Vector2 = Vector2(0, -1)
 
@@ -13,6 +12,7 @@ export var climb_mod = 0.8
 
 var velocity: Vector2 = Vector2(0, 0)
 var coins: int = 0
+var max_health: int = 3
 var health: int = 3
 var jump_cooldown_remaining: float = 0
 var climbing: bool = false
@@ -23,6 +23,9 @@ var wallet
 var king_texture = preload("res://addons/enjin/example/art/king/king.png")
 
 func _physics_process(delta):
+    if !$"../"._loaded:
+        return
+
     var moving = false
     var sprinting = Input.is_key_pressed(KEY_SHIFT)
 
@@ -88,17 +91,13 @@ func _physics_process(delta):
 
 func add_coins(amount: int):
     coins += amount
-    emit_signal("update_hud", self)
     return coins
 
-func damage(amount: int) -> bool:
+func damage(amount: int):
     health = max(0, health - amount)
-    emit_signal("update_hud", self)
 
     if is_dead():
         get_tree().reload_current_scene()
-
-    return health == 0
 
 func is_dead():
     return health == 0
@@ -118,3 +117,7 @@ func swap_textures():
 func crown_grabbed(body):
     has_crown = true
     swap_textures()
+
+func health_upgrade_grabbed(body):
+    max_health = 5
+    health += 2
