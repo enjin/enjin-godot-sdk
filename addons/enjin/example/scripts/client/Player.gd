@@ -11,6 +11,7 @@ export var jump_cooldown = 0.08
 export var climb_mod = 0.8
 
 var velocity: Vector2 = Vector2(0, 0)
+var coins_in_wallet = 0
 var coins: int = 0
 var max_health: int = 3
 var health: int = 3

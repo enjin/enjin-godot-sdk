@@ -21,17 +21,15 @@ func _ready():
 func _process(delta):
     var distance = get_global_position().distance_to(player.get_global_position())
     var x_diff = get_global_position().x - player.get_global_position().x
+    var can_move = ray.is_colliding()
 
     velocity.y += gravity
-
     attack_cooldown_remaining = max(0, attack_cooldown_remaining - delta)
 
     if distance < player_detect_distance:
         var is_attacking = attack_area.overlaps_body(player)
         var face_left = x_diff > 0
-        var can_move = ray.is_colliding()
 
-        print("attack: %s, left: %s, move: %s" % [is_attacking, face_left, can_move])
         if is_attacking:
             _set_direction_and_movement(face_left, false)
             if attack_cooldown_remaining == 0:
@@ -44,10 +42,10 @@ func _process(delta):
             _set_direction_and_movement(face_left, false)
             if $AnimatedSprite.animation == "move":
                 $AnimatedSprite.play("idle")
-    elif !ray.is_colliding():
-        _set_direction_and_movement(!moving_left)
-    else:
+    elif can_move:
         _set_direction_and_movement(moving_left)
+    else:
+        _set_direction_and_movement(!moving_left)
 
 func _set_direction_and_movement(facing_left = true, moving = true):
     if (facing_left != moving_left):

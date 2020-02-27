@@ -119,6 +119,8 @@ func load_identity(data):
             $Player.max_health = 5
             $Player.health += 2
             $Level/HealthUpgrade.queue_free()
+        elif bal.id == _tokens.shard.id:
+            $Player.coins_in_wallet = bal.value
 
     _loaded = true
     $UI/Loading.hide()
