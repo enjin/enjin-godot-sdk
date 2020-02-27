@@ -214,6 +214,8 @@ _global_script_class_icons={
 
 config/name="Enjin-Godot-SDK"
 run/main_scene="res://addons/enjin/example/scenes/Game.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="EnjinDemo"
 config/icon="res://icon.png"
 
 [autoload]
