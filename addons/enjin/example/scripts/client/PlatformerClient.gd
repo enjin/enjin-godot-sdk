@@ -96,9 +96,22 @@ func load_identity(data):
     var linkingCode = _identity.linkingCodeQr
     if linkingCode and !linkingCode.empty():
         download_and_show_qr_code(linkingCode)
+        return
 
     var wallet = _identity.wallet
-    # todo
+    if !wallet:
+        return
+
+    var balances = wallet.balances
+    for bal in balances:
+        if bal.id == _tokens.crown.id and bal.value > 0:
+            $Player.has_crown = true
+            $Player.swap_textures()
+            $Level/Crown.queue_free()
+        elif bal.id == _tokens.key.id and bal.value > 0:
+            $Player.has_key = true
+            $Level/Key.queue_free()
+            $UI/HUD/HBoxContainer/Key.show()
 
 func get_identity(identities):
     for identity in identities:
@@ -145,6 +158,12 @@ func exit_entered(body):
     $Timer.start()
     yield($Timer, "timeout")
     get_tree().paused = true
+
+func key_grabbed(body):
+    send_token("key", 1)
+
+func crown_grabbed(body):
+    send_token("crown", 1)
 
 # Callbacks
 

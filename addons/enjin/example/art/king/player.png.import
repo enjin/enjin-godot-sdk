@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/king_Slash_2.png-e9e987735f81eade6f6bc3aa3bcf5626.stex"
+path="res://.import/player.png-357f7734b47261cb677e217ed3ebb607.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/enjin/example/art/king/king_Slash_2.png"
-dest_files=[ "res://.import/king_Slash_2.png-e9e987735f81eade6f6bc3aa3bcf5626.stex" ]
+source_file="res://addons/enjin/example/art/king/player.png"
+dest_files=[ "res://.import/player.png-357f7734b47261cb677e217ed3ebb607.stex" ]
 
 [params]
 

@@ -22,6 +22,8 @@ func respawn():
     player.position.x = spawn.position.x
     player.position.y = spawn.position.y
 
-
 func key_grabbed(body):
     $Key.queue_free()
+
+func crown_grabbed(body):
+    $Crown.queue_free()

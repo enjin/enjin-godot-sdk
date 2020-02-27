@@ -18,6 +18,9 @@ const DEFAULT_SETTINGS: Dictionary = {
         },
        "crown": {
            "id": ""
+        },
+        "key": {
+            "id": ""
         }
     }
 }

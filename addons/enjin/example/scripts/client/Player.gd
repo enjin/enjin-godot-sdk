@@ -17,6 +17,10 @@ var health: int = 3
 var jump_cooldown_remaining: float = 0
 var climbing: bool = false
 var has_key: bool = false
+var has_crown: bool = false
+var wallet
+
+var king_texture = preload("res://addons/enjin/example/art/king/king.png")
 
 func _physics_process(delta):
     var moving = false
@@ -64,21 +68,21 @@ func _physics_process(delta):
 
     # Set sprite animation to play
     if velocity.y != 0 and !is_on_floor():
-        if velocity.y < 0 and !$AnimatedSprite.animation == "Jump":
-            $AnimatedSprite.play("Jump")
-        elif velocity.y > 0 and !$AnimatedSprite.animation == "Fall":
-            $AnimatedSprite.play("Fall")
+        if velocity.y < 0 and !$Sprite/AnimationPlayer.current_animation == "Jump":
+            $Sprite/AnimationPlayer.play("Jump")
+        elif velocity.y > 0 and !$Sprite/AnimationPlayer.current_animation == "Fall":
+            $Sprite/AnimationPlayer.play("Fall")
     elif velocity.x != 0:
         if sprinting:
-            $AnimatedSprite.play("Run")
+            $Sprite/AnimationPlayer.play("Run")
         else:
-            $AnimatedSprite.play("Walk")
+            $Sprite/AnimationPlayer.play("Walk")
     else:
-        $AnimatedSprite.play("Idle")
+        $Sprite/AnimationPlayer.play("Idle")
 
     # Flip sprite animation to face direction of movement
     if velocity.x != 0:
-        $AnimatedSprite.flip_h = velocity.x < 0
+        $Sprite.flip_h = velocity.x < 0
 
     velocity = move_and_slide(velocity, FLOOR)
 
@@ -107,3 +111,10 @@ func _ladder_exited(body):
 
 func key_grabbed(body):
     has_key = true
+
+func swap_textures():
+    $Sprite.set_texture(king_texture)
+
+func crown_grabbed(body):
+    has_crown = true
+    swap_textures()
