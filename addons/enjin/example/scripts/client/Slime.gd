@@ -4,7 +4,7 @@ const FLOOR: Vector2 = Vector2(0, -1)
 
 export var speed = 100
 export var gravity = 30
-export var player_detect_distance = 200
+export var player_detect_distance = 250
 export var attack_cooldown = 2
 
 onready var ray = $LeftGroundRay
@@ -27,17 +27,29 @@ func _process(delta):
     attack_cooldown_remaining = max(0, attack_cooldown_remaining - delta)
 
     if distance < player_detect_distance:
-        var attack = attack_area.overlaps_body(player)
-        _set_moving_and_direction(x_diff > 0, !attack)
-        if attack and attack_cooldown_remaining == 0:
-            $AnimatedSprite.set_animation("attack")
-            attack_cooldown_remaining = attack_cooldown
-    elif !ray.is_colliding():
-        _set_moving_and_direction(!moving_left)
-    else:
-        _set_moving_and_direction(moving_left)
+        var is_attacking = attack_area.overlaps_body(player)
+        var face_left = x_diff > 0
+        var can_move = ray.is_colliding()
 
-func _set_moving_and_direction(facing_left = true, moving = true):
+        print("attack: %s, left: %s, move: %s" % [is_attacking, face_left, can_move])
+        if is_attacking:
+            _set_direction_and_movement(face_left, false)
+            if attack_cooldown_remaining == 0:
+                $AnimatedSprite.play("attack")
+        elif can_move:
+            if $AnimatedSprite.animation != "attack":
+                _set_direction_and_movement(face_left, true)
+                $AnimatedSprite.play("move")
+        else:
+            _set_direction_and_movement(face_left, false)
+            if $AnimatedSprite.animation == "move":
+                $AnimatedSprite.play("idle")
+    elif !ray.is_colliding():
+        _set_direction_and_movement(!moving_left)
+    else:
+        _set_direction_and_movement(moving_left)
+
+func _set_direction_and_movement(facing_left = true, moving = true):
     if (facing_left != moving_left):
         moving_left = facing_left
         $AnimatedSprite.flip_h = !moving_left
@@ -56,7 +68,12 @@ func _physics_process(delta):
 
 func _animation_complete():
     if $AnimatedSprite.animation == "attack":
-        $AnimatedSprite.set_animation("idle")
+        var can_attack = attack_area.overlaps_body(player)
+        var can_move = ray.is_colliding()
+        if can_attack:
+            $AnimatedSprite.play("idle")
+        elif can_move:
+            $AnimatedSprite.play("move")
 
 
 func _on_frame_change():
