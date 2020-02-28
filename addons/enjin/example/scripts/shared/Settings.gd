@@ -18,7 +18,6 @@ var _config: ConfigFile = ConfigFile.new()
 func _init(defaults: Dictionary, file_name: String):
     _data = defaults
     _directory = "%s/config" % get_game_directory() if OS.has_feature("standalone") else WORKING_DIR
-    print(_directory)
     _file_path = "%s/%s" % [_directory, file_name]
 
 func save(overwrite: bool = false):

@@ -96,6 +96,7 @@ func _client_connected(id, protocol):
 func _data_received(id):
     print("Data received from client %s" % id)
     if !_server.has_peer(id):
+        print("peer not found: %s" % id)
         return
 
     var peer = _server.get_peer(id)

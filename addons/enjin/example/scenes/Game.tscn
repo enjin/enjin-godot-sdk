@@ -55,10 +55,10 @@ extents = Vector2( 11, 60 )
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 23, 19 )
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 853, 319 )
 
-[sub_resource type="AnimatedTexture" id=9]
+[sub_resource type="AnimatedTexture" id=10]
 frames = 8
 fps = 8.0
 frame_0/texture = ExtResource( 9 )
@@ -93,7 +93,7 @@ editor_draw_drag_margin = true
 script = ExtResource( 20 )
 
 [node name="Spawn" type="Position2D" parent="Level"]
-position = Vector2( 6204, 614 )
+position = Vector2( -1410, -194 )
 
 [node name="Map" type="TileMap" parent="Level"]
 scale = Vector2( 8, 8 )
@@ -233,7 +233,6 @@ position = Vector2( 617, 152 )
 
 [node name="Boss" parent="Level/Enemies" instance=ExtResource( 30 )]
 position = Vector2( 7992, 694 )
-collision_layer = 8
 collision_mask = 0
 
 [node name="Key" parent="Level" instance=ExtResource( 24 )]
@@ -306,7 +305,7 @@ collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/BossFightTrigger"]
 position = Vector2( 8034, 459 )
-shape = SubResource( 10 )
+shape = SubResource( 9 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -376,7 +375,7 @@ margin_bottom = 70.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_horizontal = 2
 size_flags_vertical = 4
-texture = SubResource( 9 )
+texture = SubResource( 10 )
 expand = true
 
 [node name="Amount" type="Label" parent="UI/HUD/HBoxContainer/Coins"]
@@ -412,17 +411,18 @@ one_shot = true
 [connection signal="body_exited" from="Level/Ladders/Ladder3" to="Player" method="_ladder_exited"]
 [connection signal="body_entered" from="Level/Ladders/Ladder4" to="Player" method="_ladder_entered"]
 [connection signal="body_exited" from="Level/Ladders/Ladder4" to="Player" method="_ladder_exited"]
-[connection signal="body_entered" from="Level/Key" to="Level" method="key_grabbed"]
+[connection signal="boss_defeated" from="Level/Enemies/Boss" to="Level" method="finish_boss_fight"]
 [connection signal="body_entered" from="Level/Key" to="." method="key_grabbed"]
+[connection signal="body_entered" from="Level/Key" to="Level" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Key" to="UI/HUD" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Key" to="Player" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Gate/Gate Trigger" to="Level/Gate" method="player_entered_gate"]
 [connection signal="body_entered" from="Level/Exit" to="." method="exit_entered"]
-[connection signal="body_entered" from="Level/Crown" to="Level" method="crown_grabbed"]
 [connection signal="body_entered" from="Level/Crown" to="." method="crown_grabbed"]
+[connection signal="body_entered" from="Level/Crown" to="Level" method="crown_grabbed"]
 [connection signal="body_entered" from="Level/Crown" to="Player" method="crown_grabbed"]
-[connection signal="body_entered" from="Level/HealthUpgrade" to="Level" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/HealthUpgrade" to="." method="health_upgrade_grabbed"]
+[connection signal="body_entered" from="Level/HealthUpgrade" to="Level" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/HealthUpgrade" to="Player" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/BossFightTrigger" to="Level" method="start_boss_fight"]
 [connection signal="wallet_linked" from="UI/LinkWallet" to="." method="_wallet_linked"]

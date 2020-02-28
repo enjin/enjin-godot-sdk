@@ -282,6 +282,8 @@ save={
 2d_physics/layer_2="Environment"
 2d_physics/layer_3="Items"
 2d_physics/layer_4="Enemies"
+2d_physics/layer_5="HitBox"
+2d_physics/layer_6="Bounce"
 
 [network]
 
