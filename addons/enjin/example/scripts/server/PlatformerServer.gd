@@ -36,6 +36,10 @@ var _clients: Dictionary
 var _last_connected_client: int
 var _tokens_collected: int
 var _tp_client: TrustedPlatformClient
+var _client_handshaked: bool
+var _client_peer_id: int
+var _client_name: String
+var _app_authed: bool
 # Callbacks
 var _auth_app_callback: EnjinCallback
 var _auth_player_callback: EnjinCallback
@@ -49,6 +53,8 @@ func _init():
     _last_connected_client = 0
     _tokens_collected = 0
     _tp_client = TrustedPlatformClient.new()
+    _client_handshaked = false
+    _app_authed = false
     _auth_app_callback = EnjinCallback.new(self, "_auth_app")
     _auth_player_callback = EnjinCallback.new(self, "_auth_player")
     _create_player_callback = EnjinCallback.new(self, "_create_player")
@@ -107,6 +113,12 @@ func _data_received(id):
         send_tokens(packet.token, packet.amount, packet.player_id)
 
 func auth_player(name: String, peer_id):
+    if !_app_authed:
+        _client_handshaked = true
+        _client_name = name
+        _client_peer_id = peer_id
+        return
+
     var udata = {
         "callback": _auth_player_callback,
         "peer_id": peer_id,
@@ -153,6 +165,9 @@ func _auth_app(udata: Dictionary):
     if !_tp_client.get_state().is_authed():
         print("Could not authenticate app %s" % _settings.data().app.id)
         get_tree().quit()
+    _app_authed = true
+    if _client_handshaked:
+        auth_player(_client_name, _client_peer_id)
 
 func _auth_player(udata: Dictionary):
     var gql = udata.gql
