@@ -59,10 +59,8 @@ func _set_direction_and_movement(facing_left = true, moving = true):
     else:
         velocity = Vector2(0, velocity.y)
 
-
 func _physics_process(delta):
     velocity = move_and_slide(velocity, FLOOR)
-
 
 func _animation_complete():
     if $AnimatedSprite.animation == "attack":
@@ -72,7 +70,6 @@ func _animation_complete():
             $AnimatedSprite.play("idle")
         elif can_move:
             $AnimatedSprite.play("move")
-
 
 func _on_frame_change():
     var is_attack_anim = $AnimatedSprite.animation == "attack"
