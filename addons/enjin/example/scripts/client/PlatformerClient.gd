@@ -165,6 +165,8 @@ func send_token(name: String, amount: int):
     WebSocketHelper.send_packet(_client, packet)
 
 func exit_entered(body):
+    $Player.accept_input = false
+    $Player.velocity = Vector2(0, 0)
     send_token("shard", $Player.coins)
     $UI/GameComplete.show()
     $Timer.set_wait_time(.5)

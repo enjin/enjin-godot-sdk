@@ -21,6 +21,7 @@ var climbing: bool = false
 var has_key: bool = false
 var has_crown: bool = false
 var wallet
+var accept_input = true
 
 var king_texture = preload("res://addons/enjin/example/art/king/king.png")
 
@@ -34,41 +35,43 @@ func _physics_process(delta):
     check_bounce(delta)
 
     # x movement
-    if Input.is_action_pressed("ui_right"):
-        velocity.x = speed
-        moving = true
-    elif Input.is_action_pressed("ui_left"):
-        velocity.x = -speed
-        moving = true
-    elif !is_on_floor() and !climbing:
-        # Lerping the horizontal velocity to 0 when jumping/falling
-        # to create a smoother transition
-        velocity.x = lerp(velocity.x, 0, 0.025)
-    else:
-        velocity.x = 0
+    if accept_input:
+        if Input.is_action_pressed("ui_right"):
+            velocity.x = speed
+            moving = true
+        elif Input.is_action_pressed("ui_left"):
+            velocity.x = -speed
+            moving = true
+        elif !is_on_floor() and !climbing:
+            # Lerping the horizontal velocity to 0 when jumping/falling
+            # to create a smoother transition
+            velocity.x = lerp(velocity.x, 0, 0.025)
+        else:
+            velocity.x = 0
 
-    if moving and sprinting:
-        velocity.x *= sprint_mod
+        if moving and sprinting:
+            velocity.x *= sprint_mod
 
     # jump cooldown
     if is_on_floor() and jump_cooldown_remaining != 0.0:
         jump_cooldown_remaining = max(0, jump_cooldown_remaining - delta)
 
-    if climbing:
-        if Input.is_action_pressed("ui_up"):
-            velocity.y = -speed * climb_mod
-        elif Input.is_action_pressed("ui_down"):
-            velocity.y = speed * climb_mod
-        else:
-            velocity.y = 0
-    else:
-        if Input.is_action_pressed("ui_up") and is_on_floor() and jump_cooldown_remaining == 0.0:
-            jump_cooldown_remaining = jump_cooldown
-
-            if sprinting:
-                velocity.y = -speed * (jump_mod + sprint_jump_mod)
+    if accept_input:
+        if climbing:
+            if Input.is_action_pressed("ui_up"):
+                velocity.y = -speed * climb_mod
+            elif Input.is_action_pressed("ui_down"):
+                velocity.y = speed * climb_mod
             else:
-                velocity.y = -speed * jump_mod
+                velocity.y = 0
+        else:
+            if Input.is_action_pressed("ui_up") and is_on_floor() and jump_cooldown_remaining == 0.0:
+                jump_cooldown_remaining = jump_cooldown
+
+                if sprinting:
+                    velocity.y = -speed * (jump_mod + sprint_jump_mod)
+                else:
+                    velocity.y = -speed * jump_mod
 
         velocity.y += gravity
 

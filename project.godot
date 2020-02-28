@@ -300,4 +300,5 @@ quality/intended_usage/framebuffer_allocation.mobile=0
 quality/2d/use_pixel_snap=true
 quality/filters/anisotropic_filter_level=1
 quality/shadows/filter_mode=0
+quality/depth/hdr=false
 environment/default_environment="res://default_env.tres"

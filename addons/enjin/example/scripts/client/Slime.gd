@@ -14,11 +14,15 @@ var player
 var velocity = Vector2(-speed, 0)
 var moving_left = true;
 var attack_cooldown_remaining = 0
+var dead = false
 
 func _ready():
     player = get_tree().get_nodes_in_group("player")[0]
 
 func _process(delta):
+    if dead:
+        return
+
     var distance = get_global_position().distance_to(player.get_global_position())
     var x_diff = get_global_position().x - player.get_global_position().x
     var can_move = ray.is_colliding()
@@ -70,9 +74,18 @@ func _animation_complete():
             $AnimatedSprite.play("idle")
         elif can_move:
             $AnimatedSprite.play("move")
+    elif $AnimatedSprite.animation == "death":
+        queue_free()
 
 func _on_frame_change():
     var is_attack_anim = $AnimatedSprite.animation == "attack"
     var is_hit_frame = $AnimatedSprite.frame == 2
     if is_attack_anim and is_hit_frame and attack_area.overlaps_body(player):
         player.damage(1)
+
+func bounced_on(entity):
+    velocity = Vector2.ZERO
+    dead = true
+    $AnimatedSprite.play("death")
+    $Bounce/CollisionShape2D.disabled = true
+    return
