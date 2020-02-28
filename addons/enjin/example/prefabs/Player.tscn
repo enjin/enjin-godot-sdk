@@ -3,7 +3,7 @@
 [ext_resource path="res://addons/enjin/example/scripts/client/Player.gd" type="Script" id=1]
 [ext_resource path="res://addons/enjin/example/art/king/player.png" type="Texture" id=14]
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=1]
 resource_name = "Attack"
 step = 0.333333
 tracks/0/type = "value"
@@ -19,7 +19,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 4 ), Vector2( 1, 4 ), Vector2( 2, 4 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=2]
 resource_name = "Climb"
 loop = true
 step = 0.25
@@ -36,7 +36,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 6 ), Vector2( 1, 6 ), Vector2( 2, 6 ), Vector2( 3, 6 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "Fall"
 step = 0.5
 tracks/0/type = "value"
@@ -52,8 +52,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 2 ), Vector2( 1, 2 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Idle"
+[sub_resource type="Animation" id=4]
 loop = true
 step = 1.0
 tracks/0/type = "value"
@@ -119,7 +118,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 1, 0 ), Vector2( 2, 0 ), Vector2( 3, 0 ) ]
 }
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=8]
 radius = 27.7968
 height = 43.6107
 
@@ -140,14 +139,41 @@ frame = 8
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 root_node = NodePath("../..")
 autoplay = "Idle"
-anims/Attack = SubResource( 8 )
-anims/Climb = SubResource( 9 )
-anims/Fall = SubResource( 4 )
-anims/Idle = SubResource( 3 )
+anims/Attack = SubResource( 1 )
+anims/Climb = SubResource( 2 )
+anims/Fall = SubResource( 3 )
+anims/Idle = SubResource( 4 )
 anims/Jump = SubResource( 5 )
 anims/Run = SubResource( 6 )
 anims/Walk = SubResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 2.37868, 29.0934 )
-shape = SubResource( 2 )
+position = Vector2( 2, 29 )
+shape = SubResource( 8 )
+
+[node name="RayCast2D" type="RayCast2D" parent="." groups=[
+"bounce_ray",
+]]
+position = Vector2( 5, 73 )
+cast_to = Vector2( 0, 2 )
+collision_mask = 32
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RayCast2D2" type="RayCast2D" parent="." groups=[
+"bounce_ray",
+]]
+position = Vector2( -17, 73 )
+cast_to = Vector2( 0, 2 )
+collision_mask = 8
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RayCast2D3" type="RayCast2D" parent="." groups=[
+"bounce_ray",
+]]
+position = Vector2( 27, 73 )
+cast_to = Vector2( 0, 2 )
+collision_mask = 8
+collide_with_areas = true
+collide_with_bodies = false

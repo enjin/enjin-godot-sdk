@@ -72,7 +72,7 @@ position = Vector2( 0, 7.62939e-06 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 1 )
 animation = "move"
-frame = 1
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -93,12 +93,14 @@ enabled = true
 collision_mask = 2
 
 [node name="AttackLeft" type="Area2D" parent="."]
+collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackLeft"]
 position = Vector2( -51, 6 )
 shape = SubResource( 3 )
 
 [node name="AttackRight" type="Area2D" parent="."]
+collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRight"]
 position = Vector2( 51, 6 )

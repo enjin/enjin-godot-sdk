@@ -9,6 +9,7 @@ export var sprint_mod = 1.75
 export var sprint_jump_mod = 0.35
 export var jump_cooldown = 0.08
 export var climb_mod = 0.8
+export var bounce_mod = -750
 
 var velocity: Vector2 = Vector2(0, 0)
 var coins_in_wallet = 0
@@ -30,6 +31,8 @@ func _physics_process(delta):
     var moving = false
     var sprinting = Input.is_key_pressed(KEY_SHIFT)
 
+    check_bounce(delta)
+
     # x movement
     if Input.is_action_pressed("ui_right"):
         velocity.x = speed
@@ -50,7 +53,6 @@ func _physics_process(delta):
     # jump cooldown
     if is_on_floor() and jump_cooldown_remaining != 0.0:
         jump_cooldown_remaining = max(0, jump_cooldown_remaining - delta)
-
 
     if climbing:
         if Input.is_action_pressed("ui_up"):
@@ -122,3 +124,15 @@ func crown_grabbed(body):
 func health_upgrade_grabbed(body):
     max_health = 5
     health += 2
+
+func check_bounce(delta):
+    if velocity.y <= 0:
+        return
+
+    var rays = get_tree().get_nodes_in_group("bounce_ray")
+    for ray in rays:
+        ray.cast_to = Vector2.DOWN * velocity * delta + Vector2.DOWN
+        ray.force_raycast_update()
+        if ray.is_colliding() and ray.get_collision_normal() == Vector2.UP:
+            velocity.y = bounce_mod
+            ray.get_collider().call_deferred("bounced_on", self)
