@@ -25,6 +25,7 @@ Shared scripts are used by both the server and the client, such as `Settings`, f
 There are a few things that are important for developers to know in order to use the SDK efficiently. The API is separated into a handful of service classes that have their own set of responsibilities.
 
 ### App Auth Example
+
 ```gdscript
 var _client: TrustedPlatformClient
 var _auth_app_cb: EnjinCallback
