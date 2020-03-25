@@ -89,3 +89,12 @@ func bounced_on(entity):
     $AnimatedSprite.play("death")
     $Bounce/CollisionShape2D.disabled = true
     return
+
+
+func _on_hit_zone_entered(body):
+    if body.knockbacked:
+        return
+
+    var x_diff = get_global_position().x - player.get_global_position().x
+
+    body.knockback(x_diff < 0)

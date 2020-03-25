@@ -1,15 +1,22 @@
 extends KinematicBody2D
 
+enum Direction {
+    LEFT,
+    RIGHT
+}
+
 const FLOOR: Vector2 = Vector2(0, -1)
 
 export var speed = 300 * 1.75
 export var gravity = 30
-export var jump_mod = 2
+export var jump_mod = 1.75
 export var jump_cooldown = 0.08
 export var climb_mod = 0.8
 export var bounce_mod = -750
+export var knockback_vec = Vector2(400, -300)
 
 var velocity: Vector2 = Vector2(0, 0)
+var facing = Direction.RIGHT
 var coins_in_wallet = 0
 var coins: int = 0
 var max_health: int = 3
@@ -20,6 +27,9 @@ var has_key: bool = false
 var has_crown: bool = false
 var wallet
 var accept_input = true
+var knockbacked: bool = false
+var landing_delay: float = 0.1
+var landing_delay_remaining: float = 0
 
 var king_texture = preload("res://addons/enjin/example/art/king/king.png")
 
@@ -27,20 +37,26 @@ func _physics_process(delta):
     if !$"../"._loaded:
         return
 
-    var moving = false
-
     check_bounce(delta)
 
     # x movement
     if accept_input:
         if Input.is_action_pressed("ui_right"):
             velocity.x = speed
-            moving = true
+            facing = Direction.RIGHT
         elif Input.is_action_pressed("ui_left"):
             velocity.x = -speed
-            moving = true
+            facing = Direction.LEFT
         else:
             velocity.x = 0
+    elif knockbacked:
+        velocity.x = lerp(velocity.x, 0, 0.005)
+        if is_on_floor() and landing_delay_remaining == 0.0:
+            accept_input = true
+            knockbacked = false
+
+    if landing_delay_remaining != 0.0:
+        landing_delay_remaining = max(0, landing_delay_remaining - delta)
 
     # jump cooldown
     if is_on_floor() and jump_cooldown_remaining != 0.0:
@@ -59,7 +75,7 @@ func _physics_process(delta):
                 jump_cooldown_remaining = jump_cooldown
                 velocity.y = -speed * jump_mod
 
-        velocity.y += gravity
+    velocity.y += gravity
 
     # Set sprite animation to play
     if velocity.y != 0 and !is_on_floor():
@@ -73,8 +89,10 @@ func _physics_process(delta):
         $Sprite/AnimationPlayer.play("Idle")
 
     # Flip sprite animation to face direction of movement
-    if velocity.x != 0:
-        $Sprite.flip_h = velocity.x < 0
+    if facing == Direction.LEFT:
+        $Sprite.flip_h = true
+    else:
+        $Sprite.flip_h = false
 
     velocity = move_and_slide(velocity, FLOOR)
 
@@ -122,3 +140,15 @@ func check_bounce(delta):
         if ray.is_colliding() and ray.get_collision_normal() == Vector2.UP:
             velocity.y = bounce_mod
             ray.get_collider().call_deferred("bounced_on", self)
+
+func knockback(move_right: bool):
+    accept_input = false
+    knockbacked = true
+    landing_delay_remaining = landing_delay
+
+    damage(1)
+
+    if move_right:
+        velocity = Vector2(knockback_vec.x, knockback_vec.y)
+    else:
+        velocity = Vector2(-knockback_vec.x, knockback_vec.y)

@@ -23,6 +23,7 @@
 [ext_resource path="res://addons/enjin/example/art/slime/slime-hurt-2.png" type="Texture" id=21]
 [ext_resource path="res://addons/enjin/example/scripts/client/Slime.gd" type="Script" id=22]
 [ext_resource path="res://addons/enjin/example/scripts/client/Bounce.gd" type="Script" id=23]
+[ext_resource path="res://addons/enjin/example/prefabs/SlimeShape.tres" type="Shape2D" id=24]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -41,28 +42,24 @@ animations = [ {
 "name": "death",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 10 ) ],
-"loop": false,
-"name": "hurt",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 14 ), ExtResource( 4 ), ExtResource( 13 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "move",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 10 ) ],
+"loop": false,
+"name": "hurt",
+"speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 17.0
-height = 34.0
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 9, 30 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 9, 30 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 9, 30 )
-
-[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 28, 2 )
 
 [node name="Slime" type="KinematicBody2D"]
@@ -79,9 +76,9 @@ animation = "move"
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -3, 20 )
+position = Vector2( -2.93436, 20 )
 rotation = 1.5708
-shape = SubResource( 2 )
+shape = ExtResource( 24 )
 
 [node name="LeftGroundRay" type="RayCast2D" parent="."]
 position = Vector2( -20, 16 )
@@ -100,14 +97,14 @@ collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackLeft"]
 position = Vector2( -51, 6 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="AttackRight" type="Area2D" parent="."]
 collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRight"]
 position = Vector2( 51, 6 )
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="Bounce" type="Area2D" parent="."]
 position = Vector2( -2, 5 )
@@ -115,7 +112,17 @@ collision_layer = 32
 script = ExtResource( 23 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bounce"]
-shape = SubResource( 5 )
+position = Vector2( -0.19693, -3.74199 )
+shape = SubResource( 4 )
+
+[node name="HitZone" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitZone"]
+position = Vector2( -2.90158, 19.9888 )
+rotation = 1.5708
+shape = ExtResource( 24 )
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_animation_complete"]
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_frame_change"]
 [connection signal="bounced_on" from="Bounce" to="." method="bounced_on"]
+[connection signal="body_entered" from="HitZone" to="." method="_on_hit_zone_entered"]
