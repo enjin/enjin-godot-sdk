@@ -1,10 +1,12 @@
 class_name WebSocketHelper
 
 enum SendStatus {
-    OK
-    PEER_NOT_FOUND
+    OK, # Indicates that packet sending was successful.
+    PEER_NOT_FOUND # Indicates that the peer specified does not exist.
 }
 
+# Sends a packet to a connected peer.
+# By default the write mode is set to binary.
 static func send_packet(client, packet, peer_id = 1, write_mode = WebSocketPeer.WRITE_MODE_BINARY):
     if client is WebSocketServer && !client.has_peer(peer_id):
         return SendStatus.PEER_NOT_FOUND
@@ -17,8 +19,10 @@ static func send_packet(client, packet, peer_id = 1, write_mode = WebSocketPeer.
 
     return SendStatus.OK
 
+# Encodes a packet using the specified write mode.
 static func encode(packet, write_mode):
     return packet.to_utf8() if write_mode == WebSocketPeer.WRITE_MODE_TEXT else var2bytes(packet)
 
+# Decodes the packet.
 static func decode(packet, is_string: bool):
     return packet.get_string_from_utf8() if is_string else bytes2var(packet)

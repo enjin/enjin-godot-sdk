@@ -2,11 +2,9 @@ extends KinematicBody2D
 
 const FLOOR: Vector2 = Vector2(0, -1)
 
-export var speed = 300
+export var speed = 300 * 1.75
 export var gravity = 30
-export var jump_mod = 2.8
-export var sprint_mod = 1.75
-export var sprint_jump_mod = 0.35
+export var jump_mod = 2
 export var jump_cooldown = 0.08
 export var climb_mod = 0.8
 export var bounce_mod = -750
@@ -30,7 +28,6 @@ func _physics_process(delta):
         return
 
     var moving = false
-    var sprinting = Input.is_key_pressed(KEY_SHIFT)
 
     check_bounce(delta)
 
@@ -42,15 +39,8 @@ func _physics_process(delta):
         elif Input.is_action_pressed("ui_left"):
             velocity.x = -speed
             moving = true
-        elif !is_on_floor() and !climbing:
-            # Lerping the horizontal velocity to 0 when jumping/falling
-            # to create a smoother transition
-            velocity.x = lerp(velocity.x, 0, 0.025)
         else:
             velocity.x = 0
-
-        if moving and sprinting:
-            velocity.x *= sprint_mod
 
     # jump cooldown
     if is_on_floor() and jump_cooldown_remaining != 0.0:
@@ -67,11 +57,7 @@ func _physics_process(delta):
         else:
             if Input.is_action_pressed("ui_up") and is_on_floor() and jump_cooldown_remaining == 0.0:
                 jump_cooldown_remaining = jump_cooldown
-
-                if sprinting:
-                    velocity.y = -speed * (jump_mod + sprint_jump_mod)
-                else:
-                    velocity.y = -speed * jump_mod
+                velocity.y = -speed * jump_mod
 
         velocity.y += gravity
 
@@ -82,10 +68,7 @@ func _physics_process(delta):
         elif velocity.y > 0 and !$Sprite/AnimationPlayer.current_animation == "Fall":
             $Sprite/AnimationPlayer.play("Fall")
     elif velocity.x != 0:
-        if sprinting:
-            $Sprite/AnimationPlayer.play("Run")
-        else:
-            $Sprite/AnimationPlayer.play("Walk")
+        $Sprite/AnimationPlayer.play("Run")
     else:
         $Sprite/AnimationPlayer.play("Idle")
 

@@ -37,18 +37,24 @@ func _init():
     _client.connect("data_received", self, "_data_received")
 
 func _ready():
+    # Check if the settings have been configured.
     if !_settings_valid():
+        # If not then quit.
         get_tree().quit()
 
+    # Display loading screen.
     $UI/Loading.show()
 
+    # Initiate connection to server.
     _client.connect_to_url("localhost:%d" % _settings.data().connection.port)
 
 func _process(delta):
+    # Check if connected to the server and poll for packet data if true.
     if _client.get_connection_status() != WebSocketClient.CONNECTION_DISCONNECTED:
         _client.poll()
 
 func _connection_established(protocol):
+    # Start authentication process by handshaking with server.
     handshake()
 
 func _connection_error():
@@ -57,12 +63,11 @@ func _connection_error():
 func _data_received():
     print("Data received from server.")
     var peer = _client.get_peer(1)
+    # Decode the received packet.
     var packet = WebSocketHelper.decode(peer.get_packet(), peer.was_string_packet())
     if packet.id == PacketIds.PLAYER_AUTH:
+        # Authenticate the client.
         handle_auth(packet)
-#    else:
-#        $Canvas/Ending.show()
-#        get_tree().paused = true
 
 func _settings_valid() -> bool:
     var settings = _settings.data()
@@ -74,56 +79,58 @@ func handle_auth(packet):
     var session = packet.session
     _app_id = packet.app_id
     _tokens = packet.tokens
+    # Authenticate the TrustedPlatformClient with the session token.
     _tp_client.get_state().auth_user(session.accessToken)
     if _tp_client.get_state().is_authed():
         print("Player client authenticated!")
+        # Fetch player's data.
         fetch_player_data()
     else:
         print("Unable to authenticate player client.")
 
 func fetch_player_data():
     var input = GetUserInput.new()
-    var udata = { "callback": _fetch_player_data_callback }
-    input.me(true)
-    input.user_i.with_identities(true)
-    input.identity_i.with_linking_code_qr(true)
-    input.identity_i.with_wallet(true)
-    _tp_client.user_service().get_user(input, udata)
+    var udata = { "callback": _fetch_player_data_callback } # Create udata and assign callback.
+    input.me(true) # Return result for authenticated player.
+    input.user_i.with_identities(true) # Include player's identities.
+    input.identity_i.with_linking_code_qr(true) # Include identity linking qr codes.
+    input.identity_i.with_wallet(true) # Include identity wallets.
+    _tp_client.user_service().get_user(input, udata) # Send get user request.
 
 func load_identity(data):
-    _identity = get_identity(data.identities)
+    _identity = get_identity(data.identities) # Get the identity for the configured app.
 
     if _identity == null:
         get_tree().quit()
 
     var linkingCode = _identity.linkingCodeQr
     if linkingCode and !linkingCode.empty():
-        download_and_show_qr_code(linkingCode)
+        download_and_show_qr_code(linkingCode) # Download and display the QR code to the player.
         return
 
-    var wallet = _identity.wallet
+    var wallet = _identity.wallet # Get the wallet from the identity.
     if !wallet:
         return
 
-    var balances = wallet.balances
-    for bal in balances:
-        if bal.id == _tokens.crown.id and bal.value > 0:
+    var balances = wallet.balances # Get the balances from the wallet.
+    for bal in balances: # Iterate over balances and update game state.
+        if bal.id == _tokens.crown.id and bal.value > 0: # Check if player has the crown token.
             $Player.has_crown = true
             $Player.swap_textures()
             $Level/Crown.queue_free()
-        elif bal.id == _tokens.key.id and bal.value > 0:
+        elif bal.id == _tokens.key.id and bal.value > 0: # Check if the player has the key token.
             $Player.has_key = true
             $Level/Key.queue_free()
             $UI/HUD/HBoxContainer/Key.show()
-        elif bal.id == _tokens.health_upgrade.id:
+        elif bal.id == _tokens.health_upgrade.id: # Check if the player has the health upgrade token.
             $Player.max_health = 5
             $Player.health += 2
             $Level/HealthUpgrade.queue_free()
-        elif bal.id == _tokens.shard.id:
+        elif bal.id == _tokens.shard.id: # Check if player has any coin tokens.
             $Player.coins_in_wallet = bal.value
 
     _loaded = true
-    $UI/Loading.hide()
+    $UI/Loading.hide() # Hide the loading screen.
 
 func get_identity(identities):
     for identity in identities:
@@ -134,9 +141,12 @@ func get_identity(identities):
 
 func download_and_show_qr_code(url: String):
     if $UI/LinkWallet/Rect.texture == null:
+        # Create and add new HTTPRequest to the scene.
         var http_request = HTTPRequest.new()
         add_child(http_request)
+        # Connect request complete signal.
         http_request.connect("request_completed", self, "_qr_code_request_complete")
+        # Send request
         var http_error = http_request.request(url)
         if http_error != OK:
             print("An error occurred in the HTTP request.")
@@ -167,7 +177,7 @@ func send_token(name: String, amount: int):
 func exit_entered(body):
     $Player.accept_input = false
     $Player.velocity = Vector2(0, 0)
-    send_token("shard", $Player.coins)
+    send_token("shard", $Player.coins) # Send collected coins to the player's wallet.
     $UI/GameComplete.show()
     $Timer.set_wait_time(.5)
     $Timer.start()
@@ -179,8 +189,6 @@ func key_grabbed(body):
 
 func crown_grabbed(body):
     send_token("crown", 1)
-
-# Callbacks
 
 func _fetch_player_data(udata: Dictionary):
     var gql = udata.gql
