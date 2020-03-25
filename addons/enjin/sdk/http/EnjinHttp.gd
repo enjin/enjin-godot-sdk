@@ -96,8 +96,8 @@ func _complete_request(idx: int, req: Array):
 
     var client: HTTPClient = req[0]
     var call: EnjinCall = req[1]
-    var callback: EnjinCallback = req[2]
-    var response: PoolByteArray = req[3]
+    var callback = req[2]
+    var response = req[3]
     var udata: Dictionary = req[4]
     # Get response code and headers
     var code = client.get_response_code()
