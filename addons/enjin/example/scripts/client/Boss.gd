@@ -50,10 +50,10 @@ func _process(delta):
         var move_away = distance < retreat_distance
         var move_towards = distance > approach_distance
 
-        if (to_left and move_towards) or (!to_left and move_away):
-            _set_direction_and_movement(to_left, true, true)
-        elif (to_left and move_away) or (!to_left and move_towards):
-            _set_direction_and_movement(to_left, true, false)
+        if move_towards:
+            _set_direction_and_movement(to_left, true, to_left)
+        elif move_away:
+            _set_direction_and_movement(to_left, true, !to_left)
         else:
             _set_direction_and_movement(to_left, false)
 
