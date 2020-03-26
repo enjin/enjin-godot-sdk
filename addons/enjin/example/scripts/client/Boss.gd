@@ -114,3 +114,11 @@ func player_bounced_on_head(entity):
     invincibility_cooldown_remaining = invincibility_cooldown
     stunned = true
     velocity = Vector2(0, 0)
+
+
+func _on_hitzone_entered(body):
+    if body.knockbacked:
+        return
+    var x_diff = get_global_position().x - player.get_global_position().x
+
+    body.knockback(x_diff < 0)

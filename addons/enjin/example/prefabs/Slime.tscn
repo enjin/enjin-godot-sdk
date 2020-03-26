@@ -73,6 +73,7 @@ position = Vector2( 0, 7.62939e-06 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 1 )
 animation = "move"
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -106,7 +107,9 @@ collision_layer = 16
 position = Vector2( 51, 6 )
 shape = SubResource( 3 )
 
-[node name="Bounce" type="Area2D" parent="."]
+[node name="Bounce" type="Area2D" parent="." groups=[
+"bounce_box",
+]]
 position = Vector2( -2, 5 )
 collision_layer = 32
 script = ExtResource( 23 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://addons/enjin/example/art/minotaur/Minotaur.png" type="Texture" id=1]
 [ext_resource path="res://addons/enjin/example/scripts/client/Boss.gd" type="Script" id=2]
@@ -186,6 +186,9 @@ extents = Vector2( 50, 100 )
 [sub_resource type="RectangleShape2D" id=14]
 extents = Vector2( 38, 4 )
 
+[sub_resource type="RectangleShape2D" id=15]
+extents = Vector2( 50.6443, 70.4646 )
+
 [node name="Boss" type="KinematicBody2D"]
 collision_layer = 8
 script = ExtResource( 2 )
@@ -195,7 +198,7 @@ scale = Vector2( 5, 5 )
 texture = ExtResource( 1 )
 vframes = 10
 hframes = 9
-frame = 32
+frame = 27
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 autoplay = "Idle"
@@ -221,7 +224,7 @@ position = Vector2( -149, -38 )
 collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Chop/Left"]
-position = Vector2( 23, 28 )
+position = Vector2( 48.1126, 27.678 )
 shape = SubResource( 12 )
 
 [node name="Right" type="Area2D" parent="Chop"]
@@ -229,10 +232,12 @@ position = Vector2( 101, -9 )
 collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Chop/Right"]
-position = Vector2( 24, -1 )
+position = Vector2( -4.01016, -0.0341187 )
 shape = SubResource( 13 )
 
-[node name="Bounce" type="Area2D" parent="."]
+[node name="Bounce" type="Area2D" parent="." groups=[
+"bounce_box",
+]]
 position = Vector2( -4, 1 )
 collision_layer = 32
 script = ExtResource( 3 )
@@ -240,5 +245,12 @@ script = ExtResource( 3 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bounce"]
 position = Vector2( 4, -96 )
 shape = SubResource( 14 )
+
+[node name="HitZone" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitZone"]
+shape = SubResource( 15 )
 [connection signal="animation_finished" from="Sprite/AnimationPlayer" to="." method="animation_complete"]
 [connection signal="bounced_on" from="Bounce" to="." method="player_bounced_on_head"]
+[connection signal="body_entered" from="HitZone" to="." method="_on_hitzone_entered"]

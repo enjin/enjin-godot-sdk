@@ -138,6 +138,9 @@ func check_bounce(delta):
         ray.cast_to = Vector2.DOWN * velocity * delta + Vector2.DOWN
         ray.force_raycast_update()
         if ray.is_colliding() and ray.get_collision_normal() == Vector2.UP:
+            if ray.get_collider().get_child(0).disabled or not ray.get_collider().is_in_group("bounce_box"):
+                continue
+            print("bouncing")
             velocity.y = bounce_mod
             ray.get_collider().call_deferred("bounced_on", self)
 
