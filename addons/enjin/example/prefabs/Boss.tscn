@@ -184,7 +184,7 @@ extents = Vector2( 50, 100 )
 extents = Vector2( 50, 100 )
 
 [sub_resource type="RectangleShape2D" id=14]
-extents = Vector2( 38, 4 )
+extents = Vector2( 53.0568, 4 )
 
 [sub_resource type="RectangleShape2D" id=15]
 extents = Vector2( 50.6443, 70.4646 )
@@ -243,7 +243,7 @@ collision_layer = 32
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bounce"]
-position = Vector2( 4, -96 )
+position = Vector2( 4, -78 )
 shape = SubResource( 14 )
 
 [node name="HitZone" type="Area2D" parent="."]
