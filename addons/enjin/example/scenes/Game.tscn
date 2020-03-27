@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_front.png" type="Texture" id=1]
 [ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_back.png" type="Texture" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://addons/enjin/example/art/heart.png" type="Texture" id=28]
 [ext_resource path="res://addons/enjin/example/prefabs/LoadingPopup.tscn" type="PackedScene" id=29]
 [ext_resource path="res://addons/enjin/example/prefabs/Boss.tscn" type="PackedScene" id=30]
+[ext_resource path="res://addons/enjin/example/prefabs/PauseMenuPopup.tscn" type="PackedScene" id=31]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 234 )
@@ -401,6 +402,8 @@ margin_bottom = 1080.0
 
 [node name="Loading" parent="UI" instance=ExtResource( 29 )]
 
+[node name="PauseMenu" parent="UI" instance=ExtResource( 31 )]
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
@@ -413,17 +416,17 @@ one_shot = true
 [connection signal="body_entered" from="Level/Ladders/Ladder4" to="Player" method="_ladder_entered"]
 [connection signal="body_exited" from="Level/Ladders/Ladder4" to="Player" method="_ladder_exited"]
 [connection signal="boss_defeated" from="Level/Enemies/Boss" to="Level" method="finish_boss_fight"]
-[connection signal="body_entered" from="Level/Key" to="Level" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Key" to="." method="key_grabbed"]
+[connection signal="body_entered" from="Level/Key" to="Level" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Key" to="Player" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Key" to="UI/HUD" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Gate/Gate Trigger" to="Level/Gate" method="player_entered_gate"]
 [connection signal="body_entered" from="Level/Exit" to="." method="exit_entered"]
-[connection signal="body_entered" from="Level/Crown" to="Level" method="crown_grabbed"]
 [connection signal="body_entered" from="Level/Crown" to="." method="crown_grabbed"]
+[connection signal="body_entered" from="Level/Crown" to="Level" method="crown_grabbed"]
 [connection signal="body_entered" from="Level/Crown" to="Player" method="crown_grabbed"]
-[connection signal="body_entered" from="Level/HealthUpgrade" to="Level" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/HealthUpgrade" to="." method="health_upgrade_grabbed"]
+[connection signal="body_entered" from="Level/HealthUpgrade" to="Level" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/HealthUpgrade" to="Player" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/BossFightTrigger" to="Level" method="start_boss_fight"]
 [connection signal="wallet_linked" from="UI/LinkWallet" to="." method="_wallet_linked"]
