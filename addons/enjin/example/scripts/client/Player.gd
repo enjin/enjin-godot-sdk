@@ -30,12 +30,16 @@ var accept_input = true
 var knockbacked: bool = false
 var landing_delay: float = 0.1
 var landing_delay_remaining: float = 0
+var invulnerability_remaining: float = 0
+var invulnerability_time: float = 1
 
 var king_texture = preload("res://addons/enjin/example/art/king/king.png")
 
 func _physics_process(delta):
     if !$"../"._loaded:
         return
+
+    invulnerability_remaining = max(0, invulnerability_remaining - delta)
 
     check_bounce(delta)
 
@@ -101,10 +105,15 @@ func add_coins(amount: int):
     return coins
 
 func damage(amount: int):
+    if invulnerability_remaining > 0:
+        return
+
     health = max(0, health - amount)
 
     if is_dead():
         get_tree().reload_current_scene()
+    else:
+        invulnerability_remaining = invulnerability_time
 
 func is_dead():
     return health == 0
