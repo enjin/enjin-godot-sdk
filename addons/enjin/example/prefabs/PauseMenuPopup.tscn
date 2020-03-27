@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/enjin/example/fonts/Roboto64.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/enjin/example/scripts/client/PauseMenu.gd" type="Script" id=2]
+
+[node name="PauseMenu" type="Popup"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sidebar" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 500.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_vertical = 3
+
+[node name="Background" type="ColorRect" parent="HBoxContainer/Sidebar"]
+margin_right = 500.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.572549, 0.262745, 0.878431, 0.392157 )
+
+[node name="ResumeBtn" type="Button" parent="HBoxContainer/Sidebar/Background"]
+anchor_left = 0.1
+anchor_top = 0.185185
+anchor_right = 0.9
+anchor_bottom = 0.261111
+custom_fonts/font = ExtResource( 1 )
+text = "RESUME"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="OptionsBtn" type="Button" parent="HBoxContainer/Sidebar/Background"]
+anchor_left = 0.1
+anchor_top = 0.462037
+anchor_right = 0.9
+anchor_bottom = 0.537963
+custom_fonts/font = ExtResource( 1 )
+text = "OPTIONS"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="QuitBtn" type="Button" parent="HBoxContainer/Sidebar/Background"]
+anchor_left = 0.1
+anchor_top = 0.738889
+anchor_right = 0.9
+anchor_bottom = 0.814815
+custom_fonts/font = ExtResource( 1 )
+text = "QUIT"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+[connection signal="pressed" from="HBoxContainer/Sidebar/Background/ResumeBtn" to="." method="_on_resume"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/Background/OptionsBtn" to="." method="_on_options"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/Background/QuitBtn" to="." method="_on_quit"]
