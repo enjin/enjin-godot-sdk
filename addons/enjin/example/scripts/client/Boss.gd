@@ -8,7 +8,6 @@ export var gravity = 30
 export var approach_distance = 150
 export var retreat_distance = 100
 export var attack_cooldown = 2
-export var invincibility_cooldown = 5
 
 var is_fighting = false
 var player
@@ -16,7 +15,6 @@ var facing_left = false
 var velocity = Vector2(0, 0)
 var moving = false
 var attack_cooldown_remaining = 0
-var invincibility_cooldown_remaining = 0
 var mid_attack = false
 var health = 3
 var stunned = false
@@ -33,13 +31,9 @@ func _process(delta):
 
     velocity.y += gravity
     attack_cooldown_remaining = max(0, attack_cooldown_remaining - delta)
-    invincibility_cooldown_remaining = max(0, invincibility_cooldown_remaining - delta)
 
     if stunned:
         return
-
-    if invincibility_cooldown_remaining == 0 and $Bounce/CollisionShape2D.disabled:
-        $Bounce/CollisionShape2D.disabled = false
 
     if !is_fighting:
         return
@@ -93,6 +87,7 @@ func animation_complete(name):
     elif name == "Taunt":
         $Sprite/AnimationPlayer.play("Idle")
         stunned = false
+        $Bounce/CollisionShape2D.disabled = false
 
 func chop_hit_check():
     if facing_left and $Chop/Left.overlaps_body(player):
@@ -112,7 +107,6 @@ func player_bounced_on_head(entity):
 
     $Sprite/AnimationPlayer.play("Damage 1" if health == 2 else "Damage 2")
     $Bounce/CollisionShape2D.disabled = true
-    invincibility_cooldown_remaining = invincibility_cooldown
     stunned = true
     velocity = Vector2(0, 0)
 
