@@ -106,6 +106,7 @@ func player_bounced_on_head(entity):
         velocity = Vector2.ZERO
         $Sprite/AnimationPlayer.play("Death")
         $Bounce/CollisionShape2D.disabled = true
+        $HitZone/CollisionShape2D.disabled = true
         emit_signal("boss_defeated")
         return
 
