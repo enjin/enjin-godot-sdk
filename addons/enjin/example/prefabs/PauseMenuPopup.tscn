@@ -1,10 +1,20 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://addons/enjin/example/fonts/Roboto64.tres" type="DynamicFont" id=1]
 [ext_resource path="res://addons/enjin/example/scripts/client/PauseMenu.gd" type="Script" id=2]
+[ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_Esc_T.png" type="Texture" id=3]
+[ext_resource path="res://addons/enjin/example/fonts/Roboto48.tres" type="DynamicFont" id=4]
+[ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_D_T.png" type="Texture" id=5]
+[ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_Arrow_Right_T.png" type="Texture" id=6]
+[ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_A_T.png" type="Texture" id=7]
+[ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_Arrow_Left_T.png" type="Texture" id=8]
+[ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_W_T.png" type="Texture" id=9]
+[ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_Arrow_Up_T.png" type="Texture" id=10]
+[ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_Space_bar_T.png" type="Texture" id=11]
 
 [node name="PauseMenu" type="Popup"]
 pause_mode = 2
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
@@ -72,6 +82,174 @@ text = "QUIT"
 __meta__ = {
 "_edit_use_anchors_": true
 }
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+margin_left = 504.0
+margin_right = 1329.0
+margin_bottom = 1080.0
+custom_constants/margin_top = 40
+custom_constants/margin_left = 40
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/MarginContainer"]
+margin_left = 40.0
+margin_top = 40.0
+margin_right = 825.0
+margin_bottom = 680.0
+size_flags_vertical = 0
+custom_constants/vseparation = 60
+custom_constants/hseparation = 40
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseGame" type="Label" parent="HBoxContainer/MarginContainer/GridContainer"]
+margin_top = 11.0
+margin_right = 270.0
+margin_bottom = 68.0
+custom_fonts/font = ExtResource( 4 )
+text = "Pause Game"
+
+[node name="Escape" type="TextureRect" parent="HBoxContainer/MarginContainer/GridContainer"]
+margin_left = 310.0
+margin_right = 390.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+
+[node name="MoveRight" type="Label" parent="HBoxContainer/MarginContainer/GridContainer"]
+margin_top = 151.0
+margin_right = 270.0
+margin_bottom = 208.0
+custom_fonts/font = ExtResource( 4 )
+text = "Move Right"
+
+[node name="MoveRightImages" type="HBoxContainer" parent="HBoxContainer/MarginContainer/GridContainer"]
+margin_left = 310.0
+margin_top = 140.0
+margin_right = 785.0
+margin_bottom = 220.0
+custom_constants/separation = 30
+
+[node name="D" type="TextureRect" parent="HBoxContainer/MarginContainer/GridContainer/MoveRightImages"]
+margin_right = 80.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 5
+
+[node name="Right" type="TextureRect" parent="HBoxContainer/MarginContainer/GridContainer/MoveRightImages"]
+margin_left = 110.0
+margin_right = 190.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 5
+
+[node name="MoveLeft" type="Label" parent="HBoxContainer/MarginContainer/GridContainer"]
+margin_top = 291.0
+margin_right = 270.0
+margin_bottom = 348.0
+custom_fonts/font = ExtResource( 4 )
+text = "Move Right"
+
+[node name="MoveLeftImages" type="HBoxContainer" parent="HBoxContainer/MarginContainer/GridContainer"]
+margin_left = 310.0
+margin_top = 280.0
+margin_right = 785.0
+margin_bottom = 360.0
+custom_constants/separation = 30
+
+[node name="A" type="TextureRect" parent="HBoxContainer/MarginContainer/GridContainer/MoveLeftImages"]
+margin_right = 80.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 5
+
+[node name="Left" type="TextureRect" parent="HBoxContainer/MarginContainer/GridContainer/MoveLeftImages"]
+margin_left = 110.0
+margin_right = 190.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 5
+
+[node name="Jump" type="Label" parent="HBoxContainer/MarginContainer/GridContainer"]
+margin_top = 431.0
+margin_right = 270.0
+margin_bottom = 488.0
+custom_fonts/font = ExtResource( 4 )
+text = "Move Right"
+
+[node name="JumpImages" type="HBoxContainer" parent="HBoxContainer/MarginContainer/GridContainer"]
+margin_left = 310.0
+margin_top = 420.0
+margin_right = 785.0
+margin_bottom = 500.0
+custom_constants/separation = 30
+
+[node name="W" type="TextureRect" parent="HBoxContainer/MarginContainer/GridContainer/JumpImages"]
+margin_right = 80.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+
+[node name="Up" type="TextureRect" parent="HBoxContainer/MarginContainer/GridContainer/JumpImages"]
+margin_left = 110.0
+margin_right = 190.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 5
+
+[node name="Fill" type="Control" parent="HBoxContainer/MarginContainer/GridContainer"]
+margin_top = 560.0
+margin_right = 270.0
+margin_bottom = 640.0
+
+[node name="Space" type="TextureRect" parent="HBoxContainer/MarginContainer/GridContainer"]
+margin_left = 310.0
+margin_top = 560.0
+margin_right = 785.0
+margin_bottom = 640.0
+rect_min_size = Vector2( 475, 80 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 5
 [connection signal="pressed" from="HBoxContainer/Sidebar/Background/ResumeBtn" to="." method="_on_resume"]
 [connection signal="pressed" from="HBoxContainer/Sidebar/Background/OptionsBtn" to="." method="_on_options"]
 [connection signal="pressed" from="HBoxContainer/Sidebar/Background/QuitBtn" to="." method="_on_quit"]
