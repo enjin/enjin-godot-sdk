@@ -2,7 +2,7 @@ extends Popup
 
 func _process(delta):
     var escape = Input.is_action_just_released("ui_cancel")
-    
+
     if escape and visible:
         _resume()
     elif escape and not visible and not get_tree().paused:
