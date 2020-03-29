@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://addons/enjin/example/fonts/Roboto64.tres" type="DynamicFont" id=1]
 [ext_resource path="res://addons/enjin/example/scripts/client/PauseMenu.gd" type="Script" id=2]
@@ -14,6 +14,41 @@
 [ext_resource path="res://addons/enjin/example/art/ui/minotaur.png" type="Texture" id=12]
 [ext_resource path="res://addons/enjin/example/art/slime/slime-attack-2.png" type="Texture" id=13]
 [ext_resource path="res://addons/enjin/example/fonts/Roboto24.tres" type="DynamicFont" id=14]
+[ext_resource path="res://addons/enjin/example/themes/pause_menu_sidebar.tres" type="Theme" id=15]
+[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_4.png" type="Texture" id=16]
+[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_3.png" type="Texture" id=17]
+[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_6.png" type="Texture" id=18]
+[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_5.png" type="Texture" id=19]
+[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_1.png" type="Texture" id=20]
+[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_7.png" type="Texture" id=21]
+[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_0.png" type="Texture" id=22]
+[ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_2.png" type="Texture" id=23]
+[ext_resource path="res://addons/enjin/example/art/key_02d.png" type="Texture" id=24]
+[ext_resource path="res://addons/enjin/example/art/heart.png" type="Texture" id=25]
+[ext_resource path="res://addons/enjin/example/art/crown.png" type="Texture" id=26]
+
+[sub_resource type="AnimatedTexture" id=1]
+frames = 8
+fps = 8.0
+frame_0/texture = ExtResource( 22 )
+frame_1/texture = ExtResource( 20 )
+frame_1/delay_sec = 0.0
+frame_2/texture = ExtResource( 23 )
+frame_2/delay_sec = 0.0
+frame_3/texture = ExtResource( 17 )
+frame_3/delay_sec = 0.0
+frame_4/texture = ExtResource( 16 )
+frame_4/delay_sec = 0.0
+frame_5/texture = ExtResource( 19 )
+frame_5/delay_sec = 0.0
+frame_6/texture = ExtResource( 18 )
+frame_6/delay_sec = 0.0
+frame_7/texture = ExtResource( 21 )
+frame_7/delay_sec = 0.0
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 26 )
+region = Rect2( 41, 12, 14, 8 )
 
 [node name="PauseMenu" type="Popup"]
 pause_mode = 2
@@ -40,46 +75,37 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sidebar" type="VBoxContainer" parent="HBoxContainer"]
+[node name="Sidebar" type="Panel" parent="HBoxContainer"]
 margin_right = 350.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 350, 0 )
-size_flags_vertical = 3
+theme = ExtResource( 15 )
 
-[node name="Background" type="ColorRect" parent="HBoxContainer/Sidebar"]
-margin_right = 350.0
-margin_bottom = 1080.0
+[node name="VBox" type="VBoxContainer" parent="HBoxContainer/Sidebar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 350, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-color = Color( 0.572549, 0.262745, 0.878431, 0.392157 )
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="ResumeBtn" type="Button" parent="HBoxContainer/Sidebar/Background"]
-anchor_left = 0.1
-anchor_top = 0.185185
-anchor_right = 0.9
-anchor_bottom = 0.261111
+[node name="ResumeBtn" type="Button" parent="HBoxContainer/Sidebar/VBox"]
+margin_top = 462.0
+margin_right = 350.0
+margin_bottom = 538.0
 custom_fonts/font = ExtResource( 1 )
 text = "RESUME"
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="OptionsBtn" type="Button" parent="HBoxContainer/Sidebar/Background"]
-anchor_left = 0.1
-anchor_top = 0.462037
-anchor_right = 0.9
-anchor_bottom = 0.537963
-custom_fonts/font = ExtResource( 1 )
-text = "OPTIONS"
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="QuitBtn" type="Button" parent="HBoxContainer/Sidebar/Background"]
-anchor_left = 0.1
-anchor_top = 0.738889
-anchor_right = 0.9
-anchor_bottom = 0.814815
+[node name="QuitBtn" type="Button" parent="HBoxContainer/Sidebar/VBox"]
+margin_top = 542.0
+margin_right = 350.0
+margin_bottom = 618.0
 custom_fonts/font = ExtResource( 1 )
 text = "QUIT"
 __meta__ = {
@@ -96,10 +122,10 @@ custom_constants/margin_left = 40
 
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer/Controls"]
 margin_left = 40.0
-margin_top = 40.0
+margin_top = 250.0
 margin_right = 747.0
-margin_bottom = 660.0
-size_flags_vertical = 0
+margin_bottom = 870.0
+size_flags_vertical = 4
 custom_constants/vseparation = 60
 custom_constants/hseparation = 40
 columns = 2
@@ -273,44 +299,174 @@ margin_right = 775.0
 margin_bottom = 538.0
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/GameElements/VBoxContainer"]
+[node name="TopRow" type="HBoxContainer" parent="HBoxContainer/GameElements/VBoxContainer"]
 margin_right = 775.0
+margin_bottom = 176.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/GameElements/VBoxContainer"]
-margin_top = 4.0
-margin_right = 775.0
-margin_bottom = 4.0
+[node name="Coin" type="TextureRect" parent="HBoxContainer/GameElements/VBoxContainer/TopRow"]
+margin_left = 187.0
+margin_top = 48.0
+margin_right = 267.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 80, 80 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = SubResource( 1 )
+expand = true
+stretch_mode = 5
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/GameElements/VBoxContainer"]
-margin_top = 8.0
+[node name="CoinDescription" type="Label" parent="HBoxContainer/GameElements/VBoxContainer/TopRow"]
+margin_left = 287.0
+margin_top = 41.0
+margin_right = 587.0
+margin_bottom = 134.0
+rect_min_size = Vector2( 300, 0 )
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 14 )
+text = "Pick up coins Found scattered throught the Level!"
+align = 3
+valign = 1
+autowrap = true
+uppercase = true
+
+[node name="MidRow" type="HBoxContainer" parent="HBoxContainer/GameElements/VBoxContainer"]
+margin_top = 180.0
 margin_right = 775.0
-margin_bottom = 8.0
+margin_bottom = 356.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+alignment = 1
+
+[node name="KeyInfo" type="HBoxContainer" parent="HBoxContainer/GameElements/VBoxContainer/MidRow"]
+margin_right = 387.0
+margin_bottom = 176.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Key" type="TextureRect" parent="HBoxContainer/GameElements/VBoxContainer/MidRow/KeyInfo"]
+margin_top = 48.0
+margin_right = 80.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 80, 80 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource( 24 )
+expand = true
+stretch_mode = 5
+
+[node name="KeyDescription" type="Label" parent="HBoxContainer/GameElements/VBoxContainer/MidRow/KeyInfo"]
+margin_left = 83.0
+margin_top = 57.0
+margin_right = 333.0
+margin_bottom = 118.0
+rect_min_size = Vector2( 250, 0 )
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 14 )
+text = "Find the key to unlock the gate!"
+align = 3
+valign = 1
+autowrap = true
+uppercase = true
+
+[node name="HeartInfo" type="HBoxContainer" parent="HBoxContainer/GameElements/VBoxContainer/MidRow"]
+margin_left = 387.0
+margin_right = 775.0
+margin_bottom = 176.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+
+[node name="Heart" type="TextureRect" parent="HBoxContainer/GameElements/VBoxContainer/MidRow/HeartInfo"]
+margin_top = 48.0
+margin_right = 80.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 80, 80 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource( 25 )
+expand = true
+stretch_mode = 5
+
+[node name="HeartDescription" type="Label" parent="HBoxContainer/GameElements/VBoxContainer/MidRow/HeartInfo"]
+margin_left = 99.0
+margin_top = 41.0
+margin_right = 349.0
+margin_bottom = 134.0
+rect_min_size = Vector2( 250, 0 )
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 14 )
+text = "Pickup the heart for a +2 heatlh boost!"
+align = 3
+valign = 1
+autowrap = true
+uppercase = true
+
+[node name="BottomRow" type="HBoxContainer" parent="HBoxContainer/GameElements/VBoxContainer"]
+margin_top = 360.0
+margin_right = 775.0
+margin_bottom = 538.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+alignment = 1
+
+[node name="Crown" type="TextureRect" parent="HBoxContainer/GameElements/VBoxContainer/BottomRow"]
+margin_left = 207.0
+margin_top = 64.0
+margin_right = 297.0
+margin_bottom = 114.0
+rect_min_size = Vector2( 90, 50 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = SubResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="CrownDescription" type="Label" parent="HBoxContainer/GameElements/VBoxContainer/BottomRow"]
+margin_left = 316.0
+margin_top = 42.0
+margin_right = 566.0
+margin_bottom = 135.0
+rect_min_size = Vector2( 250, 0 )
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 14 )
+text = "Beat the boss and claim the crown for a new look!"
+align = 3
+valign = 1
+autowrap = true
+uppercase = true
 
 [node name="Enemies" type="GridContainer" parent="HBoxContainer/GameElements"]
 margin_top = 542.0
 margin_right = 775.0
-margin_bottom = 992.0
-size_flags_vertical = 2
+margin_bottom = 1080.0
+size_flags_vertical = 3
 custom_constants/vseparation = 0
 custom_constants/hseparation = 0
 columns = 2
 
 [node name="SlimeTexture" type="TextureRect" parent="HBoxContainer/GameElements/Enemies"]
 margin_left = 118.0
+margin_top = 44.0
 margin_right = 268.0
-margin_bottom = 150.0
+margin_bottom = 194.0
 rect_min_size = Vector2( 150, 150 )
 size_flags_horizontal = 6
-size_flags_vertical = 2
+size_flags_vertical = 6
 texture = ExtResource( 13 )
 expand = true
 stretch_mode = 5
 
 [node name="SlimeDescription" type="Label" parent="HBoxContainer/GameElements/Enemies"]
 margin_left = 430.0
-margin_top = 28.0
+margin_top = 72.0
 margin_right = 730.0
-margin_bottom = 121.0
+margin_bottom = 165.0
 rect_min_size = Vector2( 300, 0 )
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 14 )
@@ -322,9 +478,9 @@ uppercase = true
 
 [node name="MinotaurDescription" type="Label" parent="HBoxContainer/GameElements/Enemies"]
 margin_left = 43.0
-margin_top = 221.0
+margin_top = 309.0
 margin_right = 343.0
-margin_bottom = 378.0
+margin_bottom = 466.0
 rect_min_size = Vector2( 300, 0 )
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 14 )
@@ -336,15 +492,14 @@ uppercase = true
 
 [node name="MinotaurTexture" type="TextureRect" parent="HBoxContainer/GameElements/Enemies"]
 margin_left = 430.0
-margin_top = 150.0
+margin_top = 238.0
 margin_right = 730.0
-margin_bottom = 450.0
+margin_bottom = 538.0
 rect_min_size = Vector2( 300, 300 )
 size_flags_horizontal = 6
-size_flags_vertical = 2
+size_flags_vertical = 6
 texture = ExtResource( 12 )
 expand = true
 stretch_mode = 5
-[connection signal="pressed" from="HBoxContainer/Sidebar/Background/ResumeBtn" to="." method="_on_resume"]
-[connection signal="pressed" from="HBoxContainer/Sidebar/Background/OptionsBtn" to="." method="_on_options"]
-[connection signal="pressed" from="HBoxContainer/Sidebar/Background/QuitBtn" to="." method="_on_quit"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/VBox/ResumeBtn" to="." method="_on_resume"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/VBox/QuitBtn" to="." method="_on_quit"]
