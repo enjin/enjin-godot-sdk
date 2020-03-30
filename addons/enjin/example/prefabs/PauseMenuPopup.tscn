@@ -14,7 +14,7 @@
 [ext_resource path="res://addons/enjin/example/art/ui/minotaur.png" type="Texture" id=12]
 [ext_resource path="res://addons/enjin/example/art/slime/slime-attack-2.png" type="Texture" id=13]
 [ext_resource path="res://addons/enjin/example/fonts/Roboto24.tres" type="DynamicFont" id=14]
-[ext_resource path="res://addons/enjin/example/themes/pause_menu_sidebar.tres" type="Theme" id=15]
+[ext_resource path="res://addons/enjin/example/themes/pause_sidebar.tres" type="Theme" id=15]
 [ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_4.png" type="Texture" id=16]
 [ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_3.png" type="Texture" id=17]
 [ext_resource path="res://addons/enjin/example/art/coins/EnjinCoin_Gold Coin_6.png" type="Texture" id=18]
@@ -360,9 +360,9 @@ expand = true
 stretch_mode = 5
 
 [node name="KeyDescription" type="Label" parent="HBoxContainer/GameElements/VBoxContainer/MidRow/KeyInfo"]
-margin_left = 83.0
+margin_left = 84.0
 margin_top = 57.0
-margin_right = 333.0
+margin_right = 334.0
 margin_bottom = 118.0
 rect_min_size = Vector2( 250, 0 )
 size_flags_horizontal = 4
@@ -393,9 +393,9 @@ expand = true
 stretch_mode = 5
 
 [node name="HeartDescription" type="Label" parent="HBoxContainer/GameElements/VBoxContainer/MidRow/HeartInfo"]
-margin_left = 99.0
+margin_left = 100.0
 margin_top = 41.0
-margin_right = 349.0
+margin_right = 350.0
 margin_bottom = 134.0
 rect_min_size = Vector2( 250, 0 )
 size_flags_horizontal = 4
@@ -428,9 +428,9 @@ expand = true
 stretch_mode = 5
 
 [node name="CrownDescription" type="Label" parent="HBoxContainer/GameElements/VBoxContainer/BottomRow"]
-margin_left = 316.0
+margin_left = 317.0
 margin_top = 42.0
-margin_right = 566.0
+margin_right = 567.0
 margin_bottom = 135.0
 rect_min_size = Vector2( 250, 0 )
 size_flags_horizontal = 4
