@@ -1,4 +1,4 @@
 extends Button
 
 func _quit_pressed():
-    get_tree().quit()
+    get_tree().reload_current_scene()
