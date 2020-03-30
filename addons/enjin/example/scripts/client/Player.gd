@@ -36,9 +36,6 @@ var invulnerability_time: float = 1
 var king_texture = preload("res://addons/enjin/example/art/king/king.png")
 
 func _physics_process(delta):
-    if !$"../"._loaded:
-        return
-
     invulnerability_remaining = max(0, invulnerability_remaining - delta)
 
     check_bounce(delta)

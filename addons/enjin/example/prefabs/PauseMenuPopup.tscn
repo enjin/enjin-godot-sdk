@@ -52,7 +52,6 @@ region = Rect2( 41, 12, 14, 8 )
 
 [node name="PauseMenu" type="Popup"]
 pause_mode = 2
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )

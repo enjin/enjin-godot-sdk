@@ -12,13 +12,14 @@ const DEFAULT_SETTINGS: Dictionary = {
 const SETTINGS_FILE_NAME: String = "client.cfg"
 
 # Fields
+var player
 var _settings: Settings
 var _client: WebSocketClient
 var _tp_client: TrustedPlatformClient
 var _app_id: int
 var _tokens
 var _identity: Dictionary
-var _loaded: bool = false
+
 # Callbacks
 var _fetch_player_data_callback: EnjinCallback
 
@@ -37,13 +38,17 @@ func _init():
     _client.connect("data_received", self, "_data_received")
 
 func _ready():
+    player = get_tree().get_nodes_in_group("player")[0]
+    
     # Check if the settings have been configured.
     if !_settings_valid():
         # If not then quit.
         get_tree().quit()
 
+    get_tree().paused = true
+
     # Display loading screen.
-    $UI/Loading.show()
+    $"../UI/Loading".show()
 
     # Initiate connection to server.
     _client.connect_to_url("localhost:%d" % _settings.data().connection.port)
@@ -115,22 +120,23 @@ func load_identity(data):
     var balances = wallet.balances # Get the balances from the wallet.
     for bal in balances: # Iterate over balances and update game state.
         if bal.id == _tokens.crown.id and bal.value > 0: # Check if player has the crown token.
-            $Player.has_crown = true
-            $Player.swap_textures()
-            $Level/Crown.queue_free()
+            player.has_crown = true
+            player.swap_textures()
+            $"../Level/Crown".queue_free()
         elif bal.id == _tokens.key.id and bal.value > 0: # Check if the player has the key token.
-            $Player.has_key = true
-            $Level/Key.queue_free()
-            $UI/HUD/HBoxContainer/Key.show()
+            player.has_key = true
+            $"../Level/Key".queue_free()
+            $"../UI/HUD/HBoxContainer/Key".show()
         elif bal.id == _tokens.health_upgrade.id: # Check if the player has the health upgrade token.
-            $Player.max_health = 5
-            $Player.health += 2
-            $Level/HealthUpgrade.queue_free()
+            player.max_health = 5
+            player.health += 2
+            $"../Level/HealthUpgrade".queue_free()
         elif bal.id == _tokens.shard.id: # Check if player has any coin tokens.
-            $Player.coins_in_wallet = bal.value
+            player.coins_in_wallet = bal.value
 
-    _loaded = true
-    $UI/Loading.hide() # Hide the loading screen.
+    $"../UI/Loading".hide() # Hide the loading screen.
+    
+    get_tree().paused = false
 
 func get_identity(identities):
     for identity in identities:
@@ -140,7 +146,7 @@ func get_identity(identities):
     return null
 
 func download_and_show_qr_code(url: String):
-    if $UI/LinkWallet/Rect.texture == null:
+    if $"../UI/LinkWallet/Rect".texture == null:
         # Create and add new HTTPRequest to the scene.
         var http_request = HTTPRequest.new()
         add_child(http_request)
@@ -154,9 +160,8 @@ func download_and_show_qr_code(url: String):
         show_qr_code()
 
 func show_qr_code():
-    $UI/Loading.hide()
-    $UI/LinkWallet.show()
-    get_tree().paused = true
+    $"../UI/Loading".hide()
+    $"../UI/LinkWallet".show()
 
 func handshake():
     var packet = {
@@ -175,13 +180,13 @@ func send_token(name: String, amount: int):
     WebSocketHelper.send_packet(_client, packet)
 
 func exit_entered(body):
-    $Player.accept_input = false
-    $Player.velocity = Vector2(0, 0)
-    send_token("shard", $Player.coins) # Send collected coins to the player's wallet.
-    $UI/GameComplete.show()
-    $Timer.set_wait_time(.5)
-    $Timer.start()
-    yield($Timer, "timeout")
+    player.accept_input = false
+    player.velocity = Vector2(0, 0)
+    send_token("shard", player.coins) # Send collected coins to the player's wallet.
+    $"../UI/GameComplete".show()
+    $"../Timer".set_wait_time(.5)
+    $"../Timer".start()
+    yield($"../Timer", "timeout")
     get_tree().paused = true
 
 func key_grabbed(body):
@@ -206,11 +211,11 @@ func _qr_code_request_complete(result, response_code, headers, body):
     # Create texture rectangle
     var texture = ImageTexture.new()
     texture.create_from_image(image)
-    $UI/LinkWallet/Rect.texture = texture
+    $"../UI/LinkWallet/Rect".texture = texture
     show_qr_code()
 
 func _wallet_linked():
-    $UI/Loading.show()
+    $"../UI/Loading".show()
     fetch_player_data()
 
 func health_upgrade_grabbed(body):

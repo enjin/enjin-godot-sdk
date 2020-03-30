@@ -53,6 +53,9 @@ func _init():
     _server.connect("data_received", self, "_data_received")
 
 func _ready():
+    # Prevents web socket from being paused
+    self.set_pause_mode(2)
+    
     # Check if the settings have been configured.
     if !_settings_valid():
         # If not then quit.
