@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/enjin/example/themes/main_menu.tres" type="Theme" id=1]
+[ext_resource path="res://addons/enjin/example/fonts/Roboto64.tres" type="DynamicFont" id=2]
+[ext_resource path="res://addons/enjin/example/scripts/client/MainMenu.gd" type="Script" id=3]
+
+[node name="MainMenu" type="PopupPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 659.0
+margin_top = 285.0
+margin_right = 1261.0
+margin_bottom = 795.0
+custom_constants/separation = 300
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_right = 602.0
+margin_bottom = 76.0
+custom_fonts/font = ExtResource( 2 )
+text = "Enjin Godot Demo"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="Buttons" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 376.0
+margin_right = 602.0
+margin_bottom = 510.0
+custom_constants/separation = 20
+
+[node name="Start" type="Button" parent="CenterContainer/VBoxContainer/Buttons"]
+margin_right = 602.0
+margin_bottom = 57.0
+text = "START"
+
+[node name="Exit" type="Button" parent="CenterContainer/VBoxContainer/Buttons"]
+margin_top = 77.0
+margin_right = 602.0
+margin_bottom = 134.0
+text = "EXIT"
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Start" to="." method="_on_start"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Exit" to="." method="_on_exit"]

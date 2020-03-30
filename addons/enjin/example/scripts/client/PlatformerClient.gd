@@ -47,9 +47,7 @@ func _ready():
 
     get_tree().paused = true
 
-    # Display loading screen.
-    $"../UI/Loading".show()
-
+func connect_to_server():
     # Initiate connection to server.
     _client.connect_to_url("localhost:%d" % _settings.data().connection.port)
 
