@@ -240,3 +240,28 @@ func _get_wallet(udata: Dictionary):
 ```
 
 To fetch a player's wallet and balances we create the input `var input = GetWalletInput.new.eth_addr(eth_addr)`, then include the balances `input.wallet_i.with_balances(true)`, and finally submit our request. Once we have the wallet we can get the balances array: `var balances: Array = wallet.balances`. The balances, by default, include the id, index, and value (amount).
+
+### Sending Tokens To Player
+
+```gdscript
+var _client: TrustedPlatformClient
+
+func _init():
+    _client = TrustedPlatformClient.new()
+
+func send_token(app_id: int, token_id: String, amount: int, sender_id: int, recipient_id: int):
+    var input: CreateRequestInput = CreateRequestInput.new()
+    input.app_id(app_id)
+    input.tx_type("SEND")
+    input.identity_id(sender_id)
+    input.send_token({
+            "token_id": token_id,
+            "recipient_identity_id": recipient_id,
+            "value": amount
+        })
+
+    # Create a new request.
+    _tp_client.request_service().create_request(input)
+```
+
+The above example demonstrates how to send a token to a player. `input.app_id(app_id)` sets the id of the app (your apps id) that this request is being created for. `input.tx_type("SEND")` sets the type to be a send token request. `input.identity_id(sender_id)` designates the identity to send from. The `input.send_token()` function takes in a dictionary that needs a `token_id`, `recipient_identity_id`, and `value` key set.
