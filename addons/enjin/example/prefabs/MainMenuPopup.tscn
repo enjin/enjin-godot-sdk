@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/enjin/example/themes/main_menu.tres" type="Theme" id=1]
-[ext_resource path="res://addons/enjin/example/fonts/Roboto64.tres" type="DynamicFont" id=2]
+[ext_resource path="res://addons/enjin/example/themes/pause_sidebar.tres" type="Theme" id=2]
 [ext_resource path="res://addons/enjin/example/scripts/client/MainMenu.gd" type="Script" id=3]
+[ext_resource path="res://addons/enjin/example/fonts/Roboto48.tres" type="DynamicFont" id=4]
+[ext_resource path="res://addons/enjin/example/scripts/client/Sidebar.gd" type="Script" id=5]
 
 [node name="MainMenu" type="PopupPanel"]
 anchor_right = 1.0
@@ -13,45 +15,74 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 659.0
-margin_top = 285.0
-margin_right = 1261.0
-margin_bottom = 795.0
-custom_constants/separation = 300
+[node name="Sidebar" type="Panel" parent="HBoxContainer"]
+margin_right = 350.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 350, 0 )
+theme = ExtResource( 2 )
+script = ExtResource( 5 )
+btns = [ NodePath("Buttons/VBoxContainer/Start"), NodePath("Buttons/VBoxContainer/Options"), NodePath("Buttons/VBoxContainer/Exit") ]
+
+[node name="Title" type="Label" parent="HBoxContainer/Sidebar"]
+anchor_right = 1.0
+margin_top = 30.0
+margin_bottom = 117.0
+custom_fonts/font = ExtResource( 4 )
+text = "Enjin
+Godot Demo"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="MarginContainer" parent="HBoxContainer/Sidebar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_left = 30
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/Buttons"]
+margin_left = 30.0
+margin_right = 350.0
+margin_bottom = 1080.0
+custom_constants/separation = 30
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
-margin_right = 602.0
-margin_bottom = 76.0
-custom_fonts/font = ExtResource( 2 )
-text = "Enjin Godot Demo"
-align = 1
-valign = 1
-uppercase = true
-
-[node name="Buttons" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 376.0
-margin_right = 602.0
-margin_bottom = 510.0
-custom_constants/separation = 20
-
-[node name="Start" type="Button" parent="CenterContainer/VBoxContainer/Buttons"]
-margin_right = 602.0
-margin_bottom = 57.0
+[node name="Start" type="Button" parent="HBoxContainer/Sidebar/Buttons/VBoxContainer"]
+margin_top = 424.0
+margin_right = 320.0
+margin_bottom = 481.0
 text = "START"
+align = 0
 
-[node name="Exit" type="Button" parent="CenterContainer/VBoxContainer/Buttons"]
-margin_top = 77.0
-margin_right = 602.0
-margin_bottom = 134.0
+[node name="Options" type="Button" parent="HBoxContainer/Sidebar/Buttons/VBoxContainer"]
+margin_top = 511.0
+margin_right = 320.0
+margin_bottom = 568.0
+text = "OPTIONS"
+align = 0
+
+[node name="Exit" type="Button" parent="HBoxContainer/Sidebar/Buttons/VBoxContainer"]
+margin_top = 598.0
+margin_right = 320.0
+margin_bottom = 655.0
 text = "EXIT"
-[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Start" to="." method="_on_start"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Exit" to="." method="_on_exit"]
+align = 0
+[connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBoxContainer/Start" to="." method="_on_start"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBoxContainer/Options" to="." method="_on_options"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBoxContainer/Options" to="HBoxContainer/Sidebar" method="disable_btns"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBoxContainer/Exit" to="." method="_on_exit"]
