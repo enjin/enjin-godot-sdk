@@ -20,11 +20,11 @@ You will also find a number of other client scripts for demo mechanic implementa
 
 Shared scripts are used by both the server and the client, such as `Settings`, for example. These scripts do not demonstrate any SDK functionality.
 
-# SDK Design Methodology
+# SDK Usage
 
 There are a few things that are important for developers to know in order to use the SDK efficiently. The API is separated into a handful of service classes that have their own set of responsibilities.
 
-### App Auth Example
+### Auth App Example
 
 ```gdscript
 var _client: TrustedPlatformClient
@@ -57,9 +57,9 @@ The above example demonstrates how to authenticate your client using the app id 
 
 Finally, to the check if the client authenticated successfully you can use `_client.get_state().is_authed_as_app()`. The state (`TrustedPlatformState`) holds a reference to the app id and access token.
 
-### Player Auth Example
+### Auth Player Example
 
-It should be noted that player authentication does not utilize emails and passwords and is not a sufficient means to prove a player's authenticity. As such you will need to implement your own form of player database and authentication. Player authentication on the SDK takes place on your servers and requires a unique id associated with your players. Upon authenticating a player you will receive an access token which is to be forwarded to the player client to allow for the client to authenticate their TrustedPlatformClient instance. This will be demonstrated with two code examples below:
+It should be noted that player authentication does not utilize emails and passwords and is not a sufficient means to prove a player's authenticity. As such you will need to implement your own form of player database and authentication. Player authentication on the SDK takes place on your servers and requires a unique id associated with your players. Upon authenticating a player you will receive an access token which is to be forwarded to the player so they can authenticate their TrustedPlatformClient instance. This will be demonstrated with two code examples below:
 
 ##### Server Example
 
@@ -97,10 +97,7 @@ The example above demonstrates how to authenticate a player. This works similarl
 ##### Client Example
 
 ```gdscript
-var _client: TrustedPlatformClient
-
-func init():
-    _client = TrustedPlatformClient.new()
+var _client: TrustedPlatformClient = TrustedPlatformClient.new()
 
 # This would be dependent on how you choose to communicate between the server and client.
 # For simplicity sake let's pretend this method receives a byte encoded packet.
@@ -111,3 +108,28 @@ func data_received(raw_packet):
     # Auth the player with the session access token.
     _client.get_state().auth_user(session.accessToken)
 ```
+
+### Creating A Player
+
+As seen in the example above, if you attempt to authenticate a player that does not exist, you will get response error 401. We can use this error code to determine when we need to create a new player.
+
+```gdscript
+var _client: TrustedPlatformClient
+var _create_player_cb: EnjinCallback
+
+func _init():
+    _client = TrustedPlatformClient.new()
+    _create_player_cb = EnjinCallback.new(self, "_create_player")
+
+func create_player(name: String):
+    _client.user_service().create_user(name, { "callback": _create_player_cb, "name": name })
+
+func _create_player(udata: Dictionary):
+    var gql = udata.gql
+    if gql.has_errors():
+        return
+    elif gql.has_result():
+        print("Created User: %s" % udata.name)
+```
+
+Above we demonstrate how to create a new player. `_client.user_service().create_user(name, { "callback": _create_player_cb, "name": name})` creates a new user and attaches the provided name to the udata for future reference in the callback.
