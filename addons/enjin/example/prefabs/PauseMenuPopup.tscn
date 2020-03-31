@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=2]
 
-[ext_resource path="res://addons/enjin/example/fonts/Roboto64.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/enjin/example/scripts/client/Sidebar.gd" type="Script" id=1]
 [ext_resource path="res://addons/enjin/example/scripts/client/PauseMenu.gd" type="Script" id=2]
 [ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_Esc_T.png" type="Texture" id=3]
 [ext_resource path="res://addons/enjin/example/fonts/Roboto48.tres" type="DynamicFont" id=4]
@@ -79,34 +79,45 @@ margin_right = 350.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 350, 0 )
 theme = ExtResource( 15 )
+script = ExtResource( 1 )
+btns = [ NodePath("Buttons/VBox/ResumeBtn"), NodePath("Buttons/VBox/QuitBtn") ]
 
-[node name="VBox" type="VBoxContainer" parent="HBoxContainer/Sidebar"]
+[node name="Buttons" type="MarginContainer" parent="HBoxContainer/Sidebar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 350, 0 )
+custom_constants/margin_left = 30
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="HBoxContainer/Sidebar/Buttons"]
+margin_left = 30.0
+margin_right = 350.0
+margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/separation = 30
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ResumeBtn" type="Button" parent="HBoxContainer/Sidebar/VBox"]
-margin_top = 462.0
-margin_right = 350.0
-margin_bottom = 538.0
-custom_fonts/font = ExtResource( 1 )
+[node name="ResumeBtn" type="Button" parent="HBoxContainer/Sidebar/Buttons/VBox"]
+margin_top = 468.0
+margin_right = 320.0
+margin_bottom = 525.0
 text = "RESUME"
+align = 0
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="QuitBtn" type="Button" parent="HBoxContainer/Sidebar/VBox"]
-margin_top = 542.0
-margin_right = 350.0
-margin_bottom = 618.0
-custom_fonts/font = ExtResource( 1 )
+[node name="QuitBtn" type="Button" parent="HBoxContainer/Sidebar/Buttons/VBox"]
+margin_top = 555.0
+margin_right = 320.0
+margin_bottom = 612.0
 text = "QUIT"
+align = 0
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -500,5 +511,5 @@ size_flags_vertical = 6
 texture = ExtResource( 12 )
 expand = true
 stretch_mode = 5
-[connection signal="pressed" from="HBoxContainer/Sidebar/VBox/ResumeBtn" to="." method="_on_resume"]
-[connection signal="pressed" from="HBoxContainer/Sidebar/VBox/QuitBtn" to="." method="_on_quit"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/ResumeBtn" to="." method="_on_resume"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/QuitBtn" to="." method="_on_quit"]

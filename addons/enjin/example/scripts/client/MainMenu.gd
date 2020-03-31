@@ -10,3 +10,9 @@ func _on_start():
 
 func _on_exit():
     get_tree().quit()
+
+func _on_options():
+    if not $"../OptionsMenu".visible:
+        $"../OptionsMenu".show()
+    else:
+        $HBoxContainer/Sidebar.enable_btns()

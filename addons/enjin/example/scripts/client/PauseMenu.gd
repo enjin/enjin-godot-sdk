@@ -15,7 +15,7 @@ func _on_options():
     pass # Replace with function body.
 
 func _on_quit():
-    get_tree().quit()
+    get_tree().reload_current_scene()
 
 func _pause():
     get_tree().paused = true
