@@ -17,7 +17,6 @@ func _on_window_item_selected(id):
             OS.set_window_size(OS.get_screen_size())
             OS.set_window_position(Vector2(0, 0))
 
-
 func _on_resolution_item_selected(id):
     var size: Vector2
     

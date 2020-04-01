@@ -1,13 +1,21 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://addons/enjin/example/themes/main_menu.tres" type="Theme" id=1]
 [ext_resource path="res://addons/enjin/example/themes/pause_sidebar.tres" type="Theme" id=2]
 [ext_resource path="res://addons/enjin/example/scripts/client/OptionsMenu.gd" type="Script" id=3]
 [ext_resource path="res://addons/enjin/example/themes/options_grid.tres" type="Theme" id=4]
 [ext_resource path="res://addons/enjin/example/scripts/client/Sidebar.gd" type="Script" id=5]
+[ext_resource path="res://addons/enjin/example/fonts/Roboto40.tres" type="DynamicFont" id=6]
+[ext_resource path="res://addons/enjin/example/themes/util_button_pressed.tres" type="StyleBox" id=7]
+[ext_resource path="res://addons/enjin/example/themes/util_button_hover.tres" type="StyleBox" id=8]
+[ext_resource path="res://addons/enjin/example/themes/util_button_normal.tres" type="StyleBox" id=9]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.156863, 0.156863, 0.156863, 0.882353 )
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
 
 [sub_resource type="StyleBoxEmpty" id=4]
 
@@ -17,16 +25,15 @@ bg_color = Color( 0.156863, 0.156863, 0.156863, 0.882353 )
 
 [sub_resource type="StyleBoxEmpty" id=7]
 
-[sub_resource type="StyleBoxEmpty" id=8]
-
-[sub_resource type="StyleBoxEmpty" id=9]
-
-[sub_resource type="StyleBoxLine" id=2]
+[sub_resource type="StyleBoxLine" id=8]
 color = Color( 1, 1, 1, 0.196078 )
 thickness = 3
 
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
 [node name="OptionsMenu" type="PopupPanel"]
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 350.0
@@ -85,7 +92,8 @@ __meta__ = {
 
 [node name="Video" type="Button" parent="MarginContainer/HBoxContainer/Sidebar/Buttons/VBoxContainer"]
 margin_right = 270.0
-margin_bottom = 57.0
+margin_bottom = 48.0
+custom_fonts/font = ExtResource( 6 )
 text = "VIDEO"
 align = 0
 
@@ -95,7 +103,7 @@ margin_right = 970.0
 margin_bottom = 880.0
 size_flags_horizontal = 3
 theme = ExtResource( 4 )
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/OptionsArea"]
 anchor_right = 1.0
@@ -205,12 +213,12 @@ margin_top = 44.0
 margin_right = 180.0
 margin_bottom = 76.0
 size_flags_horizontal = 8
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/disabled = SubResource( 7 )
-custom_styles/hover_pressed = SubResource( 8 )
-custom_styles/normal = SubResource( 9 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/disabled = SubResource( 5 )
+custom_styles/hover_pressed = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
 pressed = true
 align = 2
 
@@ -219,7 +227,7 @@ margin_top = 780.0
 margin_right = 670.0
 margin_bottom = 880.0
 rect_min_size = Vector2( 0, 100 )
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 8 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/Bottombar"]
 anchor_right = 1.0
@@ -231,8 +239,15 @@ __meta__ = {
 
 [node name="Close" type="Button" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/Bottombar/HBoxContainer"]
 margin_left = 298.0
+margin_top = 35.0
 margin_right = 372.0
-margin_bottom = 100.0
+margin_bottom = 64.0
+size_flags_vertical = 4
+custom_styles/hover = ExtResource( 8 )
+custom_styles/pressed = ExtResource( 7 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/disabled = SubResource( 10 )
+custom_styles/normal = ExtResource( 9 )
 text = "CLOSE"
 [connection signal="item_selected" from="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions/Buttons/MarginContainer/VBoxContainer/Window" to="." method="_on_window_item_selected"]
 [connection signal="item_selected" from="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions/Buttons/MarginContainer/VBoxContainer/Resolution" to="." method="_on_resolution_item_selected"]

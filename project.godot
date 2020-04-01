@@ -147,12 +147,12 @@ _global_script_classes=[ {
 "base": "",
 "class": "UnlinkAppInput",
 "language": "GDScript",
-"path": "res://addons/enjin/sdk/inputs/wallet/UnlinkIdentityInput.gd"
+"path": "res://addons/enjin/sdk/inputs/wallet/UnlinkAppInput.gd"
 }, {
 "base": "",
 "class": "UnlinkIdentityInput",
 "language": "GDScript",
-"path": "res://addons/enjin/sdk/inputs/wallet/UnlinkAppInput.gd"
+"path": "res://addons/enjin/sdk/inputs/wallet/UnlinkIdentityInput.gd"
 }, {
 "base": "",
 "class": "UpdateAppInput",

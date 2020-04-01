@@ -437,21 +437,23 @@ margin_right = 1920.0
 margin_bottom = 1080.0
 
 [node name="LinkWallet" parent="UI" instance=ExtResource( 17 )]
-
-[node name="Loading" parent="UI" instance=ExtResource( 29 )]
+visible = false
 
 [node name="PauseMenu" parent="UI" instance=ExtResource( 31 )]
 
 [node name="MainMenu" parent="UI" instance=ExtResource( 34 )]
-visible = false
 
 [node name="OptionsMenu" parent="UI" instance=ExtResource( 35 )]
-visible = false
+
+[node name="Loading" parent="UI" instance=ExtResource( 29 )]
 
 [node name="Timer" type="Timer" parent="."]
 pause_mode = 2
 wait_time = 0.25
 one_shot = true
+[connection signal="player_fetched" from="PlatformClient" to="." method="_player_fetched"]
+[connection signal="player_loaded" from="PlatformClient" to="." method="_player_loaded"]
+[connection signal="show_qr" from="PlatformClient" to="." method="_show_qr"]
 [connection signal="tween_completed" from="MainMenu/Camera/Tween" to="MainMenu/Camera" method="_on_tween_complete"]
 [connection signal="body_entered" from="Level/Ladders/Ladder" to="Player" method="_ladder_entered"]
 [connection signal="body_exited" from="Level/Ladders/Ladder" to="Player" method="_ladder_exited"]
@@ -462,21 +464,23 @@ one_shot = true
 [connection signal="body_entered" from="Level/Ladders/Ladder4" to="Player" method="_ladder_entered"]
 [connection signal="body_exited" from="Level/Ladders/Ladder4" to="Player" method="_ladder_exited"]
 [connection signal="boss_defeated" from="Level/Enemies/Boss" to="Level" method="finish_boss_fight"]
-[connection signal="body_entered" from="Level/Key" to="Player" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Key" to="PlatformClient" method="key_grabbed"]
-[connection signal="body_entered" from="Level/Key" to="Level" method="key_grabbed"]
+[connection signal="body_entered" from="Level/Key" to="Player" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Key" to="UI/HUD" method="key_grabbed"]
+[connection signal="body_entered" from="Level/Key" to="Level" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Gate/Gate Trigger" to="Level/Gate" method="player_entered_gate"]
 [connection signal="body_entered" from="Level/Exit" to="PlatformClient" method="exit_entered"]
-[connection signal="body_entered" from="Level/Crown" to="Player" method="crown_grabbed"]
 [connection signal="body_entered" from="Level/Crown" to="PlatformClient" method="crown_grabbed"]
+[connection signal="body_entered" from="Level/Crown" to="Player" method="crown_grabbed"]
 [connection signal="body_entered" from="Level/Crown" to="Level" method="crown_grabbed"]
-[connection signal="body_entered" from="Level/HealthUpgrade" to="Player" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/HealthUpgrade" to="PlatformClient" method="health_upgrade_grabbed"]
+[connection signal="body_entered" from="Level/HealthUpgrade" to="Player" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/HealthUpgrade" to="Level" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/BossFightTrigger" to="Level" method="start_boss_fight"]
-[connection signal="wallet_linked" from="UI/LinkWallet" to="PlatformClient" method="_wallet_linked"]
+[connection signal="wallet_linked" from="UI/LinkWallet" to="." method="fetch_player"]
+[connection signal="link_wallet" from="UI/MainMenu" to="." method="fetch_player"]
 [connection signal="start_game" from="UI/MainMenu" to="." method="load_game"]
+[connection signal="unlink_wallet" from="UI/MainMenu" to="." method="unlink_player"]
 [connection signal="options_closed" from="UI/OptionsMenu" to="UI/MainMenu" method="_on_options"]
 
 [editable path="Level/Key"]

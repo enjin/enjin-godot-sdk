@@ -5,17 +5,13 @@
 [ext_resource path="res://addons/enjin/example/fonts/EndingButton.tres" type="DynamicFont" id=3]
 [ext_resource path="res://addons/enjin/example/scripts/client/QuitButton.gd" type="Script" id=4]
 [ext_resource path="res://addons/enjin/example/themes/main_menu.tres" type="Theme" id=5]
+[ext_resource path="res://addons/enjin/example/themes/util_button_pressed.tres" type="StyleBox" id=6]
+[ext_resource path="res://addons/enjin/example/themes/util_button_hover.tres" type="StyleBox" id=7]
+[ext_resource path="res://addons/enjin/example/themes/util_button_normal.tres" type="StyleBox" id=8]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.6, 0.6, 0.6, 0.196078 )
+[sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="StyleBoxFlat" id=2]
-
-[sub_resource type="StyleBoxEmpty" id=3]
-
-[sub_resource type="StyleBoxEmpty" id=4]
-
-[sub_resource type="StyleBoxEmpty" id=5]
+[sub_resource type="StyleBoxEmpty" id=2]
 
 [node name="Ending" type="PopupPanel"]
 pause_mode = 2
@@ -65,14 +61,16 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_left = 136.0
 margin_top = 335.0
-margin_right = 671.0
+margin_right = 534.0
 margin_bottom = 383.0
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
+size_flags_horizontal = 4
+custom_styles/hover = ExtResource( 7 )
+custom_styles/pressed = ExtResource( 6 )
+custom_styles/focus = SubResource( 1 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = ExtResource( 8 )
 custom_fonts/font = ExtResource( 3 )
 text = "BACK TO MAIN MENU"
 script = ExtResource( 4 )
