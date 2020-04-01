@@ -1,4 +1,7 @@
 extends Node2D
+signal player_fetched
+signal player_loaded
+signal show_qr
 
 # Constants
 const DEFAULT_SETTINGS: Dictionary = {
@@ -22,6 +25,7 @@ var _identity: Dictionary
 
 # Callbacks
 var _fetch_player_data_callback: EnjinCallback
+var _unlink_player_callback: EnjinCallback
 
 func _init():
     _settings = Settings.new(DEFAULT_SETTINGS, SETTINGS_FILE_NAME)
@@ -29,6 +33,7 @@ func _init():
     _tp_client = TrustedPlatformClient.new()
     _app_id = 0
     _fetch_player_data_callback = EnjinCallback.new(self, "_fetch_player_data")
+    _unlink_player_callback = EnjinCallback.new(self, "_unlink_player")
 
     _settings.save()
     _settings.load()
@@ -44,8 +49,6 @@ func _ready():
     if !_settings_valid():
         # If not then quit.
         get_tree().quit()
-
-    get_tree().paused = true
 
 func connect_to_server():
     # Initiate connection to server.
@@ -100,12 +103,7 @@ func fetch_player_data():
     input.identity_i.with_wallet(true) # Include identity wallets.
     _tp_client.user_service().get_user(input, udata) # Send get user request.
 
-func load_identity(data):
-    _identity = get_identity(data.identities) # Get the identity for the configured app.
-
-    if _identity == null:
-        get_tree().quit()
-
+func load_identity():
     var linkingCode = _identity.linkingCodeQr
     if linkingCode and !linkingCode.empty():
         download_and_show_qr_code(linkingCode) # Download and display the QR code to the player.
@@ -132,9 +130,7 @@ func load_identity(data):
         elif bal.id == _tokens.shard.id: # Check if player has any coin tokens.
             player.coins_in_wallet = bal.value
 
-    $"../UI/Loading".hide() # Hide the loading screen.
-    
-    get_tree().paused = false
+    emit_signal("player_loaded")
 
 func get_identity(identities):
     for identity in identities:
@@ -144,22 +140,15 @@ func get_identity(identities):
     return null
 
 func download_and_show_qr_code(url: String):
-    if $"../UI/LinkWallet/Rect".texture == null:
-        # Create and add new HTTPRequest to the scene.
-        var http_request = HTTPRequest.new()
-        add_child(http_request)
-        # Connect request complete signal.
-        http_request.connect("request_completed", self, "_qr_code_request_complete")
-        # Send request
-        var http_error = http_request.request(url)
-        if http_error != OK:
-            print("An error occurred in the HTTP request.")
-    else:
-        show_qr_code()
-
-func show_qr_code():
-    $"../UI/Loading".hide()
-    $"../UI/LinkWallet".show()
+    # Create and add new HTTPRequest to the scene.
+    var http_request = HTTPRequest.new()
+    add_child(http_request)
+    # Connect request complete signal.
+    http_request.connect("request_completed", self, "_qr_code_request_complete")
+    # Send request
+    var http_error = http_request.request(url)
+    if http_error != OK:
+        print("An error occurred in the HTTP request.")
 
 func handshake():
     var packet = {
@@ -198,7 +187,17 @@ func _fetch_player_data(udata: Dictionary):
     if gql.has_errors():
         print("Errors: %s" % PoolStringArray(udata.gql.get_errors()).join(","))
     elif gql.has_result():
-        load_identity(gql.get_result())
+        _identity = get_identity(gql.get_result().identities) # Get the identity for the configured app.
+
+        if _identity == null:
+            get_tree().quit()
+        
+        var linkingCode = _identity.linkingCodeQr
+        if linkingCode and !linkingCode.empty():
+            download_and_show_qr_code(linkingCode) # Download and display the QR code to the player.
+            return
+        
+        emit_signal("player_fetched")
 
 func _qr_code_request_complete(result, response_code, headers, body):
     # Create image from body
@@ -206,15 +205,28 @@ func _qr_code_request_complete(result, response_code, headers, body):
     var image_error = image.load_png_from_buffer(body)
     if image_error != OK:
         print("Unable to load qr code from url.")
-    # Create texture rectangle
-    var texture = ImageTexture.new()
-    texture.create_from_image(image)
-    $"../UI/LinkWallet/Rect".texture = texture
-    show_qr_code()
 
-func _wallet_linked():
-    $"../UI/Loading".show()
-    fetch_player_data()
+    emit_signal("show_qr", image)
 
 func health_upgrade_grabbed(body):
     send_token("health_upgrade", 1)
+
+func unlink_player():
+    var id = _identity.id
+    if !id:
+        return
+    
+    var input = UnlinkIdentityInput.new()
+    var udata = { "callback": _unlink_player_callback }
+    input.id(id)
+    input.identity_i.with_linking_code_qr(true) # Requests new QR code url.
+    _tp_client.wallet_service().unlink_identity(input, udata)
+
+func _unlink_player(udata: Dictionary):
+    var gql: EnjinGraphqlResponse = udata.gql
+    if gql.has_errors():
+        print("errors")
+    elif gql.has_result():
+        var result: Dictionary = gql.get_result()
+        # Gets the new QR code image
+        download_and_show_qr_code(result.linkingCodeQr)
