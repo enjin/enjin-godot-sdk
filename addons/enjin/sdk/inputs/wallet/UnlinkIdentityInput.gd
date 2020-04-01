@@ -1,10 +1,10 @@
-extends "./BaseWalletInput.gd"
-class_name UnlinkAppInput
+extends "../identity/BaseIdentityInput.gd"
+class_name UnlinkIdentityInput
 
-func id(id: int) -> UnlinkAppInput:
+func id(id: int) -> UnlinkIdentityInput:
     vars.id = id
     return self
 
-func eth_addr(ethAddr: String) -> UnlinkAppInput:
+func eth_addr(ethAddr: String) -> UnlinkIdentityInput:
     vars.ethAddr = ethAddr
     return self
