@@ -37,7 +37,6 @@ thickness = 3
 [sub_resource type="StyleBoxEmpty" id=10]
 
 [node name="OptionsMenu" type="PopupPanel"]
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 350.0
@@ -205,7 +204,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Window" type="OptionButton" parent="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox"]
+[node name="Window" type="OptionButton" parent="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox" groups=[
+"video_window_btn",
+]]
 margin_right = 143.0
 margin_bottom = 29.0
 text = "WINDOWED"
@@ -213,7 +214,9 @@ align = 2
 items = [ "FULL SCREEN", null, false, 0, null, "WINDOWED", null, false, 1, null, "BORDERLESS WINDOW", null, false, 2, null ]
 selected = 1
 
-[node name="Resolution" type="OptionButton" parent="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox"]
+[node name="Resolution" type="OptionButton" parent="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox" groups=[
+"video_resolution_btn",
+]]
 visible = false
 margin_top = 44.0
 margin_right = 180.0
@@ -223,7 +226,9 @@ align = 2
 items = [ "1280x1024", null, false, 0, null, "1360x768", null, false, 1, null, "1366x768", null, false, 2, null, "1440x900", null, false, 3, null, "1600x900", null, false, 4, null, "1680x1050", null, false, 5, null, "1920x1080", null, false, 6, null, "2560x1080", null, false, 7, null, "2560x1440", null, false, 8, null, "3840x2160", null, false, 9, null ]
 selected = 6
 
-[node name="Vsync" type="CheckButton" parent="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox"]
+[node name="Vsync" type="CheckButton" parent="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox" groups=[
+"video_vsync_btn",
+]]
 margin_left = 79.0
 margin_top = 44.0
 margin_right = 143.0
@@ -240,9 +245,9 @@ align = 2
 
 [node name="AudioOptions" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox"]
 visible = false
-margin_top = 136.0
+margin_top = 329.0
 margin_right = 670.0
-margin_bottom = 357.0
+margin_bottom = 550.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -414,15 +419,20 @@ rect_min_size = Vector2( 0, 100 )
 size_flags_vertical = 10
 custom_styles/panel = SubResource( 8 )
 
-[node name="Close" type="Button" parent="Margin/HBox/OptionsArea/VBox/Bottombar"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -37.0
-margin_top = -14.5
-margin_right = 37.0
-margin_bottom = 14.5
+[node name="HBox" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox/Bottombar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 250
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Close" type="Button" parent="Margin/HBox/OptionsArea/VBox/Bottombar/HBox"]
+margin_left = 136.0
+margin_top = 35.0
+margin_right = 210.0
+margin_bottom = 64.0
 size_flags_horizontal = 0
 size_flags_vertical = 4
 custom_styles/hover = ExtResource( 8 )
@@ -431,6 +441,25 @@ custom_styles/focus = SubResource( 9 )
 custom_styles/disabled = SubResource( 10 )
 custom_styles/normal = ExtResource( 9 )
 text = "CLOSE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Apply" type="Button" parent="Margin/HBox/OptionsArea/VBox/Bottombar/HBox" groups=[
+"options_apply_btn",
+]]
+margin_left = 460.0
+margin_top = 35.0
+margin_right = 533.0
+margin_bottom = 64.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+custom_styles/hover = ExtResource( 8 )
+custom_styles/pressed = ExtResource( 7 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/disabled = SubResource( 10 )
+custom_styles/normal = ExtResource( 9 )
+text = "APPLY"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -449,6 +478,9 @@ __meta__ = {
 [connection signal="value_changed" from="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/SFXVolume/Slider" to="." method="_on_sfx_volume_changed"]
 [connection signal="gui_input" from="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/UIVolume/Slider" to="." method="_on_ui_slider_gui_input"]
 [connection signal="value_changed" from="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/UIVolume/Slider" to="." method="_on_ui_volume_changed"]
-[connection signal="mouse_entered" from="Margin/HBox/OptionsArea/VBox/Bottombar/Close" to="." method="_on_btn_mouse_entered"]
-[connection signal="pressed" from="Margin/HBox/OptionsArea/VBox/Bottombar/Close" to="." method="_on_btn_pressed"]
-[connection signal="pressed" from="Margin/HBox/OptionsArea/VBox/Bottombar/Close" to="." method="_on_close"]
+[connection signal="mouse_entered" from="Margin/HBox/OptionsArea/VBox/Bottombar/HBox/Close" to="." method="_on_btn_mouse_entered"]
+[connection signal="pressed" from="Margin/HBox/OptionsArea/VBox/Bottombar/HBox/Close" to="." method="_on_btn_pressed"]
+[connection signal="pressed" from="Margin/HBox/OptionsArea/VBox/Bottombar/HBox/Close" to="." method="_on_close"]
+[connection signal="mouse_entered" from="Margin/HBox/OptionsArea/VBox/Bottombar/HBox/Apply" to="." method="_on_btn_mouse_entered"]
+[connection signal="pressed" from="Margin/HBox/OptionsArea/VBox/Bottombar/HBox/Apply" to="." method="_on_btn_pressed"]
+[connection signal="pressed" from="Margin/HBox/OptionsArea/VBox/Bottombar/HBox/Apply" to="." method="_on_apply"]
