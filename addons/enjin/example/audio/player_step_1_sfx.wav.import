@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/player_step_1_sfx.wav-943a1281cdbd61e61d5859ee2ed5335d.sample"
+
+[deps]
+
+source_file="res://addons/enjin/example/audio/player_step_1_sfx.wav"
+dest_files=[ "res://.import/player_step_1_sfx.wav-943a1281cdbd61e61d5859ee2ed5335d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

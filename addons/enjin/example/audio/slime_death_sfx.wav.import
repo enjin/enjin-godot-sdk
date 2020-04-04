@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/slime_death_sfx.wav-b92b42600b6a7238b1481d03b6e37019.sample"
+
+[deps]
+
+source_file="res://addons/enjin/example/audio/slime_death_sfx.wav"
+dest_files=[ "res://.import/slime_death_sfx.wav-b92b42600b6a7238b1481d03b6e37019.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

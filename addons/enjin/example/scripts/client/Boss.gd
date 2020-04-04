@@ -19,6 +19,10 @@ var mid_attack = false
 var health = 3
 var stunned = false
 
+var _voice_1: AudioStream = preload("res://addons/enjin/example/audio/bull_1.wav")
+var _voice_2: AudioStream = preload("res://addons/enjin/example/audio/bull_2.wav")
+var _voice_3: AudioStream = preload("res://addons/enjin/example/audio/bull_3.wav")
+
 func _ready():
     player = get_tree().get_nodes_in_group("player")[0]
     _set_direction_and_movement(true, false)
@@ -59,6 +63,9 @@ func _process(delta):
 func attack():
     if attack_cooldown_remaining == 0:
         $Sprite/AnimationPlayer.play("Chop")
+        if $AttackSFX.playing:
+            $AttackSFX.stop()
+        $AttackSFX.play(0)
         attack_cooldown_remaining = attack_cooldown
         mid_attack = true
 
@@ -97,13 +104,29 @@ func chop_hit_check():
 
 func player_bounced_on_head(entity):
     health = max(0, health - 1)
+    
+    if $DamageSFX.playing:
+        $DamageSFX.stop()
+    $DamageSFX.play(0)
+    
+    if $VoiceSFX.playing:
+        $VoiceSFX.stop()
+    
     if health == 0:
         velocity = Vector2.ZERO
         $Sprite/AnimationPlayer.play("Death")
         $Bounce/CollisionShape2D.disabled = true
         $HitZone/CollisionShape2D.disabled = true
+        $VoiceSFX.stream = _voice_3 # Death sound
+        $VoiceSFX.play(0)           #
         emit_signal("boss_defeated")
         return
+    elif health == 1:
+        $VoiceSFX.stream = _voice_2
+        $VoiceSFX.play(0)
+    else:
+        $VoiceSFX.stream = _voice_1
+        $VoiceSFX.play(0)
 
     $Sprite/AnimationPlayer.play("Damage 1" if health == 2 else "Damage 2")
     $Bounce/CollisionShape2D.disabled = true

@@ -11,11 +11,15 @@ func disable_buttons():
 func enable_buttons():
     $HBox/Sidebar.enable_btns()
 
+func show_loading():
+    $LoadingArea.show()
+
 func show_player_info(addr):
     $UnlinkArea/Margin/VBox/Address.text = "%s" % addr
     
     $UnlinkArea.show()
     $QrCodeArea.hide()
+    $LoadingArea.hide()
     _last_wallet_area = $UnlinkArea
 
 func show_qr(texture: ImageTexture):
@@ -25,6 +29,7 @@ func show_qr(texture: ImageTexture):
     $QrCodeArea/VBox/Qr.texture = texture
     $QrCodeArea.show()
     $UnlinkArea.hide()
+    $LoadingArea.hide()
     _last_wallet_area = $QrCodeArea
 
 func _on_start():
@@ -40,13 +45,20 @@ func _on_exit():
 
 func _on_options():
     if not $"../OptionsMenu".visible:
-        $"../OptionsMenu".show()
+        $"../OptionsMenu"._open()
         $QrCodeArea.hide()
         $UnlinkArea.hide()
         disable_buttons()
     else:
-        _last_wallet_area.show()
+        if visible:
+            _last_wallet_area.show()
         enable_buttons()
+
+func _on_btn_mouse_entered():
+    $HighlightSFX.play(0)
+
+func _on_btn_pressed():
+    $PressedSFX.play(0)
 
 func _on_link_pressed():
     emit_signal("link_wallet")

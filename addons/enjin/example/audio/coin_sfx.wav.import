@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/coin_sfx.wav-57d736cb5798deccc8cd1834410422e7.sample"
+
+[deps]
+
+source_file="res://addons/enjin/example/audio/coin_sfx.wav"
+dest_files=[ "res://.import/coin_sfx.wav-57d736cb5798deccc8cd1834410422e7.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

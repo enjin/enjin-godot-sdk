@@ -1,8 +1,10 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://addons/enjin/example/art/minotaur/Minotaur.png" type="Texture" id=1]
 [ext_resource path="res://addons/enjin/example/scripts/client/Boss.gd" type="Script" id=2]
 [ext_resource path="res://addons/enjin/example/scripts/client/Bounce.gd" type="Script" id=3]
+[ext_resource path="res://addons/enjin/example/audio/swosh_sfx.wav" type="AudioStream" id=4]
+[ext_resource path="res://addons/enjin/example/audio/boss_hit_sfx.wav" type="AudioStream" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Chop"
@@ -192,6 +194,17 @@ extents = Vector2( 50.6443, 70.4646 )
 [node name="Boss" type="KinematicBody2D"]
 collision_layer = 8
 script = ExtResource( 2 )
+
+[node name="AttackSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+bus = "SFX"
+
+[node name="VoiceSFX" type="AudioStreamPlayer2D" parent="."]
+bus = "SFX"
+
+[node name="DamageSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+bus = "SFX"
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 5, 5 )

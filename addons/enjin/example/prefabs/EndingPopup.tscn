@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://addons/enjin/example/fonts/EndingTitle.tres" type="DynamicFont" id=1]
 [ext_resource path="res://addons/enjin/example/fonts/EndingInfo.tres" type="DynamicFont" id=2]
@@ -8,6 +8,9 @@
 [ext_resource path="res://addons/enjin/example/themes/util_button_pressed.tres" type="StyleBox" id=6]
 [ext_resource path="res://addons/enjin/example/themes/util_button_hover.tres" type="StyleBox" id=7]
 [ext_resource path="res://addons/enjin/example/themes/util_button_normal.tres" type="StyleBox" id=8]
+[ext_resource path="res://addons/enjin/example/prefabs/EndingPopup.gd" type="Script" id=9]
+[ext_resource path="res://addons/enjin/example/audio/ui_blip_sfx.wav" type="AudioStream" id=10]
+[ext_resource path="res://addons/enjin/example/audio/ui_click_sfx.wav" type="AudioStream" id=11]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -18,9 +21,18 @@ pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 5 )
+script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="PressedSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+bus = "UI"
+
+[node name="HighlightSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+bus = "UI"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
@@ -77,4 +89,6 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/Button" to="." method="_on_btn_mouse_entered"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Button" to="CenterContainer/VBoxContainer/Button" method="_quit_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Button" to="." method="_on_btn_pressed"]

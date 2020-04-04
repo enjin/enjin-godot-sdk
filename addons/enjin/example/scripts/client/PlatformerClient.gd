@@ -123,7 +123,7 @@ func load_identity():
             player.has_key = true
             $"../Level/Key".queue_free()
             $"../UI/HUD/HBoxContainer/Key".show()
-        elif bal.id == _tokens.health_upgrade.id: # Check if the player has the health upgrade token.
+        elif bal.id == _tokens.health_upgrade.id and bal.value > 0: # Check if the player has the health upgrade token.
             player.max_health = 5
             player.health += 2
             $"../Level/HealthUpgrade".queue_free()

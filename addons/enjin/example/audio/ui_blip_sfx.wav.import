@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ui_blip_sfx.wav-91c7e9e763b9a02f6fbed00351bd5610.sample"
+
+[deps]
+
+source_file="res://addons/enjin/example/audio/ui_blip_sfx.wav"
+dest_files=[ "res://.import/ui_blip_sfx.wav-91c7e9e763b9a02f6fbed00351bd5610.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

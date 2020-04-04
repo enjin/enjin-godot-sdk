@@ -32,10 +32,22 @@ var landing_delay: float = 0.1
 var landing_delay_remaining: float = 0
 var invulnerability_remaining: float = 0
 var invulnerability_time: float = 1
+var _was_in_air: bool = false
 
 var king_texture = preload("res://addons/enjin/example/art/king/king.png")
+var _climb_1_sfx: AudioStream = preload("res://addons/enjin/example/audio/ladder_1_sfx.wav")
+var _climb_2_sfx: AudioStream = preload("res://addons/enjin/example/audio/ladder_2_sfx.wav")
+var _coin_sfx: AudioStream = preload("res://addons/enjin/example/audio/coin_sfx.wav")
+var _item_sfx: AudioStream = preload("res://addons/enjin/example/audio/item_pickup_sfx.wav")
+var _land_sfx: AudioStream = preload("res://addons/enjin/example/audio/land.wav")
+var _step_sfx_1: AudioStream = preload("res://addons/enjin/example/audio/player_step_1_sfx.wav")
+var _step_sfx_2: AudioStream = preload("res://addons/enjin/example/audio/player_step_2_sfx.wav")
 
 func _physics_process(delta):
+    var run: bool = false
+    var land: bool = false
+    var climb: bool = false
+    
     invulnerability_remaining = max(0, invulnerability_remaining - delta)
 
     check_bounce(delta)
@@ -67,8 +79,10 @@ func _physics_process(delta):
         if climbing:
             if Input.is_action_pressed("ui_up"):
                 velocity.y = -speed * climb_mod
+                climb = true
             elif Input.is_action_pressed("ui_down"):
                 velocity.y = speed * climb_mod
+                climb = true
             else:
                 velocity.y = 0
         else:
@@ -86,6 +100,7 @@ func _physics_process(delta):
             $Sprite/AnimationPlayer.play("Fall")
     elif velocity.x != 0:
         $Sprite/AnimationPlayer.play("Run")
+        run = true
     else:
         $Sprite/AnimationPlayer.play("Idle")
 
@@ -96,8 +111,19 @@ func _physics_process(delta):
         $Sprite.flip_h = false
 
     velocity = move_and_slide(velocity, FLOOR)
+    
+    if is_on_floor() and _was_in_air and !knockbacked:
+        land = true
+    
+    _was_in_air = !is_on_floor()
+    
+    _movement_sfx(run, land, climb)
 
 func add_coins(amount: int):
+    if $PickupSFX.playing:
+        $PickupSFX.stop()
+    $PickupSFX.set_stream(_coin_sfx)
+    $PickupSFX.play(0)
     coins += amount
     return coins
 
@@ -122,16 +148,19 @@ func _ladder_exited(body):
     climbing = false
 
 func key_grabbed(body):
+    _play_item_sfx()
     has_key = true
 
 func swap_textures():
     $Sprite.set_texture(king_texture)
 
 func crown_grabbed(body):
+    _play_item_sfx()
     has_crown = true
     swap_textures()
 
 func health_upgrade_grabbed(body):
+    _play_item_sfx()
     max_health = 5
     health += 2
 
@@ -151,6 +180,10 @@ func check_bounce(delta):
             ray.get_collider().call_deferred("bounced_on", self)
 
 func knockback(move_right: bool):
+    if $DamageSFX.playing:
+        $DamageSFX.stop()
+    $DamageSFX.play(0)
+    
     accept_input = false
     knockbacked = true
     landing_delay_remaining = landing_delay
@@ -161,3 +194,37 @@ func knockback(move_right: bool):
         velocity = Vector2(knockback_vec.x, knockback_vec.y)
     else:
         velocity = Vector2(-knockback_vec.x, knockback_vec.y)
+
+func _play_item_sfx():
+    if $PickupSFX.playing:
+        $PickupSFX.stop()
+    $PickupSFX.set_stream(_item_sfx)
+    $PickupSFX.play(0)
+
+func _movement_sfx(run: bool, land: bool, climb: bool):
+    $GroundSFX.bus = "SFX"
+    
+    if land:
+        $GroundSFX.stop()
+        $GroundSFX.stream = _land_sfx
+        $GroundSFX.play(0)
+    elif run and !$GroundSFX.playing:
+        # Alternates footsteps
+        if $GroundSFX.stream != _step_sfx_1:
+            $GroundSFX.stream = _step_sfx_1
+        else:
+            $GroundSFX.stream = _step_sfx_2
+        $GroundSFX.play(0)
+    elif climb:
+        # Switches to climb SFX immediatly
+        if $GroundSFX.stream != _climb_1_sfx:
+            $GroundSFX.stop()
+            $GroundSFX.set_stream(_climb_1_sfx)
+        
+        if !$GroundSFX.playing:
+            var bus = AudioServer.get_bus_index("SFX Pitch Shift")
+            var effect: AudioEffectPitchShift = AudioServer.get_bus_effect(bus, 0)
+            effect.pitch_scale = rand_range(0.8, 1.2)
+            
+            $GroundSFX.bus = "SFX Pitch Shift"
+            $GroundSFX.play(0)
