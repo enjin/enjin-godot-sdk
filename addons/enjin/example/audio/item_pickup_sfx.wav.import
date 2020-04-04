@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/item_pickup_sfx.wav-8d48f42b53ce0be7db8f25491a77fb6b.sample"
+
+[deps]
+
+source_file="res://addons/enjin/example/audio/item_pickup_sfx.wav"
+dest_files=[ "res://.import/item_pickup_sfx.wav-8d48f42b53ce0be7db8f25491a77fb6b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

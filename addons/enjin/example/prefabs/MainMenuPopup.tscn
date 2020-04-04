@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://addons/enjin/example/themes/main_menu.tres" type="Theme" id=1]
 [ext_resource path="res://addons/enjin/example/themes/pause_sidebar.tres" type="Theme" id=2]
@@ -7,9 +7,11 @@
 [ext_resource path="res://addons/enjin/example/scripts/client/Sidebar.gd" type="Script" id=5]
 [ext_resource path="res://addons/enjin/example/fonts/Roboto40.tres" type="DynamicFont" id=6]
 [ext_resource path="res://addons/enjin/example/themes/link_status.tres" type="StyleBox" id=7]
+[ext_resource path="res://addons/enjin/example/audio/ui_blip_sfx.wav" type="AudioStream" id=8]
 [ext_resource path="res://addons/enjin/example/themes/util_button_normal.tres" type="StyleBox" id=9]
 [ext_resource path="res://addons/enjin/example/themes/util_button_pressed.tres" type="StyleBox" id=10]
 [ext_resource path="res://addons/enjin/example/themes/util_button_hover.tres" type="StyleBox" id=11]
+[ext_resource path="res://addons/enjin/example/audio/ui_click_sfx.wav" type="AudioStream" id=12]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://addons/enjin/example/fonts/Roboto-Regular.ttf"
@@ -34,6 +36,14 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="PressedSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+bus = "UI"
+
+[node name="HighlightSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+bus = "UI"
 
 [node name="HBox" type="HBoxContainer" parent="."]
 anchor_right = 1.0
@@ -233,8 +243,48 @@ custom_styles/disabled = SubResource( 6 )
 custom_styles/normal = ExtResource( 9 )
 custom_fonts/font = ExtResource( 6 )
 text = "LINK WALLET"
+
+[node name="LoadingArea" type="PopupPanel" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -550.0
+margin_top = -550.0
+margin_right = -49.9999
+margin_bottom = -50.0
+rect_min_size = Vector2( 500, 500 )
+custom_styles/panel = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="CenterContainer" parent="LoadingArea"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="LoadingArea/VBox"]
+margin_left = 48.0
+margin_top = 226.0
+margin_right = 452.0
+margin_bottom = 274.0
+custom_fonts/font = ExtResource( 6 )
+text = "Connecting to Server..."
+align = 1
+[connection signal="mouse_entered" from="HBox/Sidebar/Buttons/VBoxContainer/Start" to="." method="_on_btn_mouse_entered"]
 [connection signal="pressed" from="HBox/Sidebar/Buttons/VBoxContainer/Start" to="." method="_on_start"]
+[connection signal="pressed" from="HBox/Sidebar/Buttons/VBoxContainer/Start" to="." method="_on_btn_pressed"]
+[connection signal="mouse_entered" from="HBox/Sidebar/Buttons/VBoxContainer/Options" to="." method="_on_btn_mouse_entered"]
 [connection signal="pressed" from="HBox/Sidebar/Buttons/VBoxContainer/Options" to="." method="_on_options"]
+[connection signal="pressed" from="HBox/Sidebar/Buttons/VBoxContainer/Options" to="." method="_on_btn_pressed"]
+[connection signal="mouse_entered" from="HBox/Sidebar/Buttons/VBoxContainer/Exit" to="." method="_on_btn_mouse_entered"]
 [connection signal="pressed" from="HBox/Sidebar/Buttons/VBoxContainer/Exit" to="." method="_on_exit"]
+[connection signal="mouse_entered" from="UnlinkArea/Margin/VBox/Unlink" to="." method="_on_btn_mouse_entered"]
 [connection signal="pressed" from="UnlinkArea/Margin/VBox/Unlink" to="." method="_on_unlink_pressed"]
+[connection signal="pressed" from="UnlinkArea/Margin/VBox/Unlink" to="." method="_on_btn_pressed"]
+[connection signal="mouse_entered" from="QrCodeArea/VBox/Link" to="." method="_on_btn_mouse_entered"]
 [connection signal="pressed" from="QrCodeArea/VBox/Link" to="." method="_on_link_pressed"]
+[connection signal="pressed" from="QrCodeArea/VBox/Link" to="." method="_on_btn_pressed"]

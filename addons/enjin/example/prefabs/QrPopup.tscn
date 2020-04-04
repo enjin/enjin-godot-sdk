@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://addons/enjin/example/fonts/EndingTitle.tres" type="DynamicFont" id=1]
 [ext_resource path="res://addons/enjin/example/scripts/client/QR.gd" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://addons/enjin/example/themes/util_button_pressed.tres" type="StyleBox" id=4]
 [ext_resource path="res://addons/enjin/example/themes/util_button_hover.tres" type="StyleBox" id=5]
 [ext_resource path="res://addons/enjin/example/themes/util_button_normal.tres" type="StyleBox" id=6]
+[ext_resource path="res://addons/enjin/example/audio/ui_blip_sfx.wav" type="AudioStream" id=7]
+[ext_resource path="res://addons/enjin/example/audio/ui_click_sfx.wav" type="AudioStream" id=8]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -13,13 +15,20 @@
 
 [node name="QR" type="Popup"]
 pause_mode = 2
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="PressedSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+bus = "UI"
+
+[node name="HighlightSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+bus = "UI"
 
 [node name="Background" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -75,4 +84,6 @@ text = "LINK WALLET"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="mouse_entered" from="Button" to="." method="_on_btn_mouse_entered"]
+[connection signal="pressed" from="Button" to="." method="_on_btn_pressed"]
 [connection signal="pressed" from="Button" to="." method="_wallet_linked"]

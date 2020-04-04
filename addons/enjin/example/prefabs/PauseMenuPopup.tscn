@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://addons/enjin/example/scripts/client/Sidebar.gd" type="Script" id=1]
 [ext_resource path="res://addons/enjin/example/scripts/client/PauseMenu.gd" type="Script" id=2]
@@ -26,6 +26,8 @@
 [ext_resource path="res://addons/enjin/example/art/key_02d.png" type="Texture" id=24]
 [ext_resource path="res://addons/enjin/example/art/heart.png" type="Texture" id=25]
 [ext_resource path="res://addons/enjin/example/art/crown.png" type="Texture" id=26]
+[ext_resource path="res://addons/enjin/example/audio/ui_blip_sfx.wav" type="AudioStream" id=27]
+[ext_resource path="res://addons/enjin/example/audio/ui_click_sfx.wav" type="AudioStream" id=28]
 
 [sub_resource type="AnimatedTexture" id=1]
 frames = 8
@@ -59,6 +61,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="PressedSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 27 )
+bus = "UI"
+
+[node name="HighlightSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 28 )
+bus = "UI"
+
 [node name="Background" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -80,7 +90,7 @@ margin_bottom = 1080.0
 rect_min_size = Vector2( 350, 0 )
 theme = ExtResource( 15 )
 script = ExtResource( 1 )
-btns = [ NodePath("Buttons/VBox/ResumeBtn"), NodePath("Buttons/VBox/QuitBtn") ]
+btns = [ NodePath("Buttons/VBox/ResumeBtn"), NodePath("Buttons/VBox/QuitBtn"), NodePath("Buttons/VBox/Options") ]
 
 [node name="Buttons" type="MarginContainer" parent="HBoxContainer/Sidebar"]
 anchor_right = 1.0
@@ -103,19 +113,26 @@ __meta__ = {
 }
 
 [node name="ResumeBtn" type="Button" parent="HBoxContainer/Sidebar/Buttons/VBox"]
-margin_top = 468.0
+margin_top = 424.0
 margin_right = 320.0
-margin_bottom = 525.0
+margin_bottom = 481.0
 text = "RESUME"
 align = 0
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="QuitBtn" type="Button" parent="HBoxContainer/Sidebar/Buttons/VBox"]
-margin_top = 555.0
+[node name="Options" type="Button" parent="HBoxContainer/Sidebar/Buttons/VBox"]
+margin_top = 511.0
 margin_right = 320.0
-margin_bottom = 612.0
+margin_bottom = 568.0
+text = "OPTIONS"
+align = 0
+
+[node name="QuitBtn" type="Button" parent="HBoxContainer/Sidebar/Buttons/VBox"]
+margin_top = 598.0
+margin_right = 320.0
+margin_bottom = 655.0
 text = "QUIT"
 align = 0
 __meta__ = {
@@ -511,5 +528,12 @@ size_flags_vertical = 6
 texture = ExtResource( 12 )
 expand = true
 stretch_mode = 5
+[connection signal="mouse_entered" from="HBoxContainer/Sidebar/Buttons/VBox/ResumeBtn" to="." method="_on_btn_mouse_entered"]
 [connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/ResumeBtn" to="." method="_on_resume"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/ResumeBtn" to="." method="_on_btn_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/Sidebar/Buttons/VBox/Options" to="." method="_on_btn_mouse_entered"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/Options" to="." method="_on_options"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/Options" to="." method="_on_btn_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/Sidebar/Buttons/VBox/QuitBtn" to="." method="_on_btn_mouse_entered"]
 [connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/QuitBtn" to="." method="_on_quit"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/QuitBtn" to="." method="_on_btn_pressed"]

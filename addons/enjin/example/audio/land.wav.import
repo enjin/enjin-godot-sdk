@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/land.wav-83d69e1780be06ad8661d6d1e85b86dc.sample"
+
+[deps]
+
+source_file="res://addons/enjin/example/audio/land.wav"
+dest_files=[ "res://.import/land.wav-83d69e1780be06ad8661d6d1e85b86dc.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/slime_bite_sfx.wav-2244527edaf40d2a634d9a5ab6d50250.sample"
+
+[deps]
+
+source_file="res://addons/enjin/example/audio/slime_bite_sfx.wav"
+dest_files=[ "res://.import/slime_bite_sfx.wav-2244527edaf40d2a634d9a5ab6d50250.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_front.png" type="Texture" id=1]
 [ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_back.png" type="Texture" id=2]
@@ -35,6 +35,8 @@
 [ext_resource path="res://addons/enjin/example/scripts/client/Game.gd" type="Script" id=33]
 [ext_resource path="res://addons/enjin/example/prefabs/MainMenuPopup.tscn" type="PackedScene" id=34]
 [ext_resource path="res://addons/enjin/example/prefabs/OptionsMenuPopup.tscn" type="PackedScene" id=35]
+[ext_resource path="res://addons/enjin/example/scripts/client/BgMusic.gd" type="Script" id=36]
+[ext_resource path="res://addons/enjin/example/audio/dungeon.ogg" type="AudioStream" id=37]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 234 )
@@ -437,7 +439,6 @@ margin_right = 1920.0
 margin_bottom = 1080.0
 
 [node name="LinkWallet" parent="UI" instance=ExtResource( 17 )]
-visible = false
 
 [node name="PauseMenu" parent="UI" instance=ExtResource( 31 )]
 
@@ -451,6 +452,12 @@ visible = false
 pause_mode = 2
 wait_time = 0.25
 one_shot = true
+
+[node name="BgMusic" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+stream = ExtResource( 37 )
+bus = "Music"
+script = ExtResource( 36 )
 [connection signal="player_fetched" from="PlatformClient" to="." method="_player_fetched"]
 [connection signal="player_loaded" from="PlatformClient" to="." method="_player_loaded"]
 [connection signal="show_qr" from="PlatformClient" to="." method="_show_qr"]
@@ -463,24 +470,30 @@ one_shot = true
 [connection signal="body_exited" from="Level/Ladders/Ladder3" to="Player" method="_ladder_exited"]
 [connection signal="body_entered" from="Level/Ladders/Ladder4" to="Player" method="_ladder_entered"]
 [connection signal="body_exited" from="Level/Ladders/Ladder4" to="Player" method="_ladder_exited"]
+[connection signal="boss_defeated" from="Level/Enemies/Boss" to="." method="play_ending_track"]
 [connection signal="boss_defeated" from="Level/Enemies/Boss" to="Level" method="finish_boss_fight"]
-[connection signal="body_entered" from="Level/Key" to="PlatformClient" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Key" to="Player" method="key_grabbed"]
-[connection signal="body_entered" from="Level/Key" to="UI/HUD" method="key_grabbed"]
+[connection signal="body_entered" from="Level/Key" to="PlatformClient" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Key" to="Level" method="key_grabbed"]
+[connection signal="body_entered" from="Level/Key" to="UI/HUD" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Gate/Gate Trigger" to="Level/Gate" method="player_entered_gate"]
 [connection signal="body_entered" from="Level/Exit" to="PlatformClient" method="exit_entered"]
-[connection signal="body_entered" from="Level/Crown" to="PlatformClient" method="crown_grabbed"]
 [connection signal="body_entered" from="Level/Crown" to="Player" method="crown_grabbed"]
+[connection signal="body_entered" from="Level/Crown" to="PlatformClient" method="crown_grabbed"]
 [connection signal="body_entered" from="Level/Crown" to="Level" method="crown_grabbed"]
-[connection signal="body_entered" from="Level/HealthUpgrade" to="PlatformClient" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/HealthUpgrade" to="Player" method="health_upgrade_grabbed"]
+[connection signal="body_entered" from="Level/HealthUpgrade" to="PlatformClient" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/HealthUpgrade" to="Level" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/BossFightTrigger" to="Level" method="start_boss_fight"]
 [connection signal="wallet_linked" from="UI/LinkWallet" to="." method="fetch_player"]
+[connection signal="paused" from="UI/PauseMenu" to="." method="_paused"]
+[connection signal="unpaused" from="UI/PauseMenu" to="." method="_unpaused"]
 [connection signal="link_wallet" from="UI/MainMenu" to="." method="fetch_player"]
 [connection signal="start_game" from="UI/MainMenu" to="." method="load_game"]
 [connection signal="unlink_wallet" from="UI/MainMenu" to="." method="unlink_player"]
+[connection signal="dampen_audio" from="UI/OptionsMenu" to="." method="dampen_audio"]
+[connection signal="options_closed" from="UI/OptionsMenu" to="UI/PauseMenu" method="_on_options"]
 [connection signal="options_closed" from="UI/OptionsMenu" to="UI/MainMenu" method="_on_options"]
+[connection signal="undampen_audio" from="UI/OptionsMenu" to="." method="undampen_audio"]
 
 [editable path="Level/Key"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://addons/enjin/example/themes/main_menu.tres" type="Theme" id=1]
 [ext_resource path="res://addons/enjin/example/themes/pause_sidebar.tres" type="Theme" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://addons/enjin/example/themes/util_button_pressed.tres" type="StyleBox" id=7]
 [ext_resource path="res://addons/enjin/example/themes/util_button_hover.tres" type="StyleBox" id=8]
 [ext_resource path="res://addons/enjin/example/themes/util_button_normal.tres" type="StyleBox" id=9]
+[ext_resource path="res://addons/enjin/example/audio/ui_click_sfx.wav" type="AudioStream" id=10]
+[ext_resource path="res://addons/enjin/example/themes/options_highlight_stylebox.tres" type="StyleBox" id=11]
+[ext_resource path="res://addons/enjin/example/audio/ui_blip_sfx.wav" type="AudioStream" id=12]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.156863, 0.156863, 0.156863, 0.882353 )
@@ -43,7 +46,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="PressedSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+bus = "UI"
+
+[node name="HighlightSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+bus = "UI"
+
+[node name="AudioTest" type="AudioStreamPlayer" parent="."]
+
+[node name="Margin" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/margin_right = 300
@@ -54,7 +67,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBox" type="HBoxContainer" parent="Margin"]
 margin_left = 300.0
 margin_top = 100.0
 margin_right = 1270.0
@@ -64,14 +77,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sidebar" type="Panel" parent="MarginContainer/HBoxContainer"]
+[node name="Sidebar" type="Panel" parent="Margin/HBox"]
 margin_right = 300.0
 margin_bottom = 880.0
 rect_min_size = Vector2( 300, 0 )
 theme = ExtResource( 2 )
 script = ExtResource( 5 )
 
-[node name="Buttons" type="MarginContainer" parent="MarginContainer/HBoxContainer/Sidebar"]
+[node name="Buttons" type="MarginContainer" parent="Margin/HBox/Sidebar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/margin_top = 30
@@ -81,23 +94,33 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Sidebar/Buttons"]
+[node name="VBox" type="VBoxContainer" parent="Margin/HBox/Sidebar/Buttons"]
 margin_left = 30.0
 margin_top = 30.0
 margin_right = 300.0
 margin_bottom = 850.0
+custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Video" type="Button" parent="MarginContainer/HBoxContainer/Sidebar/Buttons/VBoxContainer"]
+[node name="Video" type="Button" parent="Margin/HBox/Sidebar/Buttons/VBox"]
 margin_right = 270.0
 margin_bottom = 48.0
+custom_styles/normal = ExtResource( 11 )
 custom_fonts/font = ExtResource( 6 )
 text = "VIDEO"
 align = 0
 
-[node name="OptionsArea" type="Panel" parent="MarginContainer/HBoxContainer"]
+[node name="Audio" type="Button" parent="Margin/HBox/Sidebar/Buttons/VBox"]
+margin_top = 68.0
+margin_right = 270.0
+margin_bottom = 116.0
+custom_fonts/font = ExtResource( 6 )
+text = "AUDIO"
+align = 0
+
+[node name="OptionsArea" type="Panel" parent="Margin/HBox"]
 margin_left = 300.0
 margin_right = 970.0
 margin_bottom = 880.0
@@ -105,7 +128,7 @@ size_flags_horizontal = 3
 theme = ExtResource( 4 )
 custom_styles/panel = SubResource( 1 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/OptionsArea"]
+[node name="VBox" type="VBoxContainer" parent="Margin/HBox/OptionsArea"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -114,20 +137,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VideoOptions" type="HBoxContainer" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer"]
+[node name="VideoOptions" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox"]
 margin_right = 670.0
-margin_bottom = 780.0
-size_flags_vertical = 3
+margin_bottom = 136.0
 custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Description" type="VBoxContainer" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions"]
-margin_right = 250.0
-margin_bottom = 780.0
-rect_min_size = Vector2( 250, 0 )
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions/Description"]
-margin_right = 250.0
-margin_bottom = 133.0
+[node name="Description" type="MarginContainer" parent="Margin/HBox/OptionsArea/VBox/VideoOptions"]
+margin_right = 193.0
+margin_bottom = 136.0
 custom_constants/margin_top = 30
 custom_constants/margin_left = 20
 custom_constants/margin_bottom = 30
@@ -135,44 +155,39 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions/Description/MarginContainer"]
+[node name="VBoxntainer" type="VBoxContainer" parent="Margin/HBox/OptionsArea/VBox/VideoOptions/Description"]
 margin_left = 20.0
 margin_top = 30.0
-margin_right = 250.0
-margin_bottom = 103.0
+margin_right = 193.0
+margin_bottom = 106.0
 custom_constants/separation = 15
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Window" type="Label" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions/Description/MarginContainer/VBoxContainer"]
-margin_right = 230.0
+[node name="Window" type="Label" parent="Margin/HBox/OptionsArea/VBox/VideoOptions/Description/VBoxntainer"]
+margin_right = 173.0
 margin_bottom = 29.0
 text = "WINDOW MODE"
 
-[node name="Resolution" type="Label" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions/Description/MarginContainer/VBoxContainer"]
+[node name="Resolution" type="Label" parent="Margin/HBox/OptionsArea/VBox/VideoOptions/Description/VBoxntainer"]
 visible = false
 margin_top = 44.0
 margin_right = 230.0
 margin_bottom = 73.0
 text = "RESOLUTION"
 
-[node name="Vsync" type="Label" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions/Description/MarginContainer/VBoxContainer"]
+[node name="Vsync" type="Label" parent="Margin/HBox/OptionsArea/VBox/VideoOptions/Description/VBoxntainer"]
 margin_top = 44.0
-margin_right = 230.0
+margin_right = 173.0
 margin_bottom = 73.0
 text = "V-SYNC"
 
-[node name="Buttons" type="VBoxContainer" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions"]
-margin_left = 470.0
+[node name="Button" type="MarginContainer" parent="Margin/HBox/OptionsArea/VBox/VideoOptions"]
+margin_left = 507.0
 margin_right = 670.0
-margin_bottom = 780.0
-rect_min_size = Vector2( 200, 0 )
-size_flags_horizontal = 10
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions/Buttons"]
-margin_right = 200.0
 margin_bottom = 136.0
+size_flags_horizontal = 10
 custom_constants/margin_right = 20
 custom_constants/margin_top = 30
 custom_constants/margin_bottom = 30
@@ -180,24 +195,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions/Buttons/MarginContainer"]
+[node name="VBox" type="VBoxContainer" parent="Margin/HBox/OptionsArea/VBox/VideoOptions/Button"]
 margin_top = 30.0
-margin_right = 180.0
+margin_right = 143.0
 margin_bottom = 106.0
 custom_constants/separation = 15
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Window" type="OptionButton" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions/Buttons/MarginContainer/VBoxContainer"]
-margin_right = 180.0
+[node name="Window" type="OptionButton" parent="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox"]
+margin_right = 143.0
 margin_bottom = 29.0
 text = "WINDOWED"
 align = 2
 items = [ "FULL SCREEN", null, false, 0, null, "WINDOWED", null, false, 1, null, "BORDERLESS WINDOW", null, false, 2, null ]
 selected = 1
 
-[node name="Resolution" type="OptionButton" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions/Buttons/MarginContainer/VBoxContainer"]
+[node name="Resolution" type="OptionButton" parent="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox"]
 visible = false
 margin_top = 44.0
 margin_right = 180.0
@@ -207,10 +222,10 @@ align = 2
 items = [ "1280x1024", null, false, 0, null, "1360x768", null, false, 1, null, "1366x768", null, false, 2, null, "1440x900", null, false, 3, null, "1600x900", null, false, 4, null, "1680x1050", null, false, 5, null, "1920x1080", null, false, 6, null, "2560x1080", null, false, 7, null, "2560x1440", null, false, 8, null, "3840x2160", null, false, 9, null ]
 selected = 6
 
-[node name="Vsync" type="CheckButton" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions/Buttons/MarginContainer/VBoxContainer"]
-margin_left = 116.0
+[node name="Vsync" type="CheckButton" parent="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox"]
+margin_left = 79.0
 margin_top = 44.0
-margin_right = 180.0
+margin_right = 143.0
 margin_bottom = 76.0
 size_flags_horizontal = 8
 custom_styles/hover = SubResource( 2 )
@@ -222,26 +237,187 @@ custom_styles/normal = SubResource( 7 )
 pressed = true
 align = 2
 
-[node name="Bottombar" type="Panel" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer"]
-margin_top = 780.0
+[node name="AudioOptions" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox"]
+visible = false
 margin_right = 670.0
-margin_bottom = 880.0
-rect_min_size = Vector2( 0, 100 )
-custom_styles/panel = SubResource( 8 )
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/Bottombar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 1
+margin_bottom = 221.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Close" type="Button" parent="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/Bottombar/HBoxContainer"]
-margin_left = 298.0
-margin_top = 35.0
-margin_right = 372.0
-margin_bottom = 64.0
+[node name="Description" type="MarginContainer" parent="Margin/HBox/OptionsArea/VBox/AudioOptions"]
+margin_right = 216.0
+margin_bottom = 221.0
+custom_constants/margin_top = 30
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 30
+
+[node name="VBox" type="VBoxContainer" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Description"]
+margin_left = 20.0
+margin_top = 30.0
+margin_right = 216.0
+margin_bottom = 191.0
+custom_constants/separation = 15
+
+[node name="MasterVolume" type="Label" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Description/VBox"]
+margin_right = 196.0
+margin_bottom = 29.0
+text = "Master Volume"
+uppercase = true
+
+[node name="MusicVolume" type="Label" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Description/VBox"]
+margin_top = 44.0
+margin_right = 196.0
+margin_bottom = 73.0
+text = "Music"
+align = 2
+uppercase = true
+
+[node name="SFXVolume" type="Label" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Description/VBox"]
+margin_top = 88.0
+margin_right = 196.0
+margin_bottom = 117.0
+text = "SFX"
+align = 2
+uppercase = true
+
+[node name="UIVolume" type="Label" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Description/VBox"]
+margin_top = 132.0
+margin_right = 196.0
+margin_bottom = 161.0
+text = "UI"
+align = 2
+uppercase = true
+
+[node name="Buttons" type="MarginContainer" parent="Margin/HBox/OptionsArea/VBox/AudioOptions"]
+margin_left = 389.0
+margin_right = 670.0
+margin_bottom = 221.0
+size_flags_horizontal = 10
+custom_constants/margin_right = 20
+custom_constants/margin_top = 30
+custom_constants/margin_bottom = 30
+
+[node name="VBox" type="VBoxContainer" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons"]
+margin_top = 30.0
+margin_right = 261.0
+margin_bottom = 191.0
+size_flags_horizontal = 0
+custom_constants/separation = 15
+
+[node name="MasterVolume" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox"]
+margin_right = 261.0
+margin_bottom = 29.0
+
+[node name="Slider" type="HSlider" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MasterVolume" groups=[
+"audio_master_slider",
+]]
+margin_top = 6.0
+margin_right = 200.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+value = 100.0
+
+[node name="Label" type="Label" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MasterVolume"]
+margin_left = 204.0
+margin_right = 261.0
+margin_bottom = 29.0
+text = "100%"
+align = 1
+valign = 1
+
+[node name="MusicVolume" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox"]
+margin_top = 44.0
+margin_right = 261.0
+margin_bottom = 73.0
+
+[node name="Slider" type="HSlider" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MusicVolume" groups=[
+"audio_music_slider",
+]]
+margin_top = 6.0
+margin_right = 200.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+value = 100.0
+
+[node name="Label" type="Label" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MusicVolume"]
+margin_left = 204.0
+margin_right = 261.0
+margin_bottom = 29.0
+text = "100%"
+align = 1
+valign = 1
+
+[node name="SFXVolume" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox"]
+margin_top = 88.0
+margin_right = 261.0
+margin_bottom = 117.0
+
+[node name="Slider" type="HSlider" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/SFXVolume" groups=[
+"audio_sfx_slider",
+]]
+margin_top = 6.0
+margin_right = 200.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+value = 100.0
+
+[node name="Label" type="Label" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/SFXVolume"]
+margin_left = 204.0
+margin_right = 261.0
+margin_bottom = 29.0
+text = "100%"
+align = 1
+valign = 1
+
+[node name="UIVolume" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox"]
+margin_top = 132.0
+margin_right = 261.0
+margin_bottom = 161.0
+
+[node name="Slider" type="HSlider" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/UIVolume" groups=[
+"audio_ui_slider",
+]]
+margin_top = 6.0
+margin_right = 200.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+value = 100.0
+
+[node name="Label" type="Label" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/UIVolume"]
+margin_left = 204.0
+margin_right = 261.0
+margin_bottom = 29.0
+text = "100%"
+align = 1
+valign = 1
+
+[node name="Bottombar" type="Panel" parent="Margin/HBox/OptionsArea/VBox"]
+margin_top = 780.0
+margin_right = 670.0
+margin_bottom = 880.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_vertical = 10
+custom_styles/panel = SubResource( 8 )
+
+[node name="Close" type="Button" parent="Margin/HBox/OptionsArea/VBox/Bottombar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -37.0
+margin_top = -14.5
+margin_right = 37.0
+margin_bottom = 14.5
+size_flags_horizontal = 0
 size_flags_vertical = 4
 custom_styles/hover = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 7 )
@@ -249,7 +425,24 @@ custom_styles/focus = SubResource( 9 )
 custom_styles/disabled = SubResource( 10 )
 custom_styles/normal = ExtResource( 9 )
 text = "CLOSE"
-[connection signal="item_selected" from="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions/Buttons/MarginContainer/VBoxContainer/Window" to="." method="_on_window_item_selected"]
-[connection signal="item_selected" from="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions/Buttons/MarginContainer/VBoxContainer/Resolution" to="." method="_on_resolution_item_selected"]
-[connection signal="toggled" from="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/VideoOptions/Buttons/MarginContainer/VBoxContainer/Vsync" to="." method="_on_vsync_toggled"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/OptionsArea/VBoxContainer/Bottombar/HBoxContainer/Close" to="." method="_on_close"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="mouse_entered" from="Margin/HBox/Sidebar/Buttons/VBox/Video" to="." method="_on_btn_mouse_entered"]
+[connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/Video" to="." method="_on_video_pressed"]
+[connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/Video" to="." method="_on_btn_pressed"]
+[connection signal="mouse_entered" from="Margin/HBox/Sidebar/Buttons/VBox/Audio" to="." method="_on_btn_mouse_entered"]
+[connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/Audio" to="." method="_on_audio_pressed"]
+[connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/Audio" to="." method="_on_btn_pressed"]
+[connection signal="item_selected" from="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox/Window" to="." method="_on_window_item_selected"]
+[connection signal="item_selected" from="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox/Resolution" to="." method="_on_resolution_item_selected"]
+[connection signal="toggled" from="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox/Vsync" to="." method="_on_vsync_toggled"]
+[connection signal="value_changed" from="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MasterVolume/Slider" to="." method="_on_master_volume_changed"]
+[connection signal="value_changed" from="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MusicVolume/Slider" to="." method="_on_music_volume_changed"]
+[connection signal="gui_input" from="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/SFXVolume/Slider" to="." method="_on_sfx_slider_gui_input"]
+[connection signal="value_changed" from="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/SFXVolume/Slider" to="." method="_on_sfx_volume_changed"]
+[connection signal="gui_input" from="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/UIVolume/Slider" to="." method="_on_ui_slider_gui_input"]
+[connection signal="value_changed" from="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/UIVolume/Slider" to="." method="_on_ui_volume_changed"]
+[connection signal="mouse_entered" from="Margin/HBox/OptionsArea/VBox/Bottombar/Close" to="." method="_on_btn_mouse_entered"]
+[connection signal="pressed" from="Margin/HBox/OptionsArea/VBox/Bottombar/Close" to="." method="_on_close"]
+[connection signal="pressed" from="Margin/HBox/OptionsArea/VBox/Bottombar/Close" to="." method="_on_btn_pressed"]

@@ -16,6 +16,9 @@ var moving_left = true;
 var attack_cooldown_remaining = 0
 var dead = false
 
+var _bite_sfx: AudioStream = preload("res://addons/enjin/example/audio/slime_bite_sfx.wav")
+var _death_sfx: AudioStream = preload("res://addons/enjin/example/audio/slime_death_sfx.wav")
+
 func _ready():
     player = get_tree().get_nodes_in_group("player")[0]
 
@@ -38,6 +41,9 @@ func _process(delta):
             _set_direction_and_movement(face_left, false)
             if attack_cooldown_remaining == 0:
                 $AnimatedSprite.play("attack")
+                if !$VoiceSFX.playing:
+                    $VoiceSFX.set_stream(_bite_sfx)
+                    $VoiceSFX.play(0)
         elif can_move:
             if $AnimatedSprite.animation != "attack":
                 _set_direction_and_movement(face_left, true)
@@ -87,6 +93,10 @@ func bounced_on(entity):
     velocity = Vector2.ZERO
     dead = true
     $AnimatedSprite.play("death")
+    if $VoiceSFX.playing:
+        $VoiceSFX.stop()
+    $VoiceSFX.set_stream(_death_sfx)
+    $VoiceSFX.play(0)
     $Bounce/CollisionShape2D.disabled = true
     return
 
