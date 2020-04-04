@@ -37,6 +37,7 @@ thickness = 3
 [sub_resource type="StyleBoxEmpty" id=10]
 
 [node name="OptionsMenu" type="PopupPanel"]
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 350.0
@@ -239,8 +240,9 @@ align = 2
 
 [node name="AudioOptions" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox"]
 visible = false
+margin_top = 136.0
 margin_right = 670.0
-margin_bottom = 221.0
+margin_bottom = 357.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -290,7 +292,7 @@ align = 2
 uppercase = true
 
 [node name="Buttons" type="MarginContainer" parent="Margin/HBox/OptionsArea/VBox/AudioOptions"]
-margin_left = 389.0
+margin_left = 386.0
 margin_right = 670.0
 margin_bottom = 221.0
 size_flags_horizontal = 10
@@ -300,13 +302,13 @@ custom_constants/margin_bottom = 30
 
 [node name="VBox" type="VBoxContainer" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons"]
 margin_top = 30.0
-margin_right = 261.0
+margin_right = 264.0
 margin_bottom = 191.0
 size_flags_horizontal = 0
 custom_constants/separation = 15
 
 [node name="MasterVolume" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox"]
-margin_right = 261.0
+margin_right = 264.0
 margin_bottom = 29.0
 
 [node name="Slider" type="HSlider" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MasterVolume" groups=[
@@ -322,15 +324,16 @@ value = 100.0
 
 [node name="Label" type="Label" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MasterVolume"]
 margin_left = 204.0
-margin_right = 261.0
+margin_right = 264.0
 margin_bottom = 29.0
-text = "100%"
+rect_min_size = Vector2( 60, 0 )
+text = "100"
 align = 1
 valign = 1
 
 [node name="MusicVolume" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox"]
 margin_top = 44.0
-margin_right = 261.0
+margin_right = 264.0
 margin_bottom = 73.0
 
 [node name="Slider" type="HSlider" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MusicVolume" groups=[
@@ -346,15 +349,16 @@ value = 100.0
 
 [node name="Label" type="Label" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MusicVolume"]
 margin_left = 204.0
-margin_right = 261.0
+margin_right = 264.0
 margin_bottom = 29.0
-text = "100%"
+rect_min_size = Vector2( 60, 0 )
+text = "100"
 align = 1
 valign = 1
 
 [node name="SFXVolume" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox"]
 margin_top = 88.0
-margin_right = 261.0
+margin_right = 264.0
 margin_bottom = 117.0
 
 [node name="Slider" type="HSlider" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/SFXVolume" groups=[
@@ -370,15 +374,16 @@ value = 100.0
 
 [node name="Label" type="Label" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/SFXVolume"]
 margin_left = 204.0
-margin_right = 261.0
+margin_right = 264.0
 margin_bottom = 29.0
-text = "100%"
+rect_min_size = Vector2( 60, 0 )
+text = "100"
 align = 1
 valign = 1
 
 [node name="UIVolume" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox"]
 margin_top = 132.0
-margin_right = 261.0
+margin_right = 264.0
 margin_bottom = 161.0
 
 [node name="Slider" type="HSlider" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/UIVolume" groups=[
@@ -394,9 +399,10 @@ value = 100.0
 
 [node name="Label" type="Label" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/UIVolume"]
 margin_left = 204.0
-margin_right = 261.0
+margin_right = 264.0
 margin_bottom = 29.0
-text = "100%"
+rect_min_size = Vector2( 60, 0 )
+text = "100"
 align = 1
 valign = 1
 
@@ -429,11 +435,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="mouse_entered" from="Margin/HBox/Sidebar/Buttons/VBox/Video" to="." method="_on_btn_mouse_entered"]
-[connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/Video" to="." method="_on_video_pressed"]
 [connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/Video" to="." method="_on_btn_pressed"]
+[connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/Video" to="." method="_on_video_pressed"]
 [connection signal="mouse_entered" from="Margin/HBox/Sidebar/Buttons/VBox/Audio" to="." method="_on_btn_mouse_entered"]
-[connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/Audio" to="." method="_on_audio_pressed"]
 [connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/Audio" to="." method="_on_btn_pressed"]
+[connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/Audio" to="." method="_on_audio_pressed"]
 [connection signal="item_selected" from="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox/Window" to="." method="_on_window_item_selected"]
 [connection signal="item_selected" from="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox/Resolution" to="." method="_on_resolution_item_selected"]
 [connection signal="toggled" from="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox/Vsync" to="." method="_on_vsync_toggled"]
@@ -444,5 +450,5 @@ __meta__ = {
 [connection signal="gui_input" from="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/UIVolume/Slider" to="." method="_on_ui_slider_gui_input"]
 [connection signal="value_changed" from="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/UIVolume/Slider" to="." method="_on_ui_volume_changed"]
 [connection signal="mouse_entered" from="Margin/HBox/OptionsArea/VBox/Bottombar/Close" to="." method="_on_btn_mouse_entered"]
-[connection signal="pressed" from="Margin/HBox/OptionsArea/VBox/Bottombar/Close" to="." method="_on_close"]
 [connection signal="pressed" from="Margin/HBox/OptionsArea/VBox/Bottombar/Close" to="." method="_on_btn_pressed"]
+[connection signal="pressed" from="Margin/HBox/OptionsArea/VBox/Bottombar/Close" to="." method="_on_close"]

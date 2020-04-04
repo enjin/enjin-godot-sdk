@@ -114,22 +114,22 @@ func _on_audio_pressed():
 
 func _on_master_volume_changed(value):
     var db = linear2db(value / 100)
-    $Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MasterVolume/Label.text = "%s%%" % value
+    $Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MasterVolume/Label.text = "%s" % value
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), db)
 
 func _on_music_volume_changed(value):
     var db = linear2db(value / 100)
-    $Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MusicVolume/Label.text = "%s%%" % value
+    $Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MusicVolume/Label.text = "%s" % value
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), db)
 
 func _on_sfx_volume_changed(value):
     var db = linear2db(value / 100)
-    $Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/SFXVolume/Label.text = "%s%%" % value
+    $Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/SFXVolume/Label.text = "%s" % value
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), db)
 
 func _on_ui_volume_changed(value):
     var db = linear2db(value / 100)
-    $Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/UIVolume/Label.text = "%s%%" % value
+    $Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/UIVolume/Label.text = "%s" % value
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index("UI"), db)
 
 func _on_sfx_slider_gui_input(event):
