@@ -104,14 +104,14 @@ func chop_hit_check():
 
 func player_bounced_on_head(entity):
     health = max(0, health - 1)
-    
+
     if $DamageSFX.playing:
         $DamageSFX.stop()
     $DamageSFX.play(0)
-    
+
     if $VoiceSFX.playing:
         $VoiceSFX.stop()
-    
+
     if health == 0:
         velocity = Vector2.ZERO
         $Sprite/AnimationPlayer.play("Death")

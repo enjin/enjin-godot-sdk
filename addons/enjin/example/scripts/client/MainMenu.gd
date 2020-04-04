@@ -16,7 +16,7 @@ func show_loading():
 
 func show_player_info(addr):
     $UnlinkArea/Margin/VBox/Address.text = "%s" % addr
-    
+
     $UnlinkArea.show()
     $QrCodeArea.hide()
     $LoadingArea.hide()
@@ -25,7 +25,7 @@ func show_player_info(addr):
 func show_qr(texture: ImageTexture):
     # Fixes the texture to the rect's size
     texture.set_size_override($QrCodeArea/VBox/Qr.rect_min_size)
-    
+
     $QrCodeArea/VBox/Qr.texture = texture
     $QrCodeArea.show()
     $UnlinkArea.hide()
@@ -37,7 +37,7 @@ func _on_start():
     hide()
     $QrCodeArea.hide()
     $UnlinkArea.hide()
-    
+
     emit_signal("start_game")
 
 func _on_exit():

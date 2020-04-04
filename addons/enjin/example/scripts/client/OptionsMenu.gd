@@ -12,7 +12,7 @@ var _ui_test: AudioStream = preload("res://addons/enjin/example/audio/ui_blip_sf
 
 func _ready():
     var value: float
-    
+
     # Assigns the slider values based on the mixers'
     value = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))
     get_tree().get_nodes_in_group("audio_master_slider")[0].value = db2linear(value) * 100
@@ -22,7 +22,7 @@ func _ready():
     get_tree().get_nodes_in_group("audio_sfx_slider")[0].value = db2linear(value) * 100
     value = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("UI"))
     get_tree().get_nodes_in_group("audio_ui_slider")[0].value = db2linear(value) * 100
-    
+
     emit_signal("undampen_audio")
 
 func _close_recent_option():
@@ -66,7 +66,7 @@ func _on_window_item_selected(id):
 
 func _on_resolution_item_selected(id):
     var size: Vector2
-    
+
     match id:
         0:
             size = Vector2(1280, 1024)
@@ -90,7 +90,7 @@ func _on_resolution_item_selected(id):
             size = Vector2(3840, 2160)
         _:
             size = OS.get_window_size()
-    
+
     OS.set_window_size(size)
 
 func _on_vsync_toggled(button_pressed):
@@ -109,7 +109,7 @@ func _on_audio_pressed():
     _option_open_btn = $Margin/HBox/Sidebar/Buttons/VBox/Audio
     $Margin/HBox/OptionsArea/VBox/AudioOptions.show()
     _set_style_box(_option_open_btn, _highlight_style)
-    
+
     emit_signal("undampen_audio")
 
 func _on_master_volume_changed(value):

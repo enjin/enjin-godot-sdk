@@ -2,10 +2,12 @@ extends Popup
 signal paused
 signal unpaused
 
+var _viewing_options = false
+
 func _process(delta):
     var escape = Input.is_action_just_released("ui_cancel")
 
-    if escape and visible:
+    if escape and visible and !_viewing_options:
         _resume()
     elif escape and not visible and not get_tree().paused:
         _pause()
@@ -36,7 +38,9 @@ func _on_options():
     if not $"../OptionsMenu".visible:
         $"../OptionsMenu"._open()
         $HBoxContainer/Sidebar.disable_btns()
+        _viewing_options = true
     else:
         if visible:
             $"../..".dampen_audio()
         $HBoxContainer/Sidebar.enable_btns()
+        _viewing_options = false

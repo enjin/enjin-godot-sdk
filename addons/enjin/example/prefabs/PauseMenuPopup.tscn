@@ -529,11 +529,11 @@ texture = ExtResource( 12 )
 expand = true
 stretch_mode = 5
 [connection signal="mouse_entered" from="HBoxContainer/Sidebar/Buttons/VBox/ResumeBtn" to="." method="_on_btn_mouse_entered"]
-[connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/ResumeBtn" to="." method="_on_resume"]
 [connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/ResumeBtn" to="." method="_on_btn_pressed"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/ResumeBtn" to="." method="_on_resume"]
 [connection signal="mouse_entered" from="HBoxContainer/Sidebar/Buttons/VBox/Options" to="." method="_on_btn_mouse_entered"]
-[connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/Options" to="." method="_on_options"]
 [connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/Options" to="." method="_on_btn_pressed"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/Options" to="." method="_on_options"]
 [connection signal="mouse_entered" from="HBoxContainer/Sidebar/Buttons/VBox/QuitBtn" to="." method="_on_btn_mouse_entered"]
-[connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/QuitBtn" to="." method="_on_quit"]
 [connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/QuitBtn" to="." method="_on_btn_pressed"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/Buttons/VBox/QuitBtn" to="." method="_on_quit"]

@@ -6,7 +6,7 @@ var _end_music: AudioStream = preload("res://addons/enjin/example/audio/ending.o
 func _ready():
     load_main_menu()
     $BgMusic.play(0)
-    
+
     # Initiate connection to server.
     $PlatformClient.connect_to_server()
     # Disable menu buttons while connecting
@@ -53,10 +53,10 @@ func _paused():
 
 func _player_fetched():
     $UI/Loading.hide()
-    
+
     if $UI/MainMenu.visible:
         var addr = $PlatformClient._identity.wallet.ethAddress
-        
+
         $UI/MainMenu.show_player_info(addr)
         $UI/MainMenu.enable_buttons()
     else:
@@ -65,15 +65,15 @@ func _player_fetched():
 func _player_loaded():
     $UI/Loading.hide()
     $UI/HUD.show()
-    
+
     get_tree().paused = false
 
 func _show_qr(image: Image):
     var texture = ImageTexture.new()
     texture.create_from_image(image)
-    
+
     $UI/Loading.hide()
-    
+
     if $UI/MainMenu.visible:
         $UI/MainMenu.show_qr(texture)
         # Enable menu buttons when QR is available

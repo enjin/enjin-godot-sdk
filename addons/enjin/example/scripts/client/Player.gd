@@ -47,7 +47,7 @@ func _physics_process(delta):
     var run: bool = false
     var land: bool = false
     var climb: bool = false
-    
+
     invulnerability_remaining = max(0, invulnerability_remaining - delta)
 
     check_bounce(delta)
@@ -111,12 +111,12 @@ func _physics_process(delta):
         $Sprite.flip_h = false
 
     velocity = move_and_slide(velocity, FLOOR)
-    
+
     if is_on_floor() and _was_in_air and !knockbacked:
         land = true
-    
+
     _was_in_air = !is_on_floor()
-    
+
     _movement_sfx(run, land, climb)
 
 func add_coins(amount: int):
@@ -183,7 +183,7 @@ func knockback(move_right: bool):
     if $DamageSFX.playing:
         $DamageSFX.stop()
     $DamageSFX.play(0)
-    
+
     accept_input = false
     knockbacked = true
     landing_delay_remaining = landing_delay
@@ -203,7 +203,7 @@ func _play_item_sfx():
 
 func _movement_sfx(run: bool, land: bool, climb: bool):
     $GroundSFX.bus = "SFX"
-    
+
     if land:
         $GroundSFX.stop()
         $GroundSFX.stream = _land_sfx
@@ -220,11 +220,11 @@ func _movement_sfx(run: bool, land: bool, climb: bool):
         if $GroundSFX.stream != _climb_1_sfx:
             $GroundSFX.stop()
             $GroundSFX.set_stream(_climb_1_sfx)
-        
+
         if !$GroundSFX.playing:
             var bus = AudioServer.get_bus_index("SFX Pitch Shift")
             var effect: AudioEffectPitchShift = AudioServer.get_bus_effect(bus, 0)
             effect.pitch_scale = rand_range(0.8, 1.2)
-            
+
             $GroundSFX.bus = "SFX Pitch Shift"
             $GroundSFX.play(0)

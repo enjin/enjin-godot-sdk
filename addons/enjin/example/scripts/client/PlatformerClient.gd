@@ -44,7 +44,7 @@ func _init():
 
 func _ready():
     player = get_tree().get_nodes_in_group("player")[0]
-    
+
     # Check if the settings have been configured.
     if !_settings_valid():
         # If not then quit.
@@ -191,12 +191,12 @@ func _fetch_player_data(udata: Dictionary):
 
         if _identity == null:
             get_tree().quit()
-        
+
         var linkingCode = _identity.linkingCodeQr
         if linkingCode and !linkingCode.empty():
             download_and_show_qr_code(linkingCode) # Download and display the QR code to the player.
             return
-        
+
         emit_signal("player_fetched")
 
 func _qr_code_request_complete(result, response_code, headers, body):
@@ -215,7 +215,7 @@ func unlink_player():
     var id = _identity.id
     if !id:
         return
-    
+
     var input = UnlinkIdentityInput.new()
     var udata = { "callback": _unlink_player_callback }
     input.id(id)
