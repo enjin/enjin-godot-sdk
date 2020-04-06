@@ -58,7 +58,7 @@ margin_bottom = 1080.0
 rect_min_size = Vector2( 350, 0 )
 theme = ExtResource( 2 )
 script = ExtResource( 5 )
-btns = [ NodePath("Buttons/VBoxContainer/Start"), NodePath("Buttons/VBoxContainer/Options"), NodePath("Buttons/VBoxContainer/Exit") ]
+btns = [ NodePath("Buttons/VBox/Start"), NodePath("Buttons/VBox/Options"), NodePath("Buttons/VBox/Exit") ]
 
 [node name="Title" type="Label" parent="HBox/Sidebar"]
 anchor_right = 1.0
@@ -82,7 +82,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBox/Sidebar/Buttons"]
+[node name="VBox" type="VBoxContainer" parent="HBox/Sidebar/Buttons"]
 margin_left = 30.0
 margin_right = 350.0
 margin_bottom = 1080.0
@@ -92,24 +92,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Start" type="Button" parent="HBox/Sidebar/Buttons/VBoxContainer"]
+[node name="Start" type="Button" parent="HBox/Sidebar/Buttons/VBox" groups=[
+"main_menu_btns",
+]]
 margin_top = 424.0
 margin_right = 320.0
 margin_bottom = 481.0
+focus_neighbour_bottom = NodePath("../Options")
 text = "START"
 align = 0
 
-[node name="Options" type="Button" parent="HBox/Sidebar/Buttons/VBoxContainer"]
+[node name="Options" type="Button" parent="HBox/Sidebar/Buttons/VBox" groups=[
+"main_menu_btns",
+]]
 margin_top = 511.0
 margin_right = 320.0
 margin_bottom = 568.0
+focus_neighbour_top = NodePath("../Start")
+focus_neighbour_bottom = NodePath("../Exit")
 text = "OPTIONS"
 align = 0
 
-[node name="Exit" type="Button" parent="HBox/Sidebar/Buttons/VBoxContainer"]
+[node name="Exit" type="Button" parent="HBox/Sidebar/Buttons/VBox" groups=[
+"main_menu_btns",
+]]
 margin_top = 598.0
 margin_right = 320.0
 margin_bottom = 655.0
+focus_neighbour_top = NodePath("../Options")
 text = "EXIT"
 align = 0
 
@@ -123,6 +133,8 @@ margin_top = -550.0
 margin_right = -49.9999
 margin_bottom = -50.0
 rect_min_size = Vector2( 500, 500 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
 custom_styles/panel = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -175,6 +187,7 @@ margin_left = 88.0
 margin_top = 352.0
 margin_right = 392.0
 margin_bottom = 400.0
+focus_neighbour_left = NodePath("../../../../HBox/Sidebar/Buttons/VBox/Start")
 size_flags_horizontal = 4
 size_flags_vertical = 10
 custom_styles/hover = ExtResource( 11 )
@@ -195,7 +208,8 @@ margin_top = -550.0
 margin_right = -49.9999
 margin_bottom = -50.0
 rect_min_size = Vector2( 500, 500 )
-size_flags_horizontal = 10
+size_flags_horizontal = 0
+size_flags_vertical = 0
 custom_styles/panel = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -235,6 +249,7 @@ margin_left = 125.0
 margin_top = 398.0
 margin_right = 374.0
 margin_bottom = 446.0
+focus_neighbour_left = NodePath("../../../HBox/Sidebar/Buttons/VBox/Start")
 size_flags_horizontal = 4
 custom_styles/hover = ExtResource( 11 )
 custom_styles/pressed = ExtResource( 10 )
@@ -254,6 +269,8 @@ margin_top = -550.0
 margin_right = -49.9999
 margin_bottom = -50.0
 rect_min_size = Vector2( 500, 500 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
 custom_styles/panel = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -274,17 +291,18 @@ margin_bottom = 274.0
 custom_fonts/font = ExtResource( 6 )
 text = "Connecting to Server..."
 align = 1
-[connection signal="mouse_entered" from="HBox/Sidebar/Buttons/VBoxContainer/Start" to="." method="_on_btn_mouse_entered"]
-[connection signal="pressed" from="HBox/Sidebar/Buttons/VBoxContainer/Start" to="." method="_on_start"]
-[connection signal="pressed" from="HBox/Sidebar/Buttons/VBoxContainer/Start" to="." method="_on_btn_pressed"]
-[connection signal="mouse_entered" from="HBox/Sidebar/Buttons/VBoxContainer/Options" to="." method="_on_btn_mouse_entered"]
-[connection signal="pressed" from="HBox/Sidebar/Buttons/VBoxContainer/Options" to="." method="_on_options"]
-[connection signal="pressed" from="HBox/Sidebar/Buttons/VBoxContainer/Options" to="." method="_on_btn_pressed"]
-[connection signal="mouse_entered" from="HBox/Sidebar/Buttons/VBoxContainer/Exit" to="." method="_on_btn_mouse_entered"]
-[connection signal="pressed" from="HBox/Sidebar/Buttons/VBoxContainer/Exit" to="." method="_on_exit"]
+[connection signal="focus_entered" from="." to="." method="_on_menu_focus_entered"]
+[connection signal="mouse_entered" from="HBox/Sidebar/Buttons/VBox/Start" to="." method="_on_btn_mouse_entered"]
+[connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/Start" to="." method="_on_btn_pressed"]
+[connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/Start" to="." method="_on_start"]
+[connection signal="mouse_entered" from="HBox/Sidebar/Buttons/VBox/Options" to="." method="_on_btn_mouse_entered"]
+[connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/Options" to="." method="_on_options"]
+[connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/Options" to="." method="_on_btn_pressed"]
+[connection signal="mouse_entered" from="HBox/Sidebar/Buttons/VBox/Exit" to="." method="_on_btn_mouse_entered"]
+[connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/Exit" to="." method="_on_exit"]
 [connection signal="mouse_entered" from="UnlinkArea/Margin/VBox/Unlink" to="." method="_on_btn_mouse_entered"]
 [connection signal="pressed" from="UnlinkArea/Margin/VBox/Unlink" to="." method="_on_unlink_pressed"]
 [connection signal="pressed" from="UnlinkArea/Margin/VBox/Unlink" to="." method="_on_btn_pressed"]
 [connection signal="mouse_entered" from="QrCodeArea/VBox/Link" to="." method="_on_btn_mouse_entered"]
-[connection signal="pressed" from="QrCodeArea/VBox/Link" to="." method="_on_link_pressed"]
 [connection signal="pressed" from="QrCodeArea/VBox/Link" to="." method="_on_btn_pressed"]
+[connection signal="pressed" from="QrCodeArea/VBox/Link" to="." method="_on_link_pressed"]

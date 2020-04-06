@@ -90,5 +90,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="mouse_entered" from="CenterContainer/VBoxContainer/Button" to="." method="_on_btn_mouse_entered"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/Button" to="CenterContainer/VBoxContainer/Button" method="_quit_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Button" to="." method="_on_btn_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Button" to="CenterContainer/VBoxContainer/Button" method="_quit_pressed"]

@@ -4,6 +4,7 @@ signal dampen_audio
 signal undampen_audio
 
 # Constants
+const AUDIO_TEST_INPUT_WAIT: float = 0.5 # Wait between slider input and audio test
 const SETTINGS_FILE_NAME: String  = "user://config.ini"
 
 var _option_open: Control
@@ -11,7 +12,8 @@ var _option_open_btn: Button
 var _settings: ConfigFile
 var _has_applied_settings: bool
 
-var _highlight_style: StyleBox = preload("res://addons/enjin/example/themes/options_highlight_stylebox.tres")
+var _highlight_normal_style: StyleBox = preload("res://addons/enjin/example/themes/options_highlight_stylebox.tres")
+var _highlight_hover_style: StyleBox = preload("res://addons/enjin/example/themes/options_highlight_stylebox_hover.tres")
 var _sfx_test: AudioStream = preload("res://addons/enjin/example/audio/coin_sfx.wav")
 var _ui_test: AudioStream = preload("res://addons/enjin/example/audio/ui_blip_sfx.wav")
 
@@ -29,16 +31,35 @@ func _ready():
 func _process(delta):
     var enter = Input.is_action_just_released("ui_accept")
     var escape = Input.is_action_just_released("ui_cancel")
+    var select = Input.is_action_just_released("ui_select")
     
     if visible:
-        if enter:
-            _on_apply()
-        elif escape:
+        if escape:
             _on_close()
+            _on_btn_pressed()
+        elif select:
+            _on_apply()
+            _on_btn_pressed()
+        elif enter:
+            # Handles focus for sliders
+            var group = get_tree().get_nodes_in_group("audio_sliders")
+            for i in range(0, len(group)):
+                var node: Control = group[i]
+                if node.has_focus():
+                    _option_open_btn.grab_focus()
+                    _option_open_btn.grab_click_focus()
+                    _on_btn_pressed()
+
+func show():
+    .show()
+    _on_video_pressed() # Automatically opens video tab
+    _update_focus()
+    $Margin/HBox/Sidebar/Buttons/VBox/Video.grab_focus()
+    $Margin/HBox/Sidebar/Buttons/VBox/Video.grab_click_focus()
 
 func _close_recent_option():
     if _option_open:
-        _set_style_box(_option_open_btn, StyleBoxEmpty.new())
+        _set_style_box(_option_open_btn, false)
         # Signal to restore audio
         if _option_open == $Margin/HBox/OptionsArea/VBox/AudioOptions:
             emit_signal("dampen_audio")
@@ -69,9 +90,19 @@ func _load_settings():
     
     _settings_changed(false)
 
-func _open():
-    show()
-    _on_video_pressed() # Automatically opens video tab
+func _play_test_sfx():
+    if $AudioTest.playing:
+        $AudioTest.stop()
+    $AudioTest.bus = "SFX"
+    $AudioTest.set_stream(_sfx_test)
+    $AudioTest.play(0)
+
+func _play_test_ui():
+    if $AudioTest.playing:
+        $AudioTest.stop()
+    $AudioTest.bus = "UI"
+    $AudioTest.set_stream(_ui_test)
+    $AudioTest.play(0)
 
 func _save_settings():
     var value
@@ -96,8 +127,17 @@ func _save_settings():
     
     _settings.save(SETTINGS_FILE_NAME)
 
-func _set_style_box(btn: Button, style: StyleBox):
-    btn.add_stylebox_override("normal", style)
+func _set_style_box(btn: Button, enable: bool):
+    if enable:
+        btn.add_stylebox_override("hover", _highlight_hover_style)
+        btn.add_stylebox_override("pressed", _highlight_normal_style)
+        btn.add_stylebox_override("focus", _highlight_hover_style)
+        btn.add_stylebox_override("normal", _highlight_normal_style)
+    else:
+        btn.add_stylebox_override("hover", null)
+        btn.add_stylebox_override("pressed", null)
+        btn.add_stylebox_override("focus", null)
+        btn.add_stylebox_override("normal", null)
 
 func _settings_changed(changed: bool):
     if changed:
@@ -107,7 +147,20 @@ func _settings_changed(changed: bool):
         _has_applied_settings = true
         get_tree().get_nodes_in_group("options_apply_btn")[0].disabled = true
 
+func _update_focus():
+    var node: NodePath
+    
+    if _option_open == $Margin/HBox/OptionsArea/VBox/VideoOptions:
+        node = $Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox/Window.get_path()
+    elif _option_open == $Margin/HBox/OptionsArea/VBox/AudioOptions:
+        node = $Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MasterVolume/Slider.get_path()
+    
+    $Margin/HBox/Sidebar/Buttons/VBox/Video.focus_neighbour_right = node
+    $Margin/HBox/Sidebar/Buttons/VBox/Audio.focus_neighbour_right = node
+
 func _on_apply():
+    $Margin/HBox/OptionsArea/VBox/Bottombar/HBox/Close.grab_focus()
+    $Margin/HBox/OptionsArea/VBox/Bottombar/HBox/Close.grab_click_focus()
     _save_settings()
     _settings_changed(false)
 
@@ -118,6 +171,9 @@ func _on_btn_pressed():
     $PressedSFX.play(0)
 
 func _on_close():
+    $SFXTestTimer.stop()
+    $UITestTimer.stop()
+    
     if !_has_applied_settings:
         _load_settings()
     
@@ -182,14 +238,16 @@ func _on_video_pressed():
     _option_open = $Margin/HBox/OptionsArea/VBox/VideoOptions
     _option_open_btn = $Margin/HBox/Sidebar/Buttons/VBox/Video
     $Margin/HBox/OptionsArea/VBox/VideoOptions.show()
-    _set_style_box(_option_open_btn, _highlight_style)
+    _set_style_box(_option_open_btn, true)
+    _update_focus()
 
 func _on_audio_pressed():
     _close_recent_option()
     _option_open = $Margin/HBox/OptionsArea/VBox/AudioOptions
     _option_open_btn = $Margin/HBox/Sidebar/Buttons/VBox/Audio
     $Margin/HBox/OptionsArea/VBox/AudioOptions.show()
-    _set_style_box(_option_open_btn, _highlight_style)
+    _set_style_box(_option_open_btn, true)
+    _update_focus()
 
     emit_signal("undampen_audio")
 
@@ -216,6 +274,9 @@ func _on_sfx_volume_changed(value):
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), db)
     
     _settings_changed(true)
+    
+    if visible:
+        $SFXTestTimer.start(AUDIO_TEST_INPUT_WAIT)
 
 func _on_ui_volume_changed(value):
     var db = linear2db(value / 100)
@@ -224,15 +285,16 @@ func _on_ui_volume_changed(value):
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index("UI"), db)
     
     _settings_changed(true)
+    
+    if visible:
+        $UITestTimer.start(AUDIO_TEST_INPUT_WAIT)
 
 func _on_sfx_slider_gui_input(event):
     if event is InputEventMouseButton and !event.pressed:
-        $AudioTest.bus = "SFX"
-        $AudioTest.set_stream(_sfx_test)
-        $AudioTest.play(0)
+        $SFXTestTimer.stop()
+        _play_test_sfx()
 
 func _on_ui_slider_gui_input(event):
     if event is InputEventMouseButton and !event.pressed:
-        $AudioTest.bus = "UI"
-        $AudioTest.set_stream(_ui_test)
-        $AudioTest.play(0)
+        $UITestTimer.stop()
+        _play_test_ui()

@@ -1,19 +1,27 @@
-[gd_resource type="Theme" load_steps=13 format=2]
+[gd_resource type="Theme" load_steps=18 format=2]
 
 [ext_resource path="res://addons/enjin/example/fonts/Roboto24.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/enjin/example/themes/util_button_pressed.tres" type="StyleBox" id=2]
+[ext_resource path="res://addons/enjin/example/themes/util_button_hover.tres" type="StyleBox" id=4]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxEmpty" id=20]
+
+[sub_resource type="StyleBoxEmpty" id=15]
+
+[sub_resource type="StyleBoxEmpty" id=21]
+
+[sub_resource type="StyleBoxEmpty" id=19]
+
+[sub_resource type="StyleBoxEmpty" id=22]
+
+[sub_resource type="StyleBoxEmpty" id=18]
+
+[sub_resource type="StyleBoxFlat" id=12]
 bg_color = Color( 0.6, 0.6, 0.6, 0.196078 )
-
-[sub_resource type="StyleBoxEmpty" id=4]
-
-[sub_resource type="StyleBoxFlat" id=5]
-
-[sub_resource type="StyleBoxEmpty" id=6]
 
 [sub_resource type="StyleBoxEmpty" id=7]
 
@@ -38,9 +46,27 @@ Button/constants/hseparation = 2
 Button/fonts/font = null
 Button/styles/disabled = SubResource( 1 )
 Button/styles/focus = SubResource( 2 )
-Button/styles/hover = SubResource( 3 )
-Button/styles/normal = SubResource( 4 )
-Button/styles/pressed = SubResource( 5 )
+Button/styles/hover = ExtResource( 4 )
+Button/styles/normal = SubResource( 20 )
+Button/styles/pressed = ExtResource( 2 )
+CheckButton/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+CheckButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+CheckButton/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+CheckButton/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+CheckButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+CheckButton/constants/check_vadjust = 0
+CheckButton/constants/hseparation = 4
+CheckButton/fonts/font = null
+CheckButton/icons/off = null
+CheckButton/icons/off_disabled = null
+CheckButton/icons/on = null
+CheckButton/icons/on_disabled = null
+CheckButton/styles/disabled = SubResource( 15 )
+CheckButton/styles/focus = ExtResource( 4 )
+CheckButton/styles/hover = SubResource( 21 )
+CheckButton/styles/hover_pressed = SubResource( 19 )
+CheckButton/styles/normal = SubResource( 22 )
+CheckButton/styles/pressed = SubResource( 18 )
 PopupMenu/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
 PopupMenu/colors/font_color_accel = Color( 0.7, 0.7, 0.7, 0.8 )
 PopupMenu/colors/font_color_disabled = Color( 0.4, 0.4, 0.4, 0.8 )
@@ -53,7 +79,7 @@ PopupMenu/icons/radio_checked = null
 PopupMenu/icons/radio_unchecked = null
 PopupMenu/icons/submenu = null
 PopupMenu/icons/unchecked = null
-PopupMenu/styles/hover = SubResource( 6 )
+PopupMenu/styles/hover = SubResource( 12 )
 PopupMenu/styles/labeled_separator_left = SubResource( 7 )
 PopupMenu/styles/labeled_separator_right = SubResource( 8 )
 PopupMenu/styles/panel = SubResource( 9 )

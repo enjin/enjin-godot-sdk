@@ -26,7 +26,11 @@ func _on_quit():
 
 func _pause():
     get_tree().paused = true
+    
     show()
+    $HBox/Sidebar/Buttons/VBox/ResumeBtn.grab_focus()
+    $HBox/Sidebar/Buttons/VBox/ResumeBtn.grab_click_focus()
+    
     emit_signal("paused")
 
 func _resume():
@@ -36,11 +40,14 @@ func _resume():
 
 func _on_options():
     if not $"../OptionsMenu".visible:
-        $"../OptionsMenu"._open()
-        $HBoxContainer/Sidebar.disable_btns()
+        $"../OptionsMenu".show()
+        $HBox/Sidebar.disable_btns()
         _viewing_options = true
     else:
+        $HBox/Sidebar.enable_btns()
+        _viewing_options = false
+        
         if visible:
             $"../..".dampen_audio()
-        $HBoxContainer/Sidebar.enable_btns()
-        _viewing_options = false
+            $HBox/Sidebar/Buttons/VBox/ResumeBtn.grab_focus()
+            $HBox/Sidebar/Buttons/VBox/ResumeBtn.grab_click_focus()

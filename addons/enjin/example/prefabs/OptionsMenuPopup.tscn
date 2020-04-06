@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://addons/enjin/example/themes/main_menu.tres" type="Theme" id=1]
 [ext_resource path="res://addons/enjin/example/themes/pause_sidebar.tres" type="Theme" id=2]
@@ -12,21 +12,10 @@
 [ext_resource path="res://addons/enjin/example/audio/ui_click_sfx.wav" type="AudioStream" id=10]
 [ext_resource path="res://addons/enjin/example/themes/options_highlight_stylebox.tres" type="StyleBox" id=11]
 [ext_resource path="res://addons/enjin/example/audio/ui_blip_sfx.wav" type="AudioStream" id=12]
+[ext_resource path="res://addons/enjin/example/themes/options_highlight_stylebox_hover.tres" type="StyleBox" id=13]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.156863, 0.156863, 0.156863, 0.882353 )
-
-[sub_resource type="StyleBoxEmpty" id=2]
-
-[sub_resource type="StyleBoxEmpty" id=3]
-
-[sub_resource type="StyleBoxEmpty" id=4]
-
-[sub_resource type="StyleBoxEmpty" id=5]
-
-[sub_resource type="StyleBoxEmpty" id=6]
-
-[sub_resource type="StyleBoxEmpty" id=7]
 
 [sub_resource type="StyleBoxLine" id=8]
 color = Color( 1, 1, 1, 0.196078 )
@@ -107,6 +96,10 @@ __meta__ = {
 [node name="Video" type="Button" parent="Margin/HBox/Sidebar/Buttons/VBox"]
 margin_right = 270.0
 margin_bottom = 48.0
+focus_neighbour_bottom = NodePath("../Audio")
+custom_styles/hover = ExtResource( 13 )
+custom_styles/pressed = ExtResource( 11 )
+custom_styles/focus = ExtResource( 13 )
 custom_styles/normal = ExtResource( 11 )
 custom_fonts/font = ExtResource( 6 )
 text = "VIDEO"
@@ -116,6 +109,8 @@ align = 0
 margin_top = 68.0
 margin_right = 270.0
 margin_bottom = 116.0
+focus_neighbour_top = NodePath("../Video")
+focus_neighbour_bottom = NodePath("../../../../OptionsArea/VBox/Bottombar/HBox/Close")
 custom_fonts/font = ExtResource( 6 )
 text = "AUDIO"
 align = 0
@@ -234,20 +229,13 @@ margin_top = 44.0
 margin_right = 143.0
 margin_bottom = 76.0
 size_flags_horizontal = 8
-custom_styles/hover = SubResource( 2 )
-custom_styles/pressed = SubResource( 3 )
-custom_styles/focus = SubResource( 4 )
-custom_styles/disabled = SubResource( 5 )
-custom_styles/hover_pressed = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
 pressed = true
 align = 2
 
 [node name="AudioOptions" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox"]
 visible = false
-margin_top = 329.0
 margin_right = 670.0
-margin_bottom = 550.0
+margin_bottom = 221.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -318,6 +306,7 @@ margin_bottom = 29.0
 
 [node name="Slider" type="HSlider" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MasterVolume" groups=[
 "audio_master_slider",
+"audio_sliders",
 ]]
 margin_top = 6.0
 margin_right = 200.0
@@ -343,6 +332,7 @@ margin_bottom = 73.0
 
 [node name="Slider" type="HSlider" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MusicVolume" groups=[
 "audio_music_slider",
+"audio_sliders",
 ]]
 margin_top = 6.0
 margin_right = 200.0
@@ -368,6 +358,7 @@ margin_bottom = 117.0
 
 [node name="Slider" type="HSlider" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/SFXVolume" groups=[
 "audio_sfx_slider",
+"audio_sliders",
 ]]
 margin_top = 6.0
 margin_right = 200.0
@@ -392,6 +383,7 @@ margin_right = 264.0
 margin_bottom = 161.0
 
 [node name="Slider" type="HSlider" parent="Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/UIVolume" groups=[
+"audio_sliders",
 "audio_ui_slider",
 ]]
 margin_top = 6.0
@@ -433,6 +425,8 @@ margin_left = 136.0
 margin_top = 35.0
 margin_right = 210.0
 margin_bottom = 64.0
+focus_neighbour_top = NodePath("../../../../../Sidebar/Buttons/VBox/Audio")
+focus_neighbour_right = NodePath("../Apply")
 size_flags_horizontal = 0
 size_flags_vertical = 4
 custom_styles/hover = ExtResource( 8 )
@@ -452,6 +446,8 @@ margin_left = 460.0
 margin_top = 35.0
 margin_right = 533.0
 margin_bottom = 64.0
+focus_neighbour_left = NodePath("../Close")
+focus_neighbour_top = NodePath("../../../../../Sidebar/Buttons/VBox/Audio")
 size_flags_horizontal = 0
 size_flags_vertical = 4
 custom_styles/hover = ExtResource( 8 )
@@ -463,6 +459,14 @@ text = "APPLY"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SFXTestTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="UITestTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
 [connection signal="mouse_entered" from="Margin/HBox/Sidebar/Buttons/VBox/Video" to="." method="_on_btn_mouse_entered"]
 [connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/Video" to="." method="_on_btn_pressed"]
 [connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/Video" to="." method="_on_video_pressed"]
@@ -484,3 +488,5 @@ __meta__ = {
 [connection signal="mouse_entered" from="Margin/HBox/OptionsArea/VBox/Bottombar/HBox/Apply" to="." method="_on_btn_mouse_entered"]
 [connection signal="pressed" from="Margin/HBox/OptionsArea/VBox/Bottombar/HBox/Apply" to="." method="_on_btn_pressed"]
 [connection signal="pressed" from="Margin/HBox/OptionsArea/VBox/Bottombar/HBox/Apply" to="." method="_on_apply"]
+[connection signal="timeout" from="SFXTestTimer" to="." method="_play_test_sfx"]
+[connection signal="timeout" from="UITestTimer" to="." method="_play_test_ui"]
