@@ -8,33 +8,33 @@
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
-[sub_resource type="StyleBoxEmpty" id=20]
+[sub_resource type="StyleBoxEmpty" id=3]
 
-[sub_resource type="StyleBoxEmpty" id=15]
+[sub_resource type="StyleBoxEmpty" id=4]
 
-[sub_resource type="StyleBoxEmpty" id=21]
+[sub_resource type="StyleBoxEmpty" id=5]
 
-[sub_resource type="StyleBoxEmpty" id=19]
-
-[sub_resource type="StyleBoxEmpty" id=22]
-
-[sub_resource type="StyleBoxEmpty" id=18]
-
-[sub_resource type="StyleBoxFlat" id=12]
-bg_color = Color( 0.6, 0.6, 0.6, 0.196078 )
+[sub_resource type="StyleBoxEmpty" id=6]
 
 [sub_resource type="StyleBoxEmpty" id=7]
 
 [sub_resource type="StyleBoxEmpty" id=8]
 
 [sub_resource type="StyleBoxFlat" id=9]
-bg_color = Color( 0.211765, 0.211765, 0.211765, 1 )
-shadow_size = 5
-shadow_offset = Vector2( 5, 5 )
+bg_color = Color( 0.6, 0.6, 0.6, 0.196078 )
 
 [sub_resource type="StyleBoxEmpty" id=10]
 
 [sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0.211765, 0.211765, 0.211765, 1 )
+shadow_size = 5
+shadow_offset = Vector2( 5, 5 )
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="StyleBoxEmpty" id=14]
 
 [resource]
 default_font = ExtResource( 1 )
@@ -47,7 +47,7 @@ Button/fonts/font = null
 Button/styles/disabled = SubResource( 1 )
 Button/styles/focus = SubResource( 2 )
 Button/styles/hover = ExtResource( 4 )
-Button/styles/normal = SubResource( 20 )
+Button/styles/normal = SubResource( 3 )
 Button/styles/pressed = ExtResource( 2 )
 CheckButton/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
 CheckButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
@@ -61,12 +61,12 @@ CheckButton/icons/off = null
 CheckButton/icons/off_disabled = null
 CheckButton/icons/on = null
 CheckButton/icons/on_disabled = null
-CheckButton/styles/disabled = SubResource( 15 )
+CheckButton/styles/disabled = SubResource( 4 )
 CheckButton/styles/focus = ExtResource( 4 )
-CheckButton/styles/hover = SubResource( 21 )
-CheckButton/styles/hover_pressed = SubResource( 19 )
-CheckButton/styles/normal = SubResource( 22 )
-CheckButton/styles/pressed = SubResource( 18 )
+CheckButton/styles/hover = SubResource( 5 )
+CheckButton/styles/hover_pressed = SubResource( 6 )
+CheckButton/styles/normal = SubResource( 7 )
+CheckButton/styles/pressed = SubResource( 8 )
 PopupMenu/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
 PopupMenu/colors/font_color_accel = Color( 0.7, 0.7, 0.7, 0.8 )
 PopupMenu/colors/font_color_disabled = Color( 0.4, 0.4, 0.4, 0.8 )
@@ -79,9 +79,9 @@ PopupMenu/icons/radio_checked = null
 PopupMenu/icons/radio_unchecked = null
 PopupMenu/icons/submenu = null
 PopupMenu/icons/unchecked = null
-PopupMenu/styles/hover = SubResource( 12 )
-PopupMenu/styles/labeled_separator_left = SubResource( 7 )
-PopupMenu/styles/labeled_separator_right = SubResource( 8 )
-PopupMenu/styles/panel = SubResource( 9 )
-PopupMenu/styles/panel_disabled = SubResource( 10 )
-PopupMenu/styles/separator = SubResource( 11 )
+PopupMenu/styles/hover = SubResource( 9 )
+PopupMenu/styles/labeled_separator_left = SubResource( 10 )
+PopupMenu/styles/labeled_separator_right = SubResource( 11 )
+PopupMenu/styles/panel = SubResource( 12 )
+PopupMenu/styles/panel_disabled = SubResource( 13 )
+PopupMenu/styles/separator = SubResource( 14 )

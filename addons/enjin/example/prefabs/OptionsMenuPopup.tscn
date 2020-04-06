@@ -17,13 +17,13 @@
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.156863, 0.156863, 0.156863, 0.882353 )
 
-[sub_resource type="StyleBoxLine" id=8]
+[sub_resource type="StyleBoxLine" id=2]
 color = Color( 1, 1, 1, 0.196078 )
 thickness = 3
 
-[sub_resource type="StyleBoxEmpty" id=9]
+[sub_resource type="StyleBoxEmpty" id=3]
 
-[sub_resource type="StyleBoxEmpty" id=10]
+[sub_resource type="StyleBoxEmpty" id=4]
 
 [node name="OptionsMenu" type="PopupPanel"]
 anchor_right = 1.0
@@ -409,7 +409,7 @@ margin_right = 670.0
 margin_bottom = 880.0
 rect_min_size = Vector2( 0, 100 )
 size_flags_vertical = 10
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 2 )
 
 [node name="HBox" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox/Bottombar"]
 anchor_right = 1.0
@@ -431,8 +431,8 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 custom_styles/hover = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 7 )
-custom_styles/focus = SubResource( 9 )
-custom_styles/disabled = SubResource( 10 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
 custom_styles/normal = ExtResource( 9 )
 text = "CLOSE"
 __meta__ = {
@@ -452,8 +452,8 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 custom_styles/hover = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 7 )
-custom_styles/focus = SubResource( 9 )
-custom_styles/disabled = SubResource( 10 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
 custom_styles/normal = ExtResource( 9 )
 text = "APPLY"
 __meta__ = {

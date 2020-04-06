@@ -2,6 +2,4 @@
 
 [resource]
 bg_color = Color( 0.152941, 0.152941, 0.152941, 1 )
-corner_radius_top_left = 30
-corner_radius_bottom_left = 30
-expand_margin_left = 15.0
+expand_margin_left = 30.0
