@@ -26,6 +26,16 @@ func _ready():
     # Undampen in case of returning to main menu from pause menu
     emit_signal("undampen_audio")
 
+func _process(delta):
+    var enter = Input.is_action_just_released("ui_accept")
+    var escape = Input.is_action_just_released("ui_cancel")
+    
+    if visible:
+        if enter:
+            _on_apply()
+        elif escape:
+            _on_close()
+
 func _close_recent_option():
     if _option_open:
         _set_style_box(_option_open_btn, StyleBoxEmpty.new())
