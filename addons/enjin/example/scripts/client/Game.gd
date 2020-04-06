@@ -21,6 +21,7 @@ func dampen_audio():
 
 func fetch_player():
     $UI/Loading.show()
+    $UI/MainMenu.disable_buttons()
     $PlatformClient.fetch_player_data()
 
 func load_game():
@@ -46,6 +47,7 @@ func undampen_audio():
 
 func unlink_player():
     $UI/Loading.show()
+    $UI/MainMenu.disable_buttons()
     $PlatformClient.unlink_player()
 
 func _paused():

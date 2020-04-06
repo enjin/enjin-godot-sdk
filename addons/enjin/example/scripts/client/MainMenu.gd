@@ -10,9 +10,14 @@ func disable_buttons():
 
 func enable_buttons():
     $HBox/Sidebar.enable_btns()
+    
+    if visible:
+        $HBox/Sidebar/Buttons/VBox/Start.grab_focus()
+        $HBox/Sidebar/Buttons/VBox/Start.grab_click_focus()
 
 func show_loading():
     $LoadingArea.show()
+    _update_wallet_focus()
 
 func show_player_info(addr):
     $UnlinkArea/Margin/VBox/Address.text = "%s" % addr
@@ -21,6 +26,8 @@ func show_player_info(addr):
     $QrCodeArea.hide()
     $LoadingArea.hide()
     _last_wallet_area = $UnlinkArea
+    
+    _update_wallet_focus($UnlinkArea/Margin/VBox/Unlink)
 
 func show_qr(texture: ImageTexture):
     # Fixes the texture to the rect's size
@@ -31,6 +38,17 @@ func show_qr(texture: ImageTexture):
     $UnlinkArea.hide()
     $LoadingArea.hide()
     _last_wallet_area = $QrCodeArea
+    
+    _update_wallet_focus($QrCodeArea/VBox/Link)
+
+func _update_wallet_focus(walletButton: Button = null):
+    var btns = get_tree().get_nodes_in_group("main_menu_btns")
+    for i in range(0, len(btns)):
+        var btn: Button = btns[i]
+        if walletButton:
+            btn.focus_neighbour_right = walletButton.get_path()
+        else:
+            btn.focus_neighbour_right = btn.get_path()
 
 func _on_start():
     # Hides all ui elements
@@ -45,7 +63,7 @@ func _on_exit():
 
 func _on_options():
     if not $"../OptionsMenu".visible:
-        $"../OptionsMenu"._open()
+        $"../OptionsMenu".show()
         $QrCodeArea.hide()
         $UnlinkArea.hide()
         disable_buttons()
