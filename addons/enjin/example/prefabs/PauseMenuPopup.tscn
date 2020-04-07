@@ -54,6 +54,7 @@ region = Rect2( 41, 12, 14, 8 )
 
 [node name="PauseMenu" type="Popup"]
 pause_mode = 2
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
@@ -352,13 +353,13 @@ stretch_mode = 5
 
 [node name="CoinDescription" type="Label" parent="HBox/GameElements/VBoxContainer/TopRow"]
 margin_left = 287.0
-margin_top = 41.0
+margin_top = 25.0
 margin_right = 587.0
-margin_bottom = 134.0
+margin_bottom = 150.0
 rect_min_size = Vector2( 300, 0 )
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 14 )
-text = "Pick up coins Found scattered throught the Level!"
+text = "Pick up coins found scattered throughtout the Level!"
 align = 3
 valign = 1
 autowrap = true
@@ -536,8 +537,8 @@ stretch_mode = 5
 [connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/ResumeBtn" to="." method="_on_btn_pressed"]
 [connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/ResumeBtn" to="." method="_on_resume"]
 [connection signal="mouse_entered" from="HBox/Sidebar/Buttons/VBox/Options" to="." method="_on_btn_mouse_entered"]
-[connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/Options" to="." method="_on_options"]
 [connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/Options" to="." method="_on_btn_pressed"]
+[connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/Options" to="." method="_on_options"]
 [connection signal="mouse_entered" from="HBox/Sidebar/Buttons/VBox/QuitBtn" to="." method="_on_btn_mouse_entered"]
 [connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/QuitBtn" to="." method="_on_btn_pressed"]
 [connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/QuitBtn" to="." method="_on_quit"]
