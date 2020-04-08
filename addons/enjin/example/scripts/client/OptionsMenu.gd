@@ -143,9 +143,11 @@ func _settings_changed(changed: bool):
     if changed:
         _has_applied_settings = false
         get_tree().get_nodes_in_group("options_apply_btn")[0].disabled = false
+        get_tree().get_nodes_in_group("options_apply_btn")[0].focus_mode = Control.FOCUS_ALL
     else:
         _has_applied_settings = true
         get_tree().get_nodes_in_group("options_apply_btn")[0].disabled = true
+        get_tree().get_nodes_in_group("options_apply_btn")[0].focus_mode = Control.FOCUS_NONE
 
 func _update_focus():
     var node: NodePath

@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://addons/enjin/example/themes/main_menu.tres" type="Theme" id=1]
+[ext_resource path="res://addons/enjin/example/themes/util_button_pressed.tres" type="StyleBox" id=2]
+[ext_resource path="res://addons/enjin/example/themes/util_button_normal.tres" type="StyleBox" id=3]
+[ext_resource path="res://addons/enjin/example/themes/util_button_hover.tres" type="StyleBox" id=4]
+[ext_resource path="res://addons/enjin/example/prefabs/Controls.tscn" type="PackedScene" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[node name="ControlsPanel" type="PopupPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="VBox"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_top = 50
+custom_constants/margin_bottom = 150
+
+[node name="Controls" parent="VBox/MarginContainer" instance=ExtResource( 5 )]
+margin_left = 566.0
+margin_top = 50.0
+margin_right = 1353.0
+margin_bottom = 710.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Button" type="Button" parent="VBox/MarginContainer"]
+margin_left = 886.0
+margin_top = 873.0
+margin_right = 1033.0
+margin_bottom = 930.0
+size_flags_horizontal = 4
+size_flags_vertical = 10
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 2 )
+custom_styles/focus = SubResource( 1 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = ExtResource( 3 )
+text = "START"
