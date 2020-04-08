@@ -90,7 +90,8 @@ func _physics_process(delta):
                 jump_cooldown_remaining = jump_cooldown
                 velocity.y = -speed * jump_mod
 
-    velocity.y += gravity
+    if !climbing:
+        velocity.y += gravity
 
     # Set sprite animation to play
     if velocity.y != 0 and !is_on_floor():
@@ -188,8 +189,6 @@ func knockback(move_right: bool):
     knockbacked = true
     landing_delay_remaining = landing_delay
 
-    damage(1)
-
     if move_right:
         velocity = Vector2(knockback_vec.x, knockback_vec.y)
     else:
@@ -203,6 +202,11 @@ func _play_item_sfx():
 
 func _movement_sfx(run: bool, land: bool, climb: bool):
     $GroundSFX.bus = "SFX"
+
+    # Uses the climb sfx if running on ladders
+    if run and climbing:
+        run = false
+        climb = true
 
     if land:
         $GroundSFX.stop()

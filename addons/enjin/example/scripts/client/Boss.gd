@@ -99,8 +99,10 @@ func animation_complete(name):
 func chop_hit_check():
     if facing_left and $Chop/Left.overlaps_body(player):
         player.damage(1)
+        _knockback_body(player)
     elif !facing_left and $Chop/Right.overlaps_body(player):
         player.damage(1)
+        _knockback_body(player)
 
 func player_bounced_on_head(entity):
     health = max(0, health - 1)
@@ -133,10 +135,14 @@ func player_bounced_on_head(entity):
     stunned = true
     velocity = Vector2(0, 0)
 
-
-func _on_hitzone_entered(body):
+func _knockback_body(body):
     if body.knockbacked:
         return
     var x_diff = get_global_position().x - player.get_global_position().x
 
     body.knockback(x_diff < 0)
+
+func _on_hitzone_entered(body):
+    _knockback_body(body)
+    if body == player:
+        player.damage(1)

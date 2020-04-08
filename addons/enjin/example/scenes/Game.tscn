@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_front.png" type="Texture" id=1]
 [ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_back.png" type="Texture" id=2]
@@ -37,6 +37,7 @@
 [ext_resource path="res://addons/enjin/example/prefabs/OptionsMenuPopup.tscn" type="PackedScene" id=35]
 [ext_resource path="res://addons/enjin/example/scripts/client/BgMusic.gd" type="Script" id=36]
 [ext_resource path="res://addons/enjin/example/audio/dungeon.ogg" type="AudioStream" id=37]
+[ext_resource path="res://addons/enjin/example/audio/lava_sfx.wav" type="AudioStream" id=38]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 234 )
@@ -131,6 +132,10 @@ position = Vector2( 10301.8, 680.682 )
 
 [node name="Level" type="Node2D" parent="."]
 script = ExtResource( 20 )
+
+[node name="LavaSFX" type="AudioStreamPlayer" parent="Level"]
+stream = ExtResource( 38 )
+bus = "SFX"
 
 [node name="Spawn" type="Position2D" parent="Level"]
 position = Vector2( -1410, -194 )

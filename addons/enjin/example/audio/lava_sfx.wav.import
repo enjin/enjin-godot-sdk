@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/lava_sfx.wav-51527e0584a5efe5c4a9c1be3a81c5ae.sample"
+
+[deps]
+
+source_file="res://addons/enjin/example/audio/lava_sfx.wav"
+dest_files=[ "res://.import/lava_sfx.wav-51527e0584a5efe5c4a9c1be3a81c5ae.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
