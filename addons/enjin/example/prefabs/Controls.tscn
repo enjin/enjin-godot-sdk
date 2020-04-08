@@ -1,0 +1,187 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://addons/enjin/example/fonts/Roboto48.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_Arrow_Right_T.png" type="Texture" id=2]
+[ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_A_T.png" type="Texture" id=3]
+[ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_W_T.png" type="Texture" id=4]
+[ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_D_T.png" type="Texture" id=5]
+[ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_Arrow_Up_T.png" type="Texture" id=6]
+[ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_Arrow_Left_T.png" type="Texture" id=7]
+[ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_Esc_T.png" type="Texture" id=8]
+[ext_resource path="res://addons/enjin/example/art/ui/keys/computer_key_Space_bar_T.png" type="Texture" id=9]
+
+[node name="Controls" type="MarginContainer"]
+margin_left = 354.0
+margin_right = 1141.0
+margin_bottom = 1080.0
+custom_constants/margin_right = 40
+custom_constants/margin_top = 40
+custom_constants/margin_left = 40
+
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_left = 40.0
+margin_top = 250.0
+margin_right = 747.0
+margin_bottom = 870.0
+size_flags_vertical = 4
+custom_constants/vseparation = 60
+custom_constants/hseparation = 40
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseGame" type="Label" parent="GridContainer"]
+margin_top = 11.0
+margin_right = 292.0
+margin_bottom = 68.0
+custom_fonts/font = ExtResource( 1 )
+text = "Pause Game"
+uppercase = true
+
+[node name="Escape" type="TextureRect" parent="GridContainer"]
+margin_left = 332.0
+margin_right = 412.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 5
+
+[node name="MoveRight" type="Label" parent="GridContainer"]
+margin_top = 151.0
+margin_right = 292.0
+margin_bottom = 208.0
+custom_fonts/font = ExtResource( 1 )
+text = "Move Right"
+uppercase = true
+
+[node name="MoveRightImages" type="HBoxContainer" parent="GridContainer"]
+margin_left = 332.0
+margin_top = 140.0
+margin_right = 522.0
+margin_bottom = 220.0
+size_flags_horizontal = 0
+custom_constants/separation = 30
+
+[node name="D" type="TextureRect" parent="GridContainer/MoveRightImages"]
+margin_right = 80.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 5
+
+[node name="Right" type="TextureRect" parent="GridContainer/MoveRightImages"]
+margin_left = 110.0
+margin_right = 190.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="MoveLeft" type="Label" parent="GridContainer"]
+margin_top = 291.0
+margin_right = 292.0
+margin_bottom = 348.0
+custom_fonts/font = ExtResource( 1 )
+text = "Move Left"
+uppercase = true
+
+[node name="MoveLeftImages" type="HBoxContainer" parent="GridContainer"]
+margin_left = 332.0
+margin_top = 280.0
+margin_right = 522.0
+margin_bottom = 360.0
+size_flags_horizontal = 0
+custom_constants/separation = 30
+
+[node name="A" type="TextureRect" parent="GridContainer/MoveLeftImages"]
+margin_right = 80.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+
+[node name="Left" type="TextureRect" parent="GridContainer/MoveLeftImages"]
+margin_left = 110.0
+margin_right = 190.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 5
+
+[node name="Jump" type="Label" parent="GridContainer"]
+margin_top = 431.0
+margin_right = 292.0
+margin_bottom = 488.0
+custom_fonts/font = ExtResource( 1 )
+text = "Jump"
+uppercase = true
+
+[node name="JumpImages" type="HBoxContainer" parent="GridContainer"]
+margin_left = 332.0
+margin_top = 420.0
+margin_right = 522.0
+margin_bottom = 500.0
+size_flags_horizontal = 0
+custom_constants/separation = 30
+
+[node name="W" type="TextureRect" parent="GridContainer/JumpImages"]
+margin_right = 80.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 5
+
+[node name="Up" type="TextureRect" parent="GridContainer/JumpImages"]
+margin_left = 110.0
+margin_right = 190.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 5
+
+[node name="Fill" type="Control" parent="GridContainer"]
+margin_top = 560.0
+margin_right = 292.0
+margin_bottom = 620.0
+
+[node name="Space" type="TextureRect" parent="GridContainer"]
+margin_left = 332.0
+margin_top = 560.0
+margin_right = 707.0
+margin_bottom = 620.0
+rect_min_size = Vector2( 375, 60 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 5

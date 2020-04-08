@@ -34,48 +34,51 @@ bus = "UI"
 stream = ExtResource( 11 )
 bus = "UI"
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="Center" type="CenterContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 624.0
+[node name="VBox" type="VBoxContainer" parent="Center"]
+margin_left = 548.0
 margin_top = 348.0
-margin_right = 1295.0
+margin_right = 1371.0
 margin_bottom = 731.0
 custom_constants/separation = 200
 
-[node name="Labels" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
-margin_right = 671.0
+[node name="Labels" type="VBoxContainer" parent="Center/VBox"]
+margin_right = 823.0
 margin_bottom = 135.0
 
-[node name="Title" type="Label" parent="CenterContainer/VBoxContainer/Labels"]
-margin_right = 671.0
+[node name="Title" type="Label" parent="Center/VBox/Labels"]
+margin_right = 823.0
 margin_bottom = 83.0
 custom_fonts/font = ExtResource( 1 )
 text = "CONGRATULATIONS!"
+align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/Labels"]
+[node name="Label" type="Label" parent="Center/VBox/Labels"]
 margin_top = 87.0
-margin_right = 671.0
+margin_right = 823.0
 margin_bottom = 135.0
 custom_fonts/font = ExtResource( 2 )
-text = "Tokens have been sent to your wallet."
+text = "Tokens have been sent to your wallet"
+align = 1
+uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="CenterContainer/VBoxContainer"]
-margin_left = 136.0
+[node name="Button" type="Button" parent="Center/VBox"]
+margin_left = 212.0
 margin_top = 335.0
-margin_right = 534.0
+margin_right = 610.0
 margin_bottom = 383.0
 size_flags_horizontal = 4
 custom_styles/hover = ExtResource( 7 )
@@ -89,6 +92,6 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/Button" to="." method="_on_btn_mouse_entered"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/Button" to="." method="_on_btn_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/Button" to="CenterContainer/VBoxContainer/Button" method="_quit_pressed"]
+[connection signal="mouse_entered" from="Center/VBox/Button" to="." method="_on_btn_mouse_entered"]
+[connection signal="pressed" from="Center/VBox/Button" to="Center/VBox/Button" method="_quit_pressed"]
+[connection signal="pressed" from="Center/VBox/Button" to="." method="_on_btn_pressed"]

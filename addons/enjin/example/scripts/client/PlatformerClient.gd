@@ -167,14 +167,10 @@ func send_token(name: String, amount: int):
     WebSocketHelper.send_packet(_client, packet)
 
 func exit_entered(body):
-    player.accept_input = false
-    player.velocity = Vector2(0, 0)
     send_token("shard", player.coins) # Send collected coins to the player's wallet.
-    $"../UI/GameComplete".show()
     $"../Timer".set_wait_time(.5)
     $"../Timer".start()
     yield($"../Timer", "timeout")
-    get_tree().paused = true
 
 func key_grabbed(body):
     send_token("key", 1)

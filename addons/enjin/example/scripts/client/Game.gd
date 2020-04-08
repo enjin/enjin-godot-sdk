@@ -12,6 +12,13 @@ func _ready():
     # Disable menu buttons while connecting
     $UI/MainMenu.disable_buttons()
 
+func end_level(body = null):
+    $Player.accept_input = false
+    $Player.velocity = Vector2(0, 0)
+    
+    $UI/GameComplete.show()
+    get_tree().paused = true
+
 func dampen_audio():
     if !$UI/MainMenu.visible:
         var bus = AudioServer.get_bus_index("Music")

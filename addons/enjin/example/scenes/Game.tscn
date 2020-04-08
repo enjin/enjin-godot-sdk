@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_front.png" type="Texture" id=1]
 [ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_back.png" type="Texture" id=2]
@@ -38,6 +38,7 @@
 [ext_resource path="res://addons/enjin/example/scripts/client/BgMusic.gd" type="Script" id=36]
 [ext_resource path="res://addons/enjin/example/audio/dungeon.ogg" type="AudioStream" id=37]
 [ext_resource path="res://addons/enjin/example/audio/lava_sfx.wav" type="AudioStream" id=38]
+[ext_resource path="res://addons/enjin/example/prefabs/ControlsPanel.tscn" type="PackedScene" id=39]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 234 )
@@ -446,13 +447,14 @@ margin_bottom = 1080.0
 [node name="LinkWallet" parent="UI" instance=ExtResource( 17 )]
 
 [node name="PauseMenu" parent="UI" instance=ExtResource( 31 )]
-visible = false
 
 [node name="MainMenu" parent="UI" instance=ExtResource( 34 )]
 
 [node name="OptionsMenu" parent="UI" instance=ExtResource( 35 )]
 
 [node name="Loading" parent="UI" instance=ExtResource( 29 )]
+
+[node name="ControlsPanel" parent="UI" instance=ExtResource( 39 )]
 
 [node name="Timer" type="Timer" parent="."]
 pause_mode = 2
@@ -467,6 +469,7 @@ script = ExtResource( 36 )
 [connection signal="player_fetched" from="PlatformClient" to="." method="_player_fetched"]
 [connection signal="player_loaded" from="PlatformClient" to="." method="_player_loaded"]
 [connection signal="show_qr" from="PlatformClient" to="." method="_show_qr"]
+[connection signal="player_dead" from="Player" to="." method="end_level"]
 [connection signal="tween_completed" from="MainMenu/Camera/Tween" to="MainMenu/Camera" method="_on_tween_complete"]
 [connection signal="body_entered" from="Level/Ladders/Ladder" to="Player" method="_ladder_entered"]
 [connection signal="body_exited" from="Level/Ladders/Ladder" to="Player" method="_ladder_exited"]
@@ -478,17 +481,18 @@ script = ExtResource( 36 )
 [connection signal="body_exited" from="Level/Ladders/Ladder4" to="Player" method="_ladder_exited"]
 [connection signal="boss_defeated" from="Level/Enemies/Boss" to="Level" method="finish_boss_fight"]
 [connection signal="boss_defeated" from="Level/Enemies/Boss" to="." method="play_ending_track"]
-[connection signal="body_entered" from="Level/Key" to="Player" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Key" to="Level" method="key_grabbed"]
+[connection signal="body_entered" from="Level/Key" to="Player" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Key" to="PlatformClient" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Key" to="UI/HUD" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Gate/Gate Trigger" to="Level/Gate" method="player_entered_gate"]
+[connection signal="body_entered" from="Level/Exit" to="." method="end_level"]
 [connection signal="body_entered" from="Level/Exit" to="PlatformClient" method="exit_entered"]
-[connection signal="body_entered" from="Level/Crown" to="Player" method="crown_grabbed"]
 [connection signal="body_entered" from="Level/Crown" to="Level" method="crown_grabbed"]
+[connection signal="body_entered" from="Level/Crown" to="Player" method="crown_grabbed"]
 [connection signal="body_entered" from="Level/Crown" to="PlatformClient" method="crown_grabbed"]
-[connection signal="body_entered" from="Level/HealthUpgrade" to="Player" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/HealthUpgrade" to="Level" method="health_upgrade_grabbed"]
+[connection signal="body_entered" from="Level/HealthUpgrade" to="Player" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/HealthUpgrade" to="PlatformClient" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/BossFightTrigger" to="Level" method="start_boss_fight"]
 [connection signal="wallet_linked" from="UI/LinkWallet" to="." method="fetch_player"]

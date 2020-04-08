@@ -1,4 +1,5 @@
 extends KinematicBody2D
+signal player_dead
 
 enum Direction {
     LEFT,
@@ -135,7 +136,9 @@ func damage(amount: int):
     health = max(0, health - amount)
 
     if is_dead():
-        get_tree().reload_current_scene()
+        hide()
+        accept_input = false
+        emit_signal("player_dead")
     else:
         invulnerability_remaining = invulnerability_time
 
