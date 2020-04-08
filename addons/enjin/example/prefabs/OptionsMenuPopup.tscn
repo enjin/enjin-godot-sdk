@@ -48,6 +48,8 @@ bus = "UI"
 [node name="Margin" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -9.33081
+margin_right = -9.33081
 custom_constants/margin_right = 300
 custom_constants/margin_top = 100
 custom_constants/margin_left = 300
@@ -93,22 +95,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Video" type="Button" parent="Margin/HBox/Sidebar/Buttons/VBox"]
+[node name="General" type="Button" parent="Margin/HBox/Sidebar/Buttons/VBox"]
 margin_right = 270.0
 margin_bottom = 48.0
-focus_neighbour_bottom = NodePath("../Audio")
+focus_neighbour_bottom = NodePath("../Video")
 custom_styles/hover = ExtResource( 13 )
 custom_styles/pressed = ExtResource( 11 )
 custom_styles/focus = ExtResource( 13 )
 custom_styles/normal = ExtResource( 11 )
 custom_fonts/font = ExtResource( 6 )
+text = "GENERAL"
+align = 0
+
+[node name="Video" type="Button" parent="Margin/HBox/Sidebar/Buttons/VBox"]
+margin_top = 68.0
+margin_right = 270.0
+margin_bottom = 116.0
+focus_neighbour_top = NodePath("../General")
+focus_neighbour_bottom = NodePath("../Audio")
+custom_fonts/font = ExtResource( 6 )
 text = "VIDEO"
 align = 0
 
 [node name="Audio" type="Button" parent="Margin/HBox/Sidebar/Buttons/VBox"]
-margin_top = 68.0
+margin_top = 136.0
 margin_right = 270.0
-margin_bottom = 116.0
+margin_bottom = 184.0
 focus_neighbour_top = NodePath("../Video")
 focus_neighbour_bottom = NodePath("../../../../OptionsArea/VBox/Bottombar/HBox/Close")
 custom_fonts/font = ExtResource( 6 )
@@ -132,9 +144,75 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VideoOptions" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox"]
+[node name="GeneralOptions" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox"]
 margin_right = 670.0
-margin_bottom = 136.0
+margin_bottom = 92.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Description" type="MarginContainer" parent="Margin/HBox/OptionsArea/VBox/GeneralOptions"]
+margin_right = 337.0
+margin_bottom = 92.0
+custom_constants/margin_top = 30
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 30
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxntainer" type="VBoxContainer" parent="Margin/HBox/OptionsArea/VBox/GeneralOptions/Description"]
+margin_left = 20.0
+margin_top = 30.0
+margin_right = 337.0
+margin_bottom = 62.0
+custom_constants/separation = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShowControls" type="Label" parent="Margin/HBox/OptionsArea/VBox/GeneralOptions/Description/VBoxntainer"]
+margin_right = 317.0
+margin_bottom = 29.0
+text = "Show controls on start"
+uppercase = true
+
+[node name="Button" type="MarginContainer" parent="Margin/HBox/OptionsArea/VBox/GeneralOptions"]
+margin_left = 586.0
+margin_right = 670.0
+margin_bottom = 92.0
+size_flags_horizontal = 10
+custom_constants/margin_right = 20
+custom_constants/margin_top = 30
+custom_constants/margin_bottom = 30
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="Margin/HBox/OptionsArea/VBox/GeneralOptions/Button"]
+margin_top = 30.0
+margin_right = 64.0
+margin_bottom = 62.0
+custom_constants/separation = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShowControls" type="CheckButton" parent="Margin/HBox/OptionsArea/VBox/GeneralOptions/Button/VBox" groups=[
+"general_controls_btn",
+]]
+margin_right = 64.0
+margin_bottom = 32.0
+size_flags_horizontal = 8
+pressed = true
+align = 2
+
+[node name="VideoOptions" type="HBoxContainer" parent="Margin/HBox/OptionsArea/VBox"]
+visible = false
+margin_top = 92.0
+margin_right = 670.0
+margin_bottom = 228.0
 custom_constants/separation = 0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -467,12 +545,16 @@ one_shot = true
 [node name="UITestTimer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
+[connection signal="mouse_entered" from="Margin/HBox/Sidebar/Buttons/VBox/General" to="." method="_on_btn_mouse_entered"]
+[connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/General" to="." method="_on_general_pressed"]
+[connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/General" to="." method="_on_btn_pressed"]
 [connection signal="mouse_entered" from="Margin/HBox/Sidebar/Buttons/VBox/Video" to="." method="_on_btn_mouse_entered"]
 [connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/Video" to="." method="_on_btn_pressed"]
 [connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/Video" to="." method="_on_video_pressed"]
 [connection signal="mouse_entered" from="Margin/HBox/Sidebar/Buttons/VBox/Audio" to="." method="_on_btn_mouse_entered"]
 [connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/Audio" to="." method="_on_btn_pressed"]
 [connection signal="pressed" from="Margin/HBox/Sidebar/Buttons/VBox/Audio" to="." method="_on_audio_pressed"]
+[connection signal="toggled" from="Margin/HBox/OptionsArea/VBox/GeneralOptions/Button/VBox/ShowControls" to="." method="_on_show_controls_toggled"]
 [connection signal="item_selected" from="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox/Window" to="." method="_on_window_item_selected"]
 [connection signal="item_selected" from="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox/Resolution" to="." method="_on_resolution_item_selected"]
 [connection signal="toggled" from="Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox/Vsync" to="." method="_on_vsync_toggled"]

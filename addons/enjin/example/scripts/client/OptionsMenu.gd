@@ -52,10 +52,10 @@ func _process(delta):
 
 func show():
     .show()
-    _on_video_pressed() # Automatically opens video tab
+    _on_general_pressed() # Automatically opens general tab
     _update_focus()
-    $Margin/HBox/Sidebar/Buttons/VBox/Video.grab_focus()
-    $Margin/HBox/Sidebar/Buttons/VBox/Video.grab_click_focus()
+    $Margin/HBox/Sidebar/Buttons/VBox/General.grab_focus()
+    $Margin/HBox/Sidebar/Buttons/VBox/General.grab_click_focus()
 
 func _close_recent_option():
     if _option_open:
@@ -67,6 +67,10 @@ func _close_recent_option():
 
 func _load_settings():
     var value
+    
+    # General
+    value = _settings.get_value("general", "controls", true)
+    get_tree().get_nodes_in_group("general_controls_btn")[0].pressed = value
     
     # Video settings
     value = _settings.get_value("video", "window", 1)
@@ -106,6 +110,10 @@ func _play_test_ui():
 
 func _save_settings():
     var value
+    
+    # General options
+    value = get_tree().get_nodes_in_group("general_controls_btn")[0].pressed
+    _settings.set_value("general", "controls", value)
     
     # Video settings
     value = get_tree().get_nodes_in_group("video_window_btn")[0].selected
@@ -152,11 +160,15 @@ func _settings_changed(changed: bool):
 func _update_focus():
     var node: NodePath
     
-    if _option_open == $Margin/HBox/OptionsArea/VBox/VideoOptions:
+    # Gets the option to set as right focus
+    if _option_open == $Margin/HBox/OptionsArea/VBox/GeneralOptions:
+        node = $Margin/HBox/OptionsArea/VBox/GeneralOptions/Button/VBox/ShowControls.get_path()
+    elif _option_open == $Margin/HBox/OptionsArea/VBox/VideoOptions:
         node = $Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox/Window.get_path()
     elif _option_open == $Margin/HBox/OptionsArea/VBox/AudioOptions:
         node = $Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MasterVolume/Slider.get_path()
     
+    $Margin/HBox/Sidebar/Buttons/VBox/General.focus_neighbour_right = node
     $Margin/HBox/Sidebar/Buttons/VBox/Video.focus_neighbour_right = node
     $Margin/HBox/Sidebar/Buttons/VBox/Audio.focus_neighbour_right = node
 
@@ -230,10 +242,21 @@ func _on_resolution_item_selected(id):
     
     _settings_changed(true)
 
+func _on_show_controls_toggled(button_pressed):
+    _settings_changed(true)
+
 func _on_vsync_toggled(button_pressed):
     OS.vsync_enabled = button_pressed
     
     _settings_changed(true)
+
+func _on_general_pressed():
+    _close_recent_option()
+    _option_open = $Margin/HBox/OptionsArea/VBox/GeneralOptions
+    _option_open_btn = $Margin/HBox/Sidebar/Buttons/VBox/General
+    $Margin/HBox/OptionsArea/VBox/GeneralOptions.show()
+    _set_style_box(_option_open_btn, true)
+    _update_focus()
 
 func _on_video_pressed():
     _close_recent_option()
