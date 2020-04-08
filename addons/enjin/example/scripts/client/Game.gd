@@ -46,6 +46,11 @@ func play_ending_track():
     $BgMusic.set_stream(_end_music)
     $BgMusic.play(0)
 
+func start_level():
+    $UI/HUD.show()
+
+    get_tree().paused = false
+
 func undampen_audio():
     var bus = AudioServer.get_bus_index("Music")
     var value = get_tree().get_nodes_in_group("audio_music_slider")[0].value / 100
@@ -72,10 +77,14 @@ func _player_fetched():
         $PlatformClient.load_identity()
 
 func _player_loaded():
+    var show_controls: bool = get_tree().get_nodes_in_group("general_controls_btn")[0].pressed
+    
     $UI/Loading.hide()
-    $UI/HUD.show()
-
-    get_tree().paused = false
+    
+    if show_controls:
+        $UI/ControlsPanel.show()
+    else:
+        start_level()
 
 func _show_qr(image: Image):
     var texture = ImageTexture.new()
