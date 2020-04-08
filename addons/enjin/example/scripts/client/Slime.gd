@@ -88,6 +88,7 @@ func _on_frame_change():
     var is_hit_frame = $AnimatedSprite.frame == 2
     if is_attack_anim and is_hit_frame and attack_area.overlaps_body(player):
         player.damage(1)
+        _knockback_body(player)
 
 func bounced_on(entity):
     velocity = Vector2.ZERO
@@ -100,10 +101,14 @@ func bounced_on(entity):
     $Bounce/CollisionShape2D.disabled = true
     return
 
-func _on_hit_zone_entered(body):
+func _knockback_body(body):
     if body.knockbacked:
         return
-
     var x_diff = get_global_position().x - player.get_global_position().x
 
     body.knockback(x_diff < 0)
+
+func _on_hit_zone_entered(body):
+    _knockback_body(body)
+    if body == player:
+        player.damage(1)

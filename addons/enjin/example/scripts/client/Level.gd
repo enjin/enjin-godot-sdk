@@ -29,6 +29,10 @@ func _process(delta):
         out_of_bounds()
 
 func out_of_bounds():
+    if $LavaSFX.playing:
+        $LavaSFX.stop()
+    $LavaSFX.play(0)
+    
     player.damage(1)
     respawn()
 
