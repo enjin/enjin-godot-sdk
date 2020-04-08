@@ -37,11 +37,6 @@ animations = [ {
 "name": "attack",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 19 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 18 ) ],
-"loop": false,
-"name": "death",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 7 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 10 ) ],
 "loop": false,
 "name": "hurt",
@@ -50,6 +45,11 @@ animations = [ {
 "frames": [ ExtResource( 14 ), ExtResource( 4 ), ExtResource( 13 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "move",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 19 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 18 ) ],
+"loop": false,
+"name": "death",
 "speed": 5.0
 } ]
 
@@ -76,6 +76,7 @@ position = Vector2( 0, 7.62939e-06 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 1 )
 animation = "idle"
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -113,6 +114,7 @@ shape = SubResource( 3 )
 "bounce_box",
 ]]
 position = Vector2( -2, 5 )
+scale = Vector2( 1.36, 1 )
 collision_layer = 32
 script = ExtResource( 23 )
 

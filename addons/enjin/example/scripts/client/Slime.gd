@@ -73,15 +73,19 @@ func _physics_process(delta):
     velocity = move_and_slide(velocity, FLOOR)
 
 func _animation_complete():
+    var can_move = ray.is_colliding()
+    
     if $AnimatedSprite.animation == "attack":
-        var can_attack = attack_area.overlaps_body(player)
-        var can_move = ray.is_colliding()
-        if can_attack:
-            $AnimatedSprite.play("idle")
-        elif can_move:
+        if can_move:
             $AnimatedSprite.play("move")
+        else:
+            $AnimatedSprite.play("idle")
     elif $AnimatedSprite.animation == "death":
         queue_free()
+    elif can_move:
+        $AnimatedSprite.play("move")
+    else:
+        $AnimatedSprite.play("idle")
 
 func _on_frame_change():
     var is_attack_anim = $AnimatedSprite.animation == "attack"
@@ -99,6 +103,7 @@ func bounced_on(entity):
     $VoiceSFX.set_stream(_death_sfx)
     $VoiceSFX.play(0)
     $Bounce/CollisionShape2D.disabled = true
+    $HitZone/CollisionShape2D.disabled = true
     return
 
 func _knockback_body(body):
