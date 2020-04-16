@@ -14,7 +14,7 @@ var _errors
 
 func _init(http_response: EnjinResponse):
     _http_response = http_response
-    if http_response.get_body().length() == 0:
+    if http_response.get_body().length() == 0 || http_response.get_body() == "failed":
         return
     var parse_result: JSONParseResult = JSON.parse(http_response.get_body())
     if parse_result == null || parse_result.get_error() != OK:

@@ -58,6 +58,7 @@ func _process_queue():
                     req[0] = _connection_pool.pop_back()
             else:
                 req[0] = _connection_pool.pop_back()
+                _connect_client(req[0])
 
         _process_request(idx, req)
 
@@ -142,5 +143,6 @@ func _connect_client(client: HTTPClient) -> bool:
 
 func _reclaim_client(req: Array):
     var client: HTTPClient = req[0]
+    client.close()
     req[0] = null
     _connection_pool.push_back(client)
