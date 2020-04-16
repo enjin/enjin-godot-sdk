@@ -22,7 +22,6 @@ func start_boss_fight(body):
 
 func finish_boss_fight():
     $Gate2.queue_free()
-    $Gate3.queue_free()
 
 func _process(delta):
     if player.position.y > respawn_height:
@@ -32,7 +31,7 @@ func out_of_bounds():
     if $LavaSFX.playing:
         $LavaSFX.stop()
     $LavaSFX.play(0)
-    
+
     player.damage(1)
     respawn()
 
