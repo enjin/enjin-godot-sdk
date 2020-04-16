@@ -1,5 +1,9 @@
 # Enjin-Coin-Godot-Plugin
-Enjin Coin plugin for the Godot game engine
+Enjin Coin plugin for the [Godot game engine](https://godotengine.org/).
+
+[Learn more](https://enjin.io/) about the Enjin blockchain platform.
+
+Sign up to Enjin Cloud: [Kovan (Testnet)](https://kovan.cloud.enjin.io/) or [Mainnet (Production)](https://cloud.enjin.io/)
 
 Documentation
 =================
