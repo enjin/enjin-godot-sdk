@@ -21,8 +21,12 @@ static func send_packet(client, packet, peer_id = 1, write_mode = WebSocketPeer.
 
 # Encodes a packet using the specified write mode.
 static func encode(packet, write_mode):
-    return packet.to_utf8() if write_mode == WebSocketPeer.WRITE_MODE_TEXT else var2bytes(packet)
+    return var2str(packet).to_utf8() if write_mode == WebSocketPeer.WRITE_MODE_TEXT else var2bytes(packet)
 
 # Decodes the packet.
 static func decode(packet, is_string: bool):
     return packet.get_string_from_utf8() if is_string else bytes2var(packet)
+
+static func decode_json(packet):
+    return parse_json(packet.get_string_from_utf8())
+

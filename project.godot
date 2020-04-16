@@ -222,10 +222,6 @@ config/icon="res://icon.png"
 
 default_bus_layout="res://addons/enjin/example/default_bus_layout.tres"
 
-[autoload]
-
-PlatformServer="*res://addons/enjin/example/scripts/server/PlatformerServer.gd"
-
 [debug]
 
 gdscript/completion/autocomplete_setters_and_getters=true

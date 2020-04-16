@@ -15,7 +15,7 @@ func _ready():
 func end_level(body = null):
     $Player.accept_input = false
     $Player.velocity = Vector2(0, 0)
-    
+
     $UI/GameComplete.show()
     get_tree().paused = true
 
@@ -78,9 +78,9 @@ func _player_fetched():
 
 func _player_loaded():
     var show_controls: bool = get_tree().get_nodes_in_group("general_controls_btn")[0].pressed
-    
+
     $UI/Loading.hide()
-    
+
     if show_controls:
         $UI/ControlsPanel.show()
     else:

@@ -69,8 +69,11 @@ func _connection_error():
 func _data_received():
     print("Data received from server.")
     var peer = _client.get_peer(1)
+    var raw_packet = peer.get_packet()
+    if not peer.was_string_packet():
+        return
     # Decode the received packet.
-    var packet = WebSocketHelper.decode(peer.get_packet(), peer.was_string_packet())
+    var packet = WebSocketHelper.decode_json(raw_packet)
     if packet.id == PacketIds.PLAYER_AUTH:
         # Authenticate the client.
         handle_auth(packet)
@@ -127,7 +130,7 @@ func load_identity():
             player.max_health = 5
             player.health += 2
             $"../Level/HealthUpgrade".queue_free()
-        elif bal.id == _tokens.shard.id: # Check if player has any coin tokens.
+        elif bal.id == _tokens.coin.id: # Check if player has any coin tokens.
             player.coins_in_wallet = bal.value
 
     emit_signal("player_loaded")
@@ -155,19 +158,19 @@ func handshake():
         "id": PacketIds.HANDSHAKE,
         "name": _settings.data().player.name
     }
-    WebSocketHelper.send_packet(_client, packet)
+    WebSocketHelper.send_packet(_client, packet, 1, WebSocketPeer.WRITE_MODE_TEXT)
 
 func send_token(name: String, amount: int):
     var packet = {
         "id": PacketIds.SEND_TOKEN,
-        "token": name,
+        "token": _tokens[name].id,
         "amount": amount,
-        "player_id": int(_identity.id)
+        "recipient_wallet": _identity.wallet.ethAddress
     }
-    WebSocketHelper.send_packet(_client, packet)
+    WebSocketHelper.send_packet(_client, packet, 1, WebSocketPeer.WRITE_MODE_TEXT)
 
 func exit_entered(body):
-    send_token("shard", player.coins) # Send collected coins to the player's wallet.
+    send_token("coin", player.coins) # Send collected coins to the player's wallet.
     $"../Timer".set_wait_time(.5)
     $"../Timer".start()
     yield($"../Timer", "timeout")

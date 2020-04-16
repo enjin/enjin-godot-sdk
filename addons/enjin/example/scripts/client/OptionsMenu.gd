@@ -19,7 +19,7 @@ var _ui_test: AudioStream = preload("res://addons/enjin/example/audio/ui_blip_sf
 
 func _ready():
     _settings = ConfigFile.new()
-    
+
     if _settings.load(SETTINGS_FILE_NAME) != OK:
         _settings.save(SETTINGS_FILE_NAME)
 
@@ -32,7 +32,7 @@ func _process(delta):
     var enter = Input.is_action_just_released("ui_accept")
     var escape = Input.is_action_just_released("ui_cancel")
     var select = Input.is_action_just_released("ui_select")
-    
+
     if visible:
         if escape:
             _on_close()
@@ -67,11 +67,11 @@ func _close_recent_option():
 
 func _load_settings():
     var value
-    
+
     # General
     value = _settings.get_value("general", "controls", true)
     get_tree().get_nodes_in_group("general_controls_btn")[0].pressed = value
-    
+
     # Video settings
     value = _settings.get_value("video", "window", 1)
     get_tree().get_nodes_in_group("video_window_btn")[0].select(value)
@@ -81,7 +81,7 @@ func _load_settings():
     _on_resolution_item_selected(value) # Applies button selection
     value = _settings.get_value("video", "vsync", true)
     get_tree().get_nodes_in_group("video_vsync_btn")[0].pressed = value
-    
+
     # Audio settings
     value = _settings.get_value("audio", "master", 100)
     get_tree().get_nodes_in_group("audio_master_slider")[0].value = value
@@ -91,7 +91,7 @@ func _load_settings():
     get_tree().get_nodes_in_group("audio_sfx_slider")[0].value = value
     value = _settings.get_value("audio", "ui", 100)
     get_tree().get_nodes_in_group("audio_ui_slider")[0].value = value
-    
+
     _settings_changed(false)
 
 func _play_test_sfx():
@@ -110,11 +110,11 @@ func _play_test_ui():
 
 func _save_settings():
     var value
-    
+
     # General options
     value = get_tree().get_nodes_in_group("general_controls_btn")[0].pressed
     _settings.set_value("general", "controls", value)
-    
+
     # Video settings
     value = get_tree().get_nodes_in_group("video_window_btn")[0].selected
     _settings.set_value("video", "window", value)
@@ -122,7 +122,7 @@ func _save_settings():
     _settings.set_value("video", "resolution", value)
     value = get_tree().get_nodes_in_group("video_vsync_btn")[0].pressed
     _settings.set_value("video", "vsync", value)
-    
+
     # Audio settings
     value = get_tree().get_nodes_in_group("audio_master_slider")[0].value
     _settings.set_value("audio", "master", value)
@@ -132,7 +132,7 @@ func _save_settings():
     _settings.set_value("audio", "sfx", value)
     value = get_tree().get_nodes_in_group("audio_ui_slider")[0].value
     _settings.set_value("audio", "ui", value)
-    
+
     _settings.save(SETTINGS_FILE_NAME)
 
 func _set_style_box(btn: Button, enable: bool):
@@ -159,7 +159,7 @@ func _settings_changed(changed: bool):
 
 func _update_focus():
     var node: NodePath
-    
+
     # Gets the option to set as right focus
     if _option_open == $Margin/HBox/OptionsArea/VBox/GeneralOptions:
         node = $Margin/HBox/OptionsArea/VBox/GeneralOptions/Button/VBox/ShowControls.get_path()
@@ -167,7 +167,7 @@ func _update_focus():
         node = $Margin/HBox/OptionsArea/VBox/VideoOptions/Button/VBox/Window.get_path()
     elif _option_open == $Margin/HBox/OptionsArea/VBox/AudioOptions:
         node = $Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MasterVolume/Slider.get_path()
-    
+
     $Margin/HBox/Sidebar/Buttons/VBox/General.focus_neighbour_right = node
     $Margin/HBox/Sidebar/Buttons/VBox/Video.focus_neighbour_right = node
     $Margin/HBox/Sidebar/Buttons/VBox/Audio.focus_neighbour_right = node
@@ -187,12 +187,12 @@ func _on_btn_pressed():
 func _on_close():
     $SFXTestTimer.stop()
     $UITestTimer.stop()
-    
+
     if !_has_applied_settings:
         _load_settings()
-    
+
     emit_signal("options_closed")
-    
+
     hide()
     if _option_open:
         _option_open.hide()
@@ -208,7 +208,7 @@ func _on_window_item_selected(id):
             OS.set_borderless_window(true)
             OS.set_window_size(OS.get_screen_size())
             OS.set_window_position(Vector2(0, 0))
-    
+
     _settings_changed(true)
 
 func _on_resolution_item_selected(id):
@@ -239,7 +239,7 @@ func _on_resolution_item_selected(id):
             size = OS.get_window_size()
 
     OS.set_window_size(size)
-    
+
     _settings_changed(true)
 
 func _on_show_controls_toggled(button_pressed):
@@ -247,7 +247,7 @@ func _on_show_controls_toggled(button_pressed):
 
 func _on_vsync_toggled(button_pressed):
     OS.vsync_enabled = button_pressed
-    
+
     _settings_changed(true)
 
 func _on_general_pressed():
@@ -278,39 +278,39 @@ func _on_audio_pressed():
 
 func _on_master_volume_changed(value):
     var db = linear2db(value / 100)
-    
+
     $Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MasterVolume/Label.text = "%s" % value
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), db)
-    
+
     _settings_changed(true)
 
 func _on_music_volume_changed(value):
     var db = linear2db(value / 100)
-    
+
     $Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/MusicVolume/Label.text = "%s" % value
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), db)
-    
+
     _settings_changed(true)
 
 func _on_sfx_volume_changed(value):
     var db = linear2db(value / 100)
-    
+
     $Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/SFXVolume/Label.text = "%s" % value
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), db)
-    
+
     _settings_changed(true)
-    
+
     if visible:
         $SFXTestTimer.start(AUDIO_TEST_INPUT_WAIT)
 
 func _on_ui_volume_changed(value):
     var db = linear2db(value / 100)
-    
+
     $Margin/HBox/OptionsArea/VBox/AudioOptions/Buttons/VBox/UIVolume/Label.text = "%s" % value
     AudioServer.set_bus_volume_db(AudioServer.get_bus_index("UI"), db)
-    
+
     _settings_changed(true)
-    
+
     if visible:
         $UITestTimer.start(AUDIO_TEST_INPUT_WAIT)
 

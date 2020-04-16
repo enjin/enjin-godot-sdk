@@ -12,7 +12,7 @@ const DEFAULT_SETTINGS: Dictionary = {
         "secret": ""
     },
     "tokens": {
-        "shard": {
+        "coin": {
             "id": ""
         },
        "crown": {
@@ -103,7 +103,7 @@ func _data_received(peer_id):
     if packet.id == PacketIds.HANDSHAKE:
         auth_player(packet.name, peer_id)
     elif packet.id == PacketIds.SEND_TOKEN:
-        send_tokens(packet.token, packet.amount, packet.player_id)
+        send_tokens(packet.token, packet.amount, packet.recipient_wallet)
 
 func auth_player(name: String, peer_id):
     # Check if the cloud client is authed.
@@ -131,7 +131,7 @@ func create_player(name, peer_id):
     # Create the player account.
     _tp_client.user_service().create_user(name, udata)
 
-func send_tokens(name: String, amount: int, recipient_id: int):
+func send_tokens(token: String, amount: int, recipient_wallet: String):
     var settings = _settings.data()
     var input = CreateRequestInput.new()
     var udata = { "callback": _send_tokens_callback }
@@ -141,8 +141,8 @@ func send_tokens(name: String, amount: int, recipient_id: int):
     input.tx_type("SEND")
     input.identity_id(settings.developer.id)
     input.send_token({
-            "token_id": settings.tokens[name].id,
-            "recipient_identity_id": recipient_id,
+            "token_id": token,
+            "recipient_address": recipient_wallet,
             "value": amount
         })
 
