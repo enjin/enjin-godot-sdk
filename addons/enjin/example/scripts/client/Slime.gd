@@ -5,6 +5,7 @@ const FLOOR: Vector2 = Vector2(0, -1)
 export var speed = 100
 export var gravity = 30
 export var player_detect_distance = 250
+export var player_chase_dead_zone = 30
 export var attack_cooldown = 2
 
 onready var ray = $LeftGroundRay
@@ -44,7 +45,7 @@ func _process(delta):
                 if !$VoiceSFX.playing:
                     $VoiceSFX.set_stream(_bite_sfx)
                     $VoiceSFX.play(0)
-        elif can_move:
+        elif can_move and abs(x_diff) > player_chase_dead_zone:
             if $AnimatedSprite.animation != "attack":
                 _set_direction_and_movement(face_left, true)
                 $AnimatedSprite.play("move")

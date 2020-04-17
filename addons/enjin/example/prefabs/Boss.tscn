@@ -211,7 +211,6 @@ scale = Vector2( 5, 5 )
 texture = ExtResource( 1 )
 vframes = 10
 hframes = 9
-frame = 27
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 autoplay = "Idle"

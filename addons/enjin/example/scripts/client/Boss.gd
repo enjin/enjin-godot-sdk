@@ -45,8 +45,8 @@ func _process(delta):
     var x_diff = get_global_position().x - player.get_global_position().x
     if !mid_attack:
         var to_left = x_diff > 0
-        var move_away = distance < retreat_distance
-        var move_towards = distance > approach_distance
+        var move_away = abs(x_diff) < retreat_distance
+        var move_towards = abs(x_diff) > approach_distance
 
         if move_towards:
             _set_direction_and_movement(to_left, true, to_left)
@@ -55,19 +55,29 @@ func _process(delta):
         else:
             _set_direction_and_movement(to_left, false)
 
+    var left_bodies = $Chop/Left.get_overlapping_bodies()
+    var right_bodies = $Chop/Right.get_overlapping_bodies()
+    var can_attack = left_bodies.has(player) || right_bodies.has(player)
+    
     if moving:
         $Sprite/AnimationPlayer.play("Run")
-    else:
+    elif can_attack && attack_cooldown_remaining <= 0:
         attack()
+    elif !mid_attack:
+        $Sprite/AnimationPlayer.play("Idle")
 
 func attack():
-    if attack_cooldown_remaining == 0:
-        $Sprite/AnimationPlayer.play("Chop")
-        if $AttackSFX.playing:
-            $AttackSFX.stop()
-        $AttackSFX.play(0)
-        attack_cooldown_remaining = attack_cooldown
-        mid_attack = true
+    # Face the player
+    var x_diff = get_global_position().x - player.get_global_position().x
+    var to_left = x_diff > 0
+    _set_direction_and_movement(to_left, false)
+    
+    $Sprite/AnimationPlayer.play("Chop")
+    if $AttackSFX.playing:
+        $AttackSFX.stop()
+    $AttackSFX.play(0)
+    attack_cooldown_remaining = attack_cooldown
+    mid_attack = true
 
 func _set_direction_and_movement(face_left = true, moving = true, move_left = true):
     if (facing_left != face_left):
