@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/void.wav-55da0e5d6353646c2df5339764d22ed7.sample"
+
+[deps]
+
+source_file="res://addons/enjin/example/audio/void.wav"
+dest_files=[ "res://.import/void.wav-55da0e5d6353646c2df5339764d22ed7.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
