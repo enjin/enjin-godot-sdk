@@ -4,7 +4,7 @@ extends Node2D
 onready var player = $"../Player"
 onready var spawn = $Spawn
 # Exports
-export var respawn_height = 1500
+export var respawn_height = 2000
 
 var boss_gate_body
 
@@ -28,10 +28,6 @@ func _process(delta):
         out_of_bounds()
 
 func out_of_bounds():
-    if $LavaSFX.playing:
-        $LavaSFX.stop()
-    $LavaSFX.play(0)
-
     player.damage(1)
     respawn()
 

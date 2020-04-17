@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_front.png" type="Texture" id=1]
 [ext_resource path="res://addons/enjin/example/art/lifebar/lifebar_back.png" type="Texture" id=2]
@@ -39,6 +39,9 @@
 [ext_resource path="res://addons/enjin/example/audio/dungeon.ogg" type="AudioStream" id=37]
 [ext_resource path="res://addons/enjin/example/audio/lava_sfx.wav" type="AudioStream" id=38]
 [ext_resource path="res://addons/enjin/example/prefabs/ControlsPanel.tscn" type="PackedScene" id=39]
+[ext_resource path="res://addons/enjin/example/scripts/client/Void.gd" type="Script" id=40]
+[ext_resource path="res://addons/enjin/example/scripts/client/Lava.gd" type="Script" id=41]
+[ext_resource path="res://addons/enjin/example/audio/void.wav" type="AudioStream" id=42]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 234 )
@@ -66,6 +69,12 @@ extents = Vector2( 23, 19 )
 
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 853, 319 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 1546.26, 12.6804 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 2554.65, 10 )
 
 [sub_resource type="AnimatedTexture" id=10]
 frames = 8
@@ -133,10 +142,6 @@ position = Vector2( 10301.8, 680.682 )
 
 [node name="Level" type="Node2D" parent="."]
 script = ExtResource( 20 )
-
-[node name="LavaSFX" type="AudioStreamPlayer" parent="Level"]
-stream = ExtResource( 38 )
-bus = "SFX"
 
 [node name="Spawn" type="Position2D" parent="Level"]
 position = Vector2( -1410, -194 )
@@ -354,6 +359,30 @@ collision_layer = 2
 position = Vector2( 8034, 459 )
 shape = SubResource( 9 )
 
+[node name="Lava" type="Area2D" parent="Level"]
+collision_layer = 2
+script = ExtResource( 41 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Lava"]
+position = Vector2( -91.9509, 1111.43 )
+shape = SubResource( 11 )
+
+[node name="SFX" type="AudioStreamPlayer" parent="Level/Lava"]
+stream = ExtResource( 38 )
+bus = "SFX"
+
+[node name="Void" type="Area2D" parent="Level"]
+collision_layer = 2
+script = ExtResource( 40 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Void"]
+position = Vector2( 4306.39, 1294.92 )
+shape = SubResource( 12 )
+
+[node name="SFX" type="AudioStreamPlayer" parent="Level/Void"]
+stream = ExtResource( 42 )
+bus = "SFX"
+
 [node name="UI" type="CanvasLayer" parent="."]
 pause_mode = 2
 
@@ -447,6 +476,7 @@ margin_bottom = 1080.0
 [node name="LinkWallet" parent="UI" instance=ExtResource( 17 )]
 
 [node name="PauseMenu" parent="UI" instance=ExtResource( 31 )]
+visible = false
 
 [node name="MainMenu" parent="UI" instance=ExtResource( 34 )]
 
@@ -479,22 +509,26 @@ script = ExtResource( 36 )
 [connection signal="body_exited" from="Level/Ladders/Ladder3" to="Player" method="_ladder_exited"]
 [connection signal="body_entered" from="Level/Ladders/Ladder4" to="Player" method="_ladder_entered"]
 [connection signal="body_exited" from="Level/Ladders/Ladder4" to="Player" method="_ladder_exited"]
-[connection signal="boss_defeated" from="Level/Enemies/Boss" to="Level" method="finish_boss_fight"]
 [connection signal="boss_defeated" from="Level/Enemies/Boss" to="." method="play_ending_track"]
-[connection signal="body_entered" from="Level/Key" to="UI/HUD" method="key_grabbed"]
+[connection signal="boss_defeated" from="Level/Enemies/Boss" to="Level" method="finish_boss_fight"]
+[connection signal="body_entered" from="Level/Key" to="Player" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Key" to="Level" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Key" to="PlatformClient" method="key_grabbed"]
-[connection signal="body_entered" from="Level/Key" to="Player" method="key_grabbed"]
+[connection signal="body_entered" from="Level/Key" to="UI/HUD" method="key_grabbed"]
 [connection signal="body_entered" from="Level/Gate/Gate Trigger" to="Level/Gate" method="player_entered_gate"]
-[connection signal="body_entered" from="Level/Exit" to="PlatformClient" method="exit_entered"]
 [connection signal="body_entered" from="Level/Exit" to="." method="end_level"]
+[connection signal="body_entered" from="Level/Exit" to="PlatformClient" method="exit_entered"]
+[connection signal="body_entered" from="Level/Crown" to="Player" method="crown_grabbed"]
 [connection signal="body_entered" from="Level/Crown" to="Level" method="crown_grabbed"]
 [connection signal="body_entered" from="Level/Crown" to="PlatformClient" method="crown_grabbed"]
-[connection signal="body_entered" from="Level/Crown" to="Player" method="crown_grabbed"]
+[connection signal="body_entered" from="Level/HealthUpgrade" to="Player" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/HealthUpgrade" to="Level" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/HealthUpgrade" to="PlatformClient" method="health_upgrade_grabbed"]
-[connection signal="body_entered" from="Level/HealthUpgrade" to="Player" method="health_upgrade_grabbed"]
 [connection signal="body_entered" from="Level/BossFightTrigger" to="Level" method="start_boss_fight"]
+[connection signal="body_entered" from="Level/Lava" to="Level/Lava" method="_on_body_entered"]
+[connection signal="player_out_of_bounds" from="Level/Lava" to="Level" method="out_of_bounds"]
+[connection signal="body_entered" from="Level/Void" to="Level/Void" method="_on_body_entered"]
+[connection signal="player_out_of_bounds" from="Level/Void" to="Level" method="out_of_bounds"]
 [connection signal="wallet_linked" from="UI/LinkWallet" to="." method="fetch_player"]
 [connection signal="paused" from="UI/PauseMenu" to="." method="_paused"]
 [connection signal="unpaused" from="UI/PauseMenu" to="." method="_unpaused"]
