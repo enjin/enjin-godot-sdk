@@ -1,6 +1,12 @@
 extends PopupPanel
 signal start
 
+func _process(delta):
+    var escape = Input.is_action_just_released("ui_cancel")
+    
+    if visible and escape:
+        _on_start()
+
 func show():
     .show()
     $VBox/MarginContainer/Button.grab_focus()
