@@ -1,5 +1,5 @@
-# Enjin-Coin-Godot-Plugin
-Enjin Coin plugin for the [Godot game engine](https://godotengine.org/).
+# Blockchain SDK by Enjin for Godot
+Enjin SDK for the [Godot game engine](https://godotengine.org/).
 
 [Learn more](https://enjin.io/) about the Enjin blockchain platform.
 
