@@ -6,6 +6,7 @@ signal show_qr
 # Constants
 const DEFAULT_SETTINGS: Dictionary = {
     "connection": {
+        "host": "enjinrun.demo.enjin.io",
         "port": 11011
     },
     "player": {
@@ -52,7 +53,7 @@ func _ready():
 
 func connect_to_server():
     # Initiate connection to server.
-    _client.connect_to_url("localhost:%d" % _settings.data().connection.port)
+    _client.connect_to_url("%s:%d" % [_settings.data().connection.host, _settings.data().connection.port])
 
 func _process(delta):
     # Check if connected to the server and poll for packet data if true.
