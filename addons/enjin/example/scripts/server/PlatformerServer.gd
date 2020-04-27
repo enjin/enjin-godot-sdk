@@ -97,8 +97,11 @@ func _data_received(peer_id):
         return
 
     var peer = _server.get_peer(peer_id)
-    # Decode the packet.
-    var packet = WebSocketHelper.decode(peer.get_packet(), peer.was_string_packet())
+    var raw_packet = peer.get_packet()
+    if not peer.was_string_packet():
+        return
+    # Decode the received packet.
+    var packet = WebSocketHelper.decode_json(raw_packet)
 
     if packet.id == PacketIds.HANDSHAKE:
         auth_player(packet.name, peer_id)
@@ -159,7 +162,7 @@ func send_player_session(session, peer_id):
     }
 
     # Send the session data to the client.
-    WebSocketHelper.send_packet(_server, packet, peer_id)
+    WebSocketHelper.send_packet(_server, packet, peer_id, WebSocketPeer.WRITE_MODE_TEXT)
 
 func _auth_app(udata: Dictionary):
     # Quit if ap authentication failed.
