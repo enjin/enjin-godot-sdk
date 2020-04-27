@@ -58,7 +58,7 @@ func _process(delta):
     var left_bodies = $Chop/Left.get_overlapping_bodies()
     var right_bodies = $Chop/Right.get_overlapping_bodies()
     var can_attack = left_bodies.has(player) || right_bodies.has(player)
-    
+
     if moving:
         $Sprite/AnimationPlayer.play("Run")
     elif can_attack && attack_cooldown_remaining <= 0:
@@ -71,7 +71,7 @@ func attack():
     var x_diff = get_global_position().x - player.get_global_position().x
     var to_left = x_diff > 0
     _set_direction_and_movement(to_left, false)
-    
+
     $Sprite/AnimationPlayer.play("Chop")
     if $AttackSFX.playing:
         $AttackSFX.stop()
