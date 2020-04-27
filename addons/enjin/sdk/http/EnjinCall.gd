@@ -1,6 +1,7 @@
 extends Reference
 
 const EnjinContentTypes = preload("res://addons/enjin/sdk/http/EnjinContentTypes.gd")
+const TrustedPlatformConstants = preload("res://addons/enjin/sdk/TrustedPlatformConstants.gd")
 
 var _method: int = HTTPClient.METHOD_GET setget set_method, get_method
 var _endpoint: String setget set_endpoint, get_endpoint
@@ -36,4 +37,5 @@ func get_headers() -> Array:
     var headers = _headers.duplicate()
     headers.push_back("Content-Type: %s" % _content_type)
     headers.push_back("Content-Length: %s" % str(_body.length()))
+    headers.push_back("User-Agent: Enjin Godot SDK v%s" % TrustedPlatformConstants.VERSION)
     return headers
