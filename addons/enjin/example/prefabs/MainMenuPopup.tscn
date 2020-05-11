@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://addons/enjin/example/themes/main_menu.tres" type="Theme" id=1]
 [ext_resource path="res://addons/enjin/example/themes/pause_sidebar.tres" type="Theme" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://addons/enjin/example/themes/util_button_pressed.tres" type="StyleBox" id=10]
 [ext_resource path="res://addons/enjin/example/themes/util_button_hover.tres" type="StyleBox" id=11]
 [ext_resource path="res://addons/enjin/example/audio/ui_click_sfx.wav" type="AudioStream" id=12]
+[ext_resource path="res://addons/enjin/example/fonts/Roboto-Regular.ttf" type="DynamicFontData" id=13]
+[ext_resource path="res://addons/enjin/example/fonts/Roboto24.tres" type="DynamicFont" id=14]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://addons/enjin/example/fonts/Roboto-Regular.ttf"
@@ -27,6 +29,34 @@ font_data = SubResource( 1 )
 [sub_resource type="StyleBoxEmpty" id=5]
 
 [sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.6, 0.6, 0.6, 0.196078 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.6, 0.6, 0.6, 0.196078 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="DynamicFont" id=12]
+size = 48
+font_data = ExtResource( 13 )
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="StyleBoxEmpty" id=14]
 
 [node name="MainMenu" type="PopupPanel"]
 anchor_right = 1.0
@@ -123,7 +153,9 @@ focus_neighbour_top = NodePath("../Options")
 text = "EXIT"
 align = 0
 
-[node name="UnlinkArea" type="PopupPanel" parent="."]
+[node name="UnlinkArea" type="PopupPanel" parent="." groups=[
+"main_menu_areas",
+]]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -198,7 +230,9 @@ custom_styles/normal = ExtResource( 9 )
 custom_fonts/font = ExtResource( 6 )
 text = "UNLINK WALLET"
 
-[node name="QrCodeArea" type="PopupPanel" parent="."]
+[node name="QrCodeArea" type="PopupPanel" parent="." groups=[
+"main_menu_areas",
+]]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -259,7 +293,9 @@ custom_styles/normal = ExtResource( 9 )
 custom_fonts/font = ExtResource( 6 )
 text = "LINK WALLET"
 
-[node name="LoadingArea" type="PopupPanel" parent="."]
+[node name="LoadingArea" type="PopupPanel" parent="." groups=[
+"main_menu_areas",
+]]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -276,14 +312,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBox" type="CenterContainer" parent="LoadingArea"]
+[node name="CenterBox" type="CenterContainer" parent="LoadingArea"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="LoadingArea/VBox"]
+[node name="Label" type="Label" parent="LoadingArea/CenterBox"]
 margin_left = 48.0
 margin_top = 226.0
 margin_right = 452.0
@@ -291,10 +327,170 @@ margin_bottom = 274.0
 custom_fonts/font = ExtResource( 6 )
 text = "Connecting to Server..."
 align = 1
-[connection signal="focus_entered" from="." to="." method="_on_menu_focus_entered"]
+
+[node name="ResetNameBox" type="PopupPanel" parent="." groups=[
+"main_menu_areas",
+]]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -550.0
+margin_top = -770.0
+margin_right = -49.9999
+margin_bottom = -570.0
+rect_min_size = Vector2( 500, 200 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/panel = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Margin" type="MarginContainer" parent="ResetNameBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 50
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="ResetNameBox/Margin"]
+margin_left = 10.0
+margin_top = 50.0
+margin_right = 490.0
+margin_bottom = 150.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ResetNameBox/Margin/VBox"]
+margin_right = 480.0
+margin_bottom = 48.0
+custom_fonts/font = ExtResource( 6 )
+text = "<player name>"
+align = 1
+
+[node name="Button" type="Button" parent="ResetNameBox/Margin/VBox"]
+margin_left = 167.0
+margin_top = 68.0
+margin_right = 312.0
+margin_bottom = 97.0
+focus_neighbour_left = NodePath("../../../../HBox/Sidebar/Buttons/VBox/Start")
+size_flags_horizontal = 4
+custom_styles/hover = ExtResource( 11 )
+custom_styles/pressed = ExtResource( 10 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 8 )
+custom_styles/normal = ExtResource( 9 )
+custom_fonts/font = ExtResource( 14 )
+text = "RESET NAME"
+
+[node name="PlayerNameArea" type="PopupPanel" parent="." groups=[
+"main_menu_areas",
+]]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -550.0
+margin_top = -550.0
+margin_right = -49.9999
+margin_bottom = -50.0
+rect_min_size = Vector2( 500, 500 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/panel = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Margin" type="MarginContainer" parent="PlayerNameArea"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 50
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="PlayerNameArea/Margin"]
+margin_left = 10.0
+margin_top = 50.0
+margin_right = 490.0
+margin_bottom = 450.0
+custom_constants/separation = 40
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PlayerNameArea/Margin/VBox"]
+margin_right = 480.0
+margin_bottom = 48.0
+custom_fonts/font = ExtResource( 6 )
+text = "Player Name"
+align = 1
+uppercase = true
+
+[node name="VBox" type="VBoxContainer" parent="PlayerNameArea/Margin/VBox"]
+margin_top = 88.0
+margin_right = 480.0
+margin_bottom = 226.0
+custom_constants/separation = 20
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Input" type="LineEdit" parent="PlayerNameArea/Margin/VBox/VBox"]
+margin_right = 480.0
+margin_bottom = 57.0
+focus_neighbour_bottom = NodePath("../../Button")
+size_flags_vertical = 6
+custom_styles/read_only = SubResource( 9 )
+custom_styles/focus = SubResource( 10 )
+custom_styles/normal = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
+align = 1
+placeholder_text = "enter name here..."
+caret_blink = true
+
+[node name="Error" type="Label" parent="PlayerNameArea/Margin/VBox/VBox"]
+margin_top = 77.0
+margin_right = 480.0
+margin_bottom = 138.0
+custom_fonts/font = ExtResource( 14 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "Invalid Name:
+must contain only letters and/or numbers"
+align = 1
+autowrap = true
+
+[node name="Button" type="Button" parent="PlayerNameArea/Margin/VBox"]
+margin_left = 166.0
+margin_top = 343.0
+margin_right = 313.0
+margin_bottom = 400.0
+focus_neighbour_left = NodePath("../../../../HBox/Sidebar/Buttons/VBox/Start")
+focus_neighbour_top = NodePath("../VBox/Input")
+size_flags_horizontal = 4
+size_flags_vertical = 10
+custom_styles/hover = ExtResource( 11 )
+custom_styles/pressed = ExtResource( 10 )
+custom_styles/focus = SubResource( 13 )
+custom_styles/disabled = SubResource( 14 )
+custom_styles/normal = ExtResource( 9 )
+text = "ENTER"
 [connection signal="mouse_entered" from="HBox/Sidebar/Buttons/VBox/Start" to="." method="_on_btn_mouse_entered"]
-[connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/Start" to="." method="_on_btn_pressed"]
 [connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/Start" to="." method="_on_start"]
+[connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/Start" to="." method="_on_btn_pressed"]
 [connection signal="mouse_entered" from="HBox/Sidebar/Buttons/VBox/Options" to="." method="_on_btn_mouse_entered"]
 [connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/Options" to="." method="_on_btn_pressed"]
 [connection signal="pressed" from="HBox/Sidebar/Buttons/VBox/Options" to="." method="_on_options"]
@@ -306,3 +502,9 @@ align = 1
 [connection signal="mouse_entered" from="QrCodeArea/VBox/Link" to="." method="_on_btn_mouse_entered"]
 [connection signal="pressed" from="QrCodeArea/VBox/Link" to="." method="_on_btn_pressed"]
 [connection signal="pressed" from="QrCodeArea/VBox/Link" to="." method="_on_link_pressed"]
+[connection signal="mouse_entered" from="ResetNameBox/Margin/VBox/Button" to="." method="_on_btn_mouse_entered"]
+[connection signal="pressed" from="ResetNameBox/Margin/VBox/Button" to="." method="_on_btn_pressed"]
+[connection signal="pressed" from="ResetNameBox/Margin/VBox/Button" to="." method="_on_name_reset_pressed"]
+[connection signal="mouse_entered" from="PlayerNameArea/Margin/VBox/Button" to="." method="_on_btn_mouse_entered"]
+[connection signal="pressed" from="PlayerNameArea/Margin/VBox/Button" to="." method="_on_btn_pressed"]
+[connection signal="pressed" from="PlayerNameArea/Margin/VBox/Button" to="." method="_on_name_enter_pressed"]

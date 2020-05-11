@@ -1,6 +1,8 @@
 extends Node2D
 signal player_fetched
 signal player_loaded
+signal show_loading
+signal show_name_input
 signal show_qr
 
 # Constants
@@ -10,7 +12,7 @@ const DEFAULT_SETTINGS: Dictionary = {
         "port": 11011
     },
     "player": {
-        "name": "DemoPlayer"
+        "name": ""
     }
 }
 const SETTINGS_FILE_NAME: String = "client.cfg"
@@ -50,6 +52,8 @@ func _ready():
     if !_settings_valid():
         # If not then quit.
         get_tree().quit()
+    
+    emit_signal("show_loading")
 
 func connect_to_server():
     # Initiate connection to server.
@@ -61,8 +65,7 @@ func _process(delta):
         _client.poll()
 
 func _connection_established(protocol):
-    # Start authentication process by handshaking with server.
-    handshake()
+    init_handshake()
 
 func _connection_error():
     print("Connection Error")
@@ -81,8 +84,6 @@ func _data_received():
 
 func _settings_valid() -> bool:
     var settings = _settings.data()
-    if settings.player.name.empty():
-        return false
     return true
 
 func handle_auth(packet):
@@ -153,6 +154,16 @@ func download_and_show_qr_code(url: String):
     var http_error = http_request.request(url)
     if http_error != OK:
         print("An error occurred in the HTTP request.")
+
+func init_handshake():
+    var settings = _settings.data()
+    
+    if settings.player.name.empty():
+        emit_signal("show_name_input")
+    else:
+        emit_signal("show_loading")
+        # Start authentication process by handshaking with server.
+        handshake()
 
 func handshake():
     var packet = {
@@ -230,3 +241,28 @@ func _unlink_player(udata: Dictionary):
         var result: Dictionary = gql.get_result()
         # Gets the new QR code image
         download_and_show_qr_code(result.linkingCodeQr)
+
+func clear_name():
+    _settings.data().player.name = ""
+    _settings.save(true)
+    _settings.load()
+
+func update_name(name: String = "") -> bool:
+    if name.empty():
+        return false
+    
+    # Checks if name contains characters other than numbers or letters
+    var characters = name.to_ascii()
+    for i in range(0, len(characters)):
+        var ch = characters[i]
+        #       [0,...,9]                  [A,...,Z]                  [a,...,z]
+        if not ((ch >= 48 and ch <= 57) or (ch >= 65 and ch <= 90) or (ch >= 97 and ch <= 122)):
+            return false
+    
+    _settings.data().player.name = name
+    _settings.save(true)
+    _settings.load()
+    return true
+
+func player_name() -> String:
+    return _settings.data().player.name
