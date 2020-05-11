@@ -38,7 +38,7 @@ func load_game():
 func load_main_menu():
     $UI/HUD.hide()
     $UI/MainMenu.show()
-    $UI/MainMenu.show_loading()
+    _show_loading()
     get_tree().paused = true
 
 func play_ending_track():
@@ -62,16 +62,39 @@ func unlink_player():
     $UI/MainMenu.disable_buttons()
     $PlatformClient.unlink_player()
 
+func reset_player_name():
+    # May only reset name at main menu
+    if not $UI/MainMenu.visible:
+        return
+    
+    $UI/MainMenu.hide_reset_name_option()
+    
+    $PlatformClient.clear_name()
+    unlink_player()
+    $PlatformClient.init_handshake()
+
+func update_player_name(name: String):
+    if $PlatformClient.update_name(name) and $UI/MainMenu.visible:
+        $UI/MainMenu.hide_name_error()
+        $PlatformClient.init_handshake()
+    elif $UI/MainMenu.visible:
+        $UI/MainMenu.show_name_error()
+
 func _paused():
     dampen_audio()
 
 func _player_fetched():
+    if $PlatformClient.player_name().empty():
+        return
+    
     $UI/Loading.hide()
 
     if $UI/MainMenu.visible:
         var addr = $PlatformClient._identity.wallet.ethAddress
 
         $UI/MainMenu.show_player_info(addr)
+        $UI/MainMenu.show_reset_name_option($PlatformClient.player_name())
+        $UI/MainMenu.allow_start(true)
         $UI/MainMenu.enable_buttons()
     else:
         $PlatformClient.load_identity()
@@ -86,7 +109,24 @@ func _player_loaded():
     else:
         start_level()
 
+func _show_loading():
+    if $UI/MainMenu.visible:
+        $UI/MainMenu.show_loading()
+        $UI/MainMenu.hide_reset_name_option()
+        $UI/MainMenu.disable_buttons()
+
+func _show_name_input():
+    $UI/Loading.hide()
+    
+    if $UI/MainMenu.visible:
+        $UI/MainMenu.show_name_input()
+        $UI/MainMenu.allow_start(false)
+        $UI/MainMenu.enable_buttons()
+
 func _show_qr(image: Image):
+    if $PlatformClient.player_name().empty():
+        return
+    
     var texture = ImageTexture.new()
     texture.create_from_image(image)
 
@@ -94,7 +134,9 @@ func _show_qr(image: Image):
 
     if $UI/MainMenu.visible:
         $UI/MainMenu.show_qr(texture)
+        $UI/MainMenu.show_reset_name_option($PlatformClient.player_name())
         # Enable menu buttons when QR is available
+        $UI/MainMenu.allow_start(true)
         $UI/MainMenu.enable_buttons()
     else:
         $UI/LinkWallet/Rect.texture = texture
