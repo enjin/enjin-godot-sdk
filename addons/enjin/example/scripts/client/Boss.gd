@@ -143,6 +143,7 @@ func player_bounced_on_head(entity):
     $Sprite/AnimationPlayer.play("Damage 1" if health == 2 else "Damage 2")
     $Bounce/CollisionShape2D.disabled = true
     stunned = true
+    mid_attack = false
     velocity = Vector2(0, 0)
 
 func _knockback_body(body):
