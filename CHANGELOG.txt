@@ -1,0 +1,6 @@
+1.0.1
+- Updated GraphQL templates (Fixes incorrect types for totalSupply and meltValue variables)
+- Added ability to set player name in EnjinRun demo
+
+1.0.0
+- Initial Release
