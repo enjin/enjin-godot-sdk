@@ -3,10 +3,12 @@
 # Loops through all text files tracked by Git.
 git grep -zIl '' |
 while IFS= read -rd '' f; do
-    # Exclude csproj and hdr files.
+    # Exclude csproj, hdr, and gql files.
     if [[ $f == *"csproj" ]]; then
         continue
     elif [[ $f == *"hdr" ]]; then
+        continue
+    elif [[ $f == *"gql" ]]; then
         continue
     fi
     # Ensures that files are UTF-8 formatted.
