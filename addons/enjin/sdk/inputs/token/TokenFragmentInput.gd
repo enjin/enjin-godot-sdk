@@ -38,9 +38,14 @@ class TokenFragmentInput extends "../BaseInput.gd":
         vars.withSupplyDetails = withSupplyDetails
         return self
 
-    func with_transfer_fee_settings(withTransferFeeSettings: bool) -> TokenFragmentInput:
-        vars.withTransferFeeSettings = withTransferFeeSettings
+    # deprecated
+    func with_transfer_fee_settings(withTransferSettings: bool) -> TokenFragmentInput:
+        vars.withTransferSettings = withTransferSettings
         return self
+
+    func with_transfer_settings(withTransferSettings: bool) -> TokenFragmentInput:
+            vars.withTransferSettings = withTransferSettings
+            return self
 
     func with_item_uri(withItemUri: bool) -> TokenFragmentInput:
         vars.withItemUri = withItemUri
