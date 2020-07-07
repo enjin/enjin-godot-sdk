@@ -23,6 +23,10 @@ func token_id(tokenId: String) -> GetBalancesInput:
     vars.tokenId = tokenId
     return self
 
+func filter(filter: Dictionary) -> GetBalancesInput:
+    vars.filter = filter
+    return self
+
 func value(value: int) -> GetBalancesInput:
     vars.value = value
     return self

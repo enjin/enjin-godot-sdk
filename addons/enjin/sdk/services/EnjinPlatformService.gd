@@ -10,3 +10,6 @@ func _init(middleware: TrustedPlatformMiddleware):
 
 func get_platform(input: GetPlatformInput, udata: Dictionary = {}):
     _middleware.execute_gql("GetPlatformQuery", input.create(), udata)
+
+func get_gas_price(udata: Dictionary = {}):
+    _middleware.execute_gql("GetGasPriceQuery", {}, udata)
