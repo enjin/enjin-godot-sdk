@@ -52,6 +52,14 @@ func marked_for_delete(markedForDelete: bool) -> GetTokensInput:
     vars.markedForDelete = markedForDelete
     return self
 
+func transferable(transferable: String) -> GetTokensInput:
+    vars.transferable = transferable
+    return self
+
+func filter(filter: Dictionary) -> GetTokensInput:
+    vars.filter = filter
+    return self
+
 func sort(sort: Dictionary) -> GetTokensInput:
     vars.sort = sort
     return self

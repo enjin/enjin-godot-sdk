@@ -46,6 +46,14 @@ class TokenFragmentInput extends "../BaseInput.gd":
         vars.withItemUri = withItemUri
         return self
 
+    func with_metadata(withTokenMetadata: bool) -> TokenFragmentInput:
+        vars.withTokenMetadata = withTokenMetadata
+        return self
+
+    func with_variant_mode(withTokenVariantMode: bool) -> TokenFragmentInput:
+        vars.withTokenVariantMode = withTokenVariantMode
+        return self
+
     func with_timestamps(withTokenTimestamps: bool) -> TokenFragmentInput:
         vars.withTokenTimestamps = withTokenTimestamps
         return self

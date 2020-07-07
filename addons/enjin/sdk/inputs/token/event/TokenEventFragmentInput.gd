@@ -14,6 +14,10 @@ class TokenEventFragmentInput extends "../../BaseInput.gd":
         vars.withEventToken = withEventToken
         return self
 
+    func with_transaction(withEventTransaction: bool) -> TokenEventFragmentInput:
+        vars.withEventTransaction = withEventTransaction
+        return self
+
     func with_token_event_timestamps(withTokenEventTimestamps: bool) -> TokenEventFragmentInput:
         vars.withTokenEventTimestamps = withTokenEventTimestamps
         return self

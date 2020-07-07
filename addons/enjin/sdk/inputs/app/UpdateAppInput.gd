@@ -16,3 +16,7 @@ func description(description: String) -> UpdateAppInput:
 func image(image: String) -> UpdateAppInput:
     vars.image = image
     return self
+
+func options(options: Dictionary) -> UpdateAppInput:
+    vars.options = options
+    return self
