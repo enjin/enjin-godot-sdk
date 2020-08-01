@@ -1,10 +1,22 @@
 extends Reference
 class_name TrustedPlatformClient
 
-const TrustedPlatformState = preload("res://addons/enjin/sdk/TrustedPlatformState.gd")
+const Schema = preload("res://addons/enjin/sdk/schemas/Schema.gd")
 const TrustedPlatformMiddleware = preload("res://addons/enjin/sdk/TrustedPlatformMiddleware.gd")
+
+const KOVAN: String = "kovan.cloud.enjin.io"
+const MAIN: String = "cloud.enjin.io"
+
+var _middleware: TrustedPlatformMiddleware
+var _schema: Schema
+
+func _init(base_url: String, debug: bool):
+    _middleware = TrustedPlatformMiddleware.new(base_url, debug)
+    _schema = Schema.new(_middleware)
+
+##########################################################
+const TrustedPlatformState = preload("res://addons/enjin/sdk/TrustedPlatformState.gd")
 const EnjinHttp = preload("res://addons/enjin/sdk/http/EnjinHttp.gd")
-const EnjinHosts = preload("res://addons/enjin/sdk/http/EnjinHosts.gd")
 const EnjinAuthService = preload("res://addons/enjin/sdk/services/EnjinAuthService.gd")
 const EnjinUserService = preload("res://addons/enjin/sdk/services/EnjinUserService.gd")
 const EnjinIdentityService = preload("res://addons/enjin/sdk/services/EnjinIdentityService.gd")
@@ -18,7 +30,6 @@ const EnjinAppService = preload("res://addons/enjin/sdk/services/EnjinAppsServic
 var _base_url: String
 var _http: EnjinHttp
 var _state: TrustedPlatformState setget ,get_state
-var _middleware: TrustedPlatformMiddleware
 var _auth_service: EnjinAuthService setget ,auth_service
 var _user_service: EnjinUserService setget ,user_service
 var _identity_service: EnjinIdentityService setget ,identity_service
