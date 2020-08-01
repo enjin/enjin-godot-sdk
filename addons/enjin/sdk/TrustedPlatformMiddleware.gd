@@ -1,16 +1,36 @@
 extends Reference
 
+const EnjinGraphqlQueryRegistry = preload("res://addons/enjin/sdk/graphql/EnjinGraphqlQueryRegistry.gd")
+const EnjinHttp = preload("res://addons/enjin/sdk/http/EnjinHttp.gd")
+const TrustedPlatformClient = preload("res://addons/enjin/sdk/TrustedPlatformClient.gd")
+
+var _base_url: String setget ,get_base_url
+var _http: EnjinHttp setget ,get_http
+var _registry: EnjinGraphqlQueryRegistry setget ,get_registry
+
+func _init(base_url: String = TrustedPlatformClient.KOVAN, debug: bool = false):
+    _base_url = base_url
+    _http = EnjinHttp.new(_base_url)
+    _registry = EnjinGraphqlQueryRegistry.new()
+
+func get_base_url() -> String:
+    return _base_url
+
+func get_http() -> EnjinHttp:
+    return _http
+
+#######################################
 const TrustedPlatformState = preload("res://addons/enjin/sdk/TrustedPlatformState.gd")
 const EnjinHttp = preload("res://addons/enjin/sdk/http/EnjinHttp.gd")
 const EnjinCall = preload("res://addons/enjin/sdk/http/EnjinCall.gd")
 const EnjinEndpoints = preload("res://addons/enjin/sdk/http/EnjinEndpoints.gd")
 const EnjinContentTypes = preload("res://addons/enjin/sdk/http/EnjinContentTypes.gd")
 const EnjinHeaders = preload("res://addons/enjin/sdk/http/EnjinHeaders.gd")
-const EnjinGraphqlSchema = preload("res://addons/enjin/sdk/graphql/EnjinGraphqlSchema.gd")
+const EnjinGraphqlQueryRegistry = preload("res://addons/enjin/sdk/graphql/EnjinGraphqlQueryRegistry.gd")
 
 var _http: EnjinHttp
 var _state: TrustedPlatformState
-var _schema: EnjinGraphqlSchema
+var _registry: EnjinGraphqlQueryRegistry
 var _gql_callback: EnjinCallback
 
 func _init(http: EnjinHttp, state: TrustedPlatformState):
@@ -26,7 +46,7 @@ func execute_post_cb(call: EnjinCall, callback: EnjinCallback, udata: Dictionary
     _http.enqueue(call, callback, udata)
 
 func execute_gql(op_name: String, vars: Dictionary = {}, udata: Dictionary = {}, callback = _gql_callback):
-    var body = _schema.build_request_body(op_name, vars)
+    var body = _registry.build_request_body(op_name, vars)
     var call = _graphql(body)
     udata.call = call
     _http.enqueue(call, callback, udata)
