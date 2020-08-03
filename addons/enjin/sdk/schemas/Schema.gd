@@ -1,4 +1,4 @@
-extends BaseService
+extends BaseSchema
 class_name Schema
 
 const TrustedPlatformMiddleware = preload("res://addons/enjin/sdk/TrustedPlatformMiddleware.gd")
