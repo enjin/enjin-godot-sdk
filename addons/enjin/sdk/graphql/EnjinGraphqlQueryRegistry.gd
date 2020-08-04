@@ -3,9 +3,9 @@ extends Reference
 const GraphqlArgument = preload("res://addons/enjin/sdk/graphql/GraphqlArgument.gd")
 const GraphqlTemplate = preload("res://addons/enjin/sdk/graphql/GraphqlTemplate.gd")
 
-var _sdk_template_path= "res://addons/enjin/sdk/graphql/templates/"
-var _fragment_registry: Dictionary setget ,get_fragment_registry
-var _operation_registry: Dictionary setget ,get_operation_registry
+var _sdk_template_path = "res://addons/enjin/sdk/graphql/templates/"
+var _fragment_registry: Dictionary setget , get_fragment_registry
+var _operation_registry: Dictionary setget , get_operation_registry
 var _additional_template_paths: Array
 
 func _init(template_paths: Array = []):
@@ -145,6 +145,9 @@ func get_fragment_registry() -> Dictionary:
 
 func get_operation_registry() -> Dictionary:
     return _operation_registry
+
+func get_operation_for_name(name: String) -> GraphqlTemplate:
+    return _operation_registry.get(name)
 
 func get_template(template_name) -> GraphqlTemplate:
     var template = null
