@@ -1,5 +1,4 @@
 extends Reference
-class_name BaseSchema
 
 const EnjinCall = preload("res://addons/enjin/sdk/http/EnjinCall.gd")
 const EnjinCallback = preload("res://addons/enjin/sdk/http/EnjinCallback.gd")

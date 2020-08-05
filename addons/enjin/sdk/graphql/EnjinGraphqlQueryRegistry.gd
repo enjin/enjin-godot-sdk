@@ -1,8 +1,5 @@
 extends Reference
 
-const GraphqlArgument = preload("res://addons/enjin/sdk/graphql/GraphqlArgument.gd")
-const GraphqlTemplate = preload("res://addons/enjin/sdk/graphql/GraphqlTemplate.gd")
-
 var _sdk_template_path = "res://addons/enjin/sdk/graphql/templates/"
 var _fragment_registry: Dictionary setget , get_fragment_registry
 var _operation_registry: Dictionary setget , get_operation_registry
@@ -168,3 +165,68 @@ func build_request_body(template_name: String, variables: Dictionary) -> String:
     request_body.variables = variables
 
     return request_body
+
+class GraphqlArgument:
+    var _name: String
+    var _type: String = ""
+    var _default_value: String = ""
+
+    func _init(text: String):
+        var col_pos = text.find_last(":")
+        var eq_pos = text.find_last("=")
+
+        _name = text.substr(0, col_pos).trim_prefix("$")
+        if eq_pos != -1:
+            _type = text.substr(col_pos + 1, eq_pos - col_pos - 1).strip_edges()
+            _default_value = text.substr(eq_pos + 1, text.length() - eq_pos - 1).strip_edges()
+        else:
+            _type = text.substr(col_pos + 1, text.length() - col_pos - 1).strip_edges()
+
+    func to_string() -> String:
+        var val: String = "$%s: %s" % [_name, _type]
+        if _default_value != "":
+            val = "%s = %s" % [val, _default_value]
+        return val
+
+class GraphqlTemplate:
+    var _path: String setget ,get_path
+    var _name: String
+    var _arguments: Dictionary = {} setget ,get_arguments
+    var _fragment_refs: Array = []
+    var _raw_template: String = "" setget set_raw_template,get_raw_template
+    var _compiled_template: String = "" setget ,get_compiled_template
+    var _is_cached: bool = false
+
+    func _init(path: String, name: String):
+        _path = path
+        _name = name
+
+    func add_argument(arg: GraphqlArgument):
+        if not _arguments.has(arg._name):
+            _arguments[arg._name] = arg
+
+    func add_fragment_ref(fragment: String):
+        var name = fragment.replace("...", "")
+        if !_fragment_refs.has(name):
+            _fragment_refs.push_back(name)
+
+    func append_line(line: String):
+        _raw_template += line
+
+    func set_raw_template(raw_template: String):
+        _raw_template = raw_template
+
+    func get_path() -> String:
+        return _path
+
+    func get_arguments() -> Dictionary:
+        return _arguments
+
+    func get_fragment_refs() -> Array:
+        return _fragment_refs
+
+    func get_raw_template() -> String:
+        return _raw_template
+    
+    func get_compiled_template() -> String:
+        return _compiled_template

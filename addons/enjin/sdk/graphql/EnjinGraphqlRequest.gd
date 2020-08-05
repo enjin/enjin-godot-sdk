@@ -1,5 +1,4 @@
 extends Reference
-class_name EnjinGraphqlRequest
 
 var _vars: Dictionary = {} setget , get_vars
 var _namespace: String setget , get_namespace
