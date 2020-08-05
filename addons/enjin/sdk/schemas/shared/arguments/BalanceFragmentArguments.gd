@@ -1,0 +1,16 @@
+extends "res://addons/enjin/sdk/schemas/shared/arguments/BaseArgument.gd"
+
+func _init(owner_in: EnjinGraphqlRequest).(owner_in):
+    pass
+
+func bal_id_format(bal_id_format: Object) -> EnjinGraphqlRequest:
+    return set_variable("balIdFormat", bal_id_format)
+
+func bal_index_format(bal_index_format: Object) -> EnjinGraphqlRequest:
+    return set_variable("balIndexFormat", bal_index_format)
+
+func with_bal_project_id() -> EnjinGraphqlRequest:
+    return set_variable("withBalAppId", true)
+
+func with_bal_wallet_address() -> EnjinGraphqlRequest:
+    return set_variable("withBalWalletAddress", true)
