@@ -1,5 +1,4 @@
 extends Reference
-class_name TrustedPlatformClient
 
 const Schema = preload("res://addons/enjin/sdk/schemas/Schema.gd")
 const TrustedPlatformMiddleware = preload("res://addons/enjin/sdk/TrustedPlatformMiddleware.gd")

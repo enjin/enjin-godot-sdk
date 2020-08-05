@@ -1,5 +1,4 @@
 extends Reference
-class_name TrustedPlatformMiddleware
 
 const EnjinCall = preload("res://addons/enjin/sdk/http/EnjinCall.gd")
 const EnjinContentTypes = preload("res://addons/enjin/sdk/http/EnjinContentTypes.gd")
