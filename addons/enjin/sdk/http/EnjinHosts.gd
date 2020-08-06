@@ -1,5 +1,5 @@
 extends Reference
 class_name EnjinHosts
 
-const KOVAN = "kovan.cloud.enjin.io"
-const MAIN = "cloud.enjin.io"
+const KOVAN: String = "kovan.cloud.enjin.io"
+const MAIN: String = "cloud.enjin.io"
