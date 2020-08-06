@@ -4,9 +4,6 @@ const Schema = preload("res://addons/enjin/sdk/schemas/Schema.gd")
 const TrustedPlatformMiddleware = preload("res://addons/enjin/sdk/TrustedPlatformMiddleware.gd")
 const TrustedPlatformState = preload("res://addons/enjin/sdk/TrustedPlatformState.gd")
 
-const KOVAN: String = "kovan.cloud.enjin.io"
-const MAIN: String = "cloud.enjin.io"
-
 var _middleware: TrustedPlatformMiddleware setget , get_middleware
 var _schema: Schema setget , get_schema
 var _state: TrustedPlatformState setget , get_state
