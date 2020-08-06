@@ -1,7 +1,6 @@
 extends Reference
 
 const EnjinCall = preload("res://addons/enjin/sdk/http/EnjinCall.gd")
-const EnjinCallback = preload("res://addons/enjin/sdk/http/EnjinCallback.gd")
 const EnjinGraphqlRequest = preload("res://addons/enjin/sdk/graphql/EnjinGraphqlRequest.gd")
 const TrustedPlatformMiddleware = preload("res://addons/enjin/sdk/TrustedPlatformMiddleware.gd")
 
