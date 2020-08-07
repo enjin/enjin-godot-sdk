@@ -19,11 +19,11 @@ func total_supply(total_supply: String) -> CreateToken:
     set_variable("totalSupply", total_supply)
     return self
 
-func initial_reserve(initial_reserve) -> CreateToken:
+func initial_reserve(initial_reserve: String) -> CreateToken:
     set_variable("initialReserve", initial_reserve)
     return self
 
-func supply_model(supply_model: Object) -> CreateToken:
+func supply_model(supply_model: String) -> CreateToken:
     set_variable("supplyModel", supply_model)
     return self
 
@@ -35,12 +35,12 @@ func melt_fee_ratio(melt_fee_ratio: int) -> CreateToken:
     set_variable("meltFeeRatio", melt_fee_ratio)
     return self
 
-func transferable(transferable: Object) -> CreateToken:
+func transferable(transferable: String) -> CreateToken:
     set_variable("transferable", transferable)
     return self
 
-func transfer_fee_settings(transfer_fee_settings: Object) -> CreateToken:
-    set_variable("transferFeeSettings", transfer_fee_settings)
+func transfer_fee_settings(settings: TokenTransferFeeSettings) -> CreateToken:
+    set_variable("transferFeeSettings", settings.get_vars().duplicate())
     return self
 
 func nonfungible(nonfungible: bool) -> CreateToken:
