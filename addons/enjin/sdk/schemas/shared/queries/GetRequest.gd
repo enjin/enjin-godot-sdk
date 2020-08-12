@@ -3,10 +3,10 @@ class_name GetRequest
 
 const TransactionFragmentArguments = preload("res://addons/enjin/sdk/schemas/shared/arguments/TransactionFragmentArguments.gd")
 
-var tx_fragment_args: TransactionFragmentArguments
+var txn_i: TransactionFragmentArguments
 
 func _init().("enjin.sdk.shared.GetRequest"):
-    tx_fragment_args = TransactionFragmentArguments.new(self)
+    txn_i = TransactionFragmentArguments.new(self)
 
 func id(id: int) -> GetRequest:
     set_variable("id", id)
