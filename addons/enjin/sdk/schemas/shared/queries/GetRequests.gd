@@ -4,12 +4,12 @@ class_name GetRequests
 const TransactionFragmentArguments = preload("res://addons/enjin/sdk/schemas/shared/arguments/TransactionFragmentArguments.gd")
 const PaginationArguments = preload("res://addons/enjin/sdk/schemas/shared/arguments/PaginationArguments.gd")
 
-var tx_fragment_args: TransactionFragmentArguments
-var pag_fragment_args: PaginationArguments
+var txn_i: TransactionFragmentArguments
+var pagination_i: PaginationArguments
 
 func _init().("enjin.sdk.shared.GetRequests"):
-    tx_fragment_args = TransactionFragmentArguments.new(self)
-    pag_fragment_args = PaginationArguments.new(self)
+    txn_i = TransactionFragmentArguments.new(self)
+    pagination_i = PaginationArguments.new(self)
 
 func filter(filter: TransactionFilter) -> GetRequests:
     set_variable("filter", filter.get_vars().duplicate())
