@@ -12,5 +12,4 @@ func _init().("enjin.sdk.project.GetPlayers"):
     pagination_i = PaginationArguments.new(self)
 
 func filter(filter: PlayerFilter) -> GetPlayers:
-    set_variable("filter", filter.get_vars().duplicate())
-    return self
+    return set_variable("filter", filter.get_vars().duplicate())

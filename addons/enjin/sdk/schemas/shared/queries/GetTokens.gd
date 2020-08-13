@@ -12,9 +12,7 @@ func _init().("enjin.sdk.shared.GetTokens"):
     pagination_i = PaginationArguments.new(self)
 
 func filter(filter: TokenFilter) -> GetTokens:
-    set_variable("filter", filter.get_vars().duplicate())
-    return self
+    return set_variable("filter", filter.get_vars().duplicate())
 
 func sort(sort: TokenSort) -> GetTokens:
-    set_variable("sort", sort.get_vars().duplicate())
-    return self
+    return set_variable("sort", sort.get_vars().duplicate())

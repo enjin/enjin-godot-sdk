@@ -12,9 +12,7 @@ func _init().("enjin.sdk.project.ReleaseReserve"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func token_id(token_id: String) -> ReleaseReserve:
-    set_variable("tokenId", token_id)
-    return self
+    return set_variable("tokenId", token_id)
 
 func value(value: String) -> ReleaseReserve:
-    set_variable("value", value)
-    return self
+    return set_variable("value", value)

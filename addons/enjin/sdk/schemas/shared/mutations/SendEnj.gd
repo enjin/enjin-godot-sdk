@@ -12,9 +12,7 @@ func _init().("enjin.sdk.shared.SendEnj"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func recipient_address(recipient_address: String) -> SendEnj:
-    set_variable("recipientAddress", recipient_address)
-    return self
+    return set_variable("recipientAddress", recipient_address)
 
 func value(value: String) -> SendEnj:
-    set_variable("value", value)
-    return self
+    return set_variable("value", value)

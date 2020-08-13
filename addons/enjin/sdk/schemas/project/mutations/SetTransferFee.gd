@@ -12,13 +12,10 @@ func _init().("enjin.sdk.project.SetTransferFee"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func token_id(token_id: String) -> SetTransferFee:
-    set_variable("tokenId", token_id)
-    return self
+    return set_variable("tokenId", token_id)
 
 func token_index(token_index: String) -> SetTransferFee:
-    set_variable("tokenIndex", token_index)
-    return self
+    return set_variable("tokenIndex", token_index)
 
 func transfer_fee_settings(transfer_fee_settings: Object) -> SetTransferFee:
-    set_variable("transferFeeSettings", transfer_fee_settings)
-    return self
+    return set_variable("transferFeeSettings", transfer_fee_settings)

@@ -12,5 +12,4 @@ func _init().("enjin.sdk.shared.Message"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func message(message: String) -> Message:
-    set_variable("message", message)
-    return self
+    return set_variable("message", message)

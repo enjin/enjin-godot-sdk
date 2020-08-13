@@ -12,21 +12,16 @@ func _init().("enjin.sdk.project.SetWhitelisted"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func token_id(token_id: String) -> SetWhitelisted:
-    set_variable("tokenId", token_id)
-    return self
+    return set_variable("tokenId", token_id)
 
 func account_address(account_address: String) -> SetWhitelisted:
-    set_variable("accountAddress", account_address)
-    return self
+    return set_variable("accountAddress", account_address)
 
 func whitelisted(whitelisted: Object) -> SetWhitelisted:
-    set_variable("whitelisted", whitelisted)
-    return self
+    return set_variable("whitelisted", whitelisted)
 
 func whitelisted_address(whitelisted_address: String) -> SetWhitelisted:
-    set_variable("whitelistedAddress", whitelisted_address)
-    return self
+    return set_variable("whitelistedAddress", whitelisted_address)
 
 func on(on: bool) -> SetWhitelisted:
-    set_variable("on", on)
-    return self
+    return set_variable("on", on)

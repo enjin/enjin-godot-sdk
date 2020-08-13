@@ -5,9 +5,7 @@ func _init().("enjin.sdk.project.AuthProject"):
     pass
 
 func id(id: int) -> AuthProject:
-    set_variable("appId", id)
-    return self
+    return set_variable("appId", id)
 
 func secret(secret: String) -> AuthProject:
-    set_variable("secret", secret)
-    return self
+    return set_variable("secret", secret)

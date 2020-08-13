@@ -12,5 +12,4 @@ func _init().("enjin.sdk.shared.ApproveEnj"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func value(value: String) -> ApproveEnj:
-    set_variable("value", value)
-    return self
+    return set_variable("value", value)

@@ -8,12 +8,12 @@ func _init(owner_in: EnjinGraphqlRequest).(owner_in):
 func page(page: int) -> EnjinGraphqlRequest:
     _create_pagination()
     _pagination["page"] = page
-    return owner
+    return _owner
 
 func limit(limit: int = 10) -> EnjinGraphqlRequest:
     _create_pagination()
     _pagination["limit"] = limit
-    return owner
+    return _owner
 
 func _create_pagination():
     if not is_set("pagination"):

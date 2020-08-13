@@ -12,13 +12,10 @@ func _init().("enjin.sdk.project.SetTransferable"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func token_id(token_id: String) -> SetTransferable:
-    set_variable("tokenId", token_id)
-    return self
+    return set_variable("tokenId", token_id)
 
 func token_index(token_index: String) -> SetTransferable:
-    set_variable("tokenIndex", token_index)
-    return self
+    return set_variable("tokenIndex", token_index)
 
 func transferable(transferable: Object) -> SetTransferable:
-    set_variable("transferable", transferable)
-    return self
+    return set_variable("transferable", transferable)

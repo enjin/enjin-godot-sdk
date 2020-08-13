@@ -12,9 +12,7 @@ func _init().("enjin.sdk.shared.GetRequests"):
     pagination_i = PaginationArguments.new(self)
 
 func filter(filter: TransactionFilter) -> GetRequests:
-    set_variable("filter", filter.get_vars().duplicate())
-    return self
+    return set_variable("filter", filter.get_vars().duplicate())
 
 func sort(sort: TransactionSort) -> GetRequests:
-    set_variable("sort", sort.get_vars().duplicate())
-    return self
+    return set_variable("sort", sort.get_vars().duplicate())

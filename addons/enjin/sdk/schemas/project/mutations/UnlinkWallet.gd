@@ -5,5 +5,4 @@ func _init().("enjin.sdk.project.UnlinkWallet"):
     pass
 
 func eth_address(eth_address: String) -> ProjectUnlinkWallet:
-    set_variable("ethAddress", eth_address)
-    return self
+    return set_variable("ethAddress", eth_address)

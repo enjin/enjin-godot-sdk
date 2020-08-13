@@ -12,13 +12,10 @@ func _init().("enjin.sdk.project.SetMeltFee"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func token_id(token_id: String) -> SetMeltFee:
-    set_variable("tokenId", token_id)
-    return self
+    return set_variable("tokenId", token_id)
 
 func token_index(token_index: String) -> SetMeltFee:
-    set_variable("tokenIndex", token_index)
-    return self
+    return set_variable("tokenIndex", token_index)
 
 func melt_fee(melt_fee: int) -> SetMeltFee:
-    set_variable("meltFee", melt_fee)
-    return self
+    return set_variable("meltFee", melt_fee)
