@@ -5,9 +5,7 @@ func _init().("enjin.sdk.shared.GetProject"):
     pass
 
 func id(id: int) -> GetProject:
-    set_variable("id", id)
-    return self
+    return set_variable("id", id)
 
 func name(name: String) -> GetProject:
-    set_variable("name", name)
-    return self
+    return set_variable("name", name)

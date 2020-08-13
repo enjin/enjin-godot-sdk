@@ -9,5 +9,4 @@ func _init().("enjin.sdk.project.GetPlayer"):
     player_i = PlayerFragmentArguments.new(self)
 
 func id(id: String) -> ProjectGetPlayer:
-    set_variable("id", id)
-    return self
+    return set_variable("id", id)

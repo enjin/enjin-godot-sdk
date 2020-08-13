@@ -12,9 +12,7 @@ func _init().("enjin.sdk.shared.SetApprovalForAll"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func operator_address(operator_address: String) -> SetApprovalForAll:
-    set_variable("operatorAddress", operator_address)
-    return self
+    return set_variable("operatorAddress", operator_address)
 
 func approved(approved: bool) -> SetApprovalForAll:
-    set_variable("approved", approved)
-    return self
+    return set_variable("approved", approved)

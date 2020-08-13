@@ -5,5 +5,4 @@ func _init().("enjin.sdk.project.CreatePlayer"):
     pass
 
 func id(id: String) -> CreatePlayer:
-    set_variable("id", id)
-    return self
+    return set_variable("id", id)

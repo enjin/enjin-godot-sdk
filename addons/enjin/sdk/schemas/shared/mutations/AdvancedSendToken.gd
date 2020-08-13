@@ -12,9 +12,7 @@ func _init().("enjin.sdk.shared.AdvancedSendToken"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func transfers(transfers: Array) -> AdvancedSendToken:
-    set_variable("transfers", transfers)
-    return self
+    return set_variable("transfers", transfers)
 
 func data(data: String) -> AdvancedSendToken:
-    set_variable("data", data)
-    return self
+    return set_variable("data", data)

@@ -5,5 +5,4 @@ func _init().("enjin.sdk.project.InvalidateTokenMetadata"):
     pass
 
 func id(id: String) -> InvalidateTokenMetadata:
-    set_variable("id", id)
-    return self
+    return set_variable("id", id)

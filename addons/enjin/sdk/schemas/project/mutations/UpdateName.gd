@@ -12,13 +12,10 @@ func _init().("enjin.sdk.project.UpdateName"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func token_id(token_id: String) -> UpdateName:
-    set_variable("tokenId", token_id)
-    return self
+    return set_variable("tokenId", token_id)
 
 func token_index(token_index: String) -> UpdateName:
-    set_variable("tokenIndex", token_index)
-    return self
+    return set_variable("tokenIndex", token_index)
 
 func name(name: String) -> UpdateName:
-    set_variable("name", name)
-    return self
+    return set_variable("name", name)

@@ -12,5 +12,4 @@ func _init().("enjin.sdk.shared.GetBalances"):
     pagination_i = PaginationArguments.new(self)
 
 func filter(filter: BalanceFilter) -> GetBalances:
-    set_variable("filter", filter.get_vars().duplicate())
-    return self
+    return set_variable("filter", filter.get_vars().duplicate())

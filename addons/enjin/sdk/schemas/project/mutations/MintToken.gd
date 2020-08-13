@@ -12,9 +12,7 @@ func _init().("enjin.sdk.project.MintToken"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func token_id(token_id: String) -> MintToken:
-    set_variable("tokenId", token_id)
-    return self
+    return set_variable("tokenId", token_id)
 
 func mints(mints: Array) -> MintToken:
-    set_variable("mints", mints)
-    return self
+    return set_variable("mints", mints)

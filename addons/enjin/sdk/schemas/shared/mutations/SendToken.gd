@@ -12,21 +12,16 @@ func _init().("enjin.sdk.shared.SendToken"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func recipient_address(recipient_address: String) -> SendToken:
-    set_variable("recipientAddress", recipient_address)
-    return self
+    return set_variable("recipientAddress", recipient_address)
 
 func token_id(token_id: String) -> SendToken:
-    set_variable("tokenId", token_id)
-    return self
+    return set_variable("tokenId", token_id)
 
 func token_index(token_index: String) -> SendToken:
-    set_variable("tokenIndex", token_index)
-    return self
+    return set_variable("tokenIndex", token_index)
 
 func value(value: String) -> SendToken:
-    set_variable("value", value)
-    return self
+    return set_variable("value", value)
 
 func data(data: String) -> SendToken:
-    set_variable("data", data)
-    return self
+    return set_variable("data", data)

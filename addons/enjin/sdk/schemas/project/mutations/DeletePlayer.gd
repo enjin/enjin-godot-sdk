@@ -5,5 +5,4 @@ func _init().("enjin.sdk.project.DeletePlayer"):
     pass
 
 func id(id: String) -> DeletePlayer:
-    set_variable("id", id)
-    return self
+    return set_variable("id", id)

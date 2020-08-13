@@ -12,5 +12,4 @@ func _init().("enjin.sdk.shared.MeltToken"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func melt(melts: Array) -> MeltToken:
-    set_variable("melts", melts)
-    return self
+    return set_variable("melts", melts)

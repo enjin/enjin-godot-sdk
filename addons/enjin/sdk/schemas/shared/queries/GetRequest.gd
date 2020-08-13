@@ -9,9 +9,7 @@ func _init().("enjin.sdk.shared.GetRequest"):
     txn_i = TransactionFragmentArguments.new(self)
 
 func id(id: int) -> GetRequest:
-    set_variable("id", id)
-    return self
+    return set_variable("id", id)
 
 func transaction_id(id: String) -> GetRequest:
-    set_variable("transactionId", id)
-    return self
+    return set_variable("transactionId", id)

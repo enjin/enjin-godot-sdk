@@ -12,13 +12,10 @@ func _init().("enjin.sdk.project.DecreaseMaxTransferFee"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func token_id(token_id: String) -> DecreaseMaxTransferFee:
-    set_variable("tokenId", token_id)
-    return self
+    return set_variable("tokenId", token_id)
 
 func token_index(token_index: String) -> DecreaseMaxTransferFee:
-    set_variable("tokenIndex", token_index)
-    return self
+    return set_variable("tokenIndex", token_index)
 
 func max_transfer_fee(max_transfer_fee: int) -> DecreaseMaxTransferFee:
-    set_variable("maxTransferFee", max_transfer_fee)
-    return self
+    return set_variable("maxTransferFee", max_transfer_fee)

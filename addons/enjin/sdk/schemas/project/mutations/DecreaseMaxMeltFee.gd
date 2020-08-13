@@ -12,13 +12,10 @@ func _init().("enjin.sdk.project.DecreaseMaxMeltFee"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func token_id(token_id: String) -> DecreaseMaxMeltFee:
-    set_variable("tokenId", token_id)
-    return self
+    return set_variable("tokenId", token_id)
 
 func token_index(token_index: String) -> DecreaseMaxMeltFee:
-    set_variable("tokenIndex", token_index)
-    return self
+    return set_variable("tokenIndex", token_index)
 
 func max_melt_fee(max_melt_fee: int) -> DecreaseMaxMeltFee:
-    set_variable("maxMeltFee", max_melt_fee)
-    return self
+    return set_variable("maxMeltFee", max_melt_fee)

@@ -12,13 +12,10 @@ func _init().("enjin.sdk.shared.CreateTrade"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func asking_tokens(tokens: Array) -> CreateTrade:
-    set_variable("askingTokens", tokens)
-    return self
+    return set_variable("askingTokens", tokens)
 
 func offering_tokens(tokens: Array) -> CreateTrade:
-    set_variable("offeringTokens", tokens)
-    return self
+    return set_variable("offeringTokens", tokens)
 
 func recipient_address(recipient_address: String) -> CreateTrade:
-    set_variable("recipientAddress", recipient_address)
-    return self
+    return set_variable("recipientAddress", recipient_address)

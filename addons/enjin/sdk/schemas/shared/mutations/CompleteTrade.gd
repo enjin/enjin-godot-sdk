@@ -12,5 +12,4 @@ func _init().("enjin.sdk.shared.CompleteTrade"):
     txn_request_i = TransactionRequestArguments.new(self)
 
 func trade_id(id: String) -> CompleteTrade:
-    set_variable("tradeId", id)
-    return self
+    return set_variable("tradeId", id)

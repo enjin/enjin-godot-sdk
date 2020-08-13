@@ -9,5 +9,4 @@ func _init().("enjin.sdk.shared.GetToken"):
     token_i = TokenFragmentArguments.new(self)
 
 func id(id: String) -> GetToken:
-    set_variable("id", id)
-    return self
+    return set_variable("id", id)
