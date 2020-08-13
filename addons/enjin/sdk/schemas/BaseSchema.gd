@@ -12,9 +12,9 @@ func _init(middleware: TrustedPlatformMiddleware):
 func create_request_body(request: EnjinGraphqlRequest) -> Dictionary:
     var query: String = _middleware\
     .get_registry()\
-    .get_operation_for_name(request.get_namespace)\
-    .get_compiled_template()
-    var variables: Dictionary = request.get_vars
+    .get_template(request.get_namespace())\
+    .get_compiled_contents()
+    var variables: Dictionary = request.get_vars()
     return {"query": query, "variables": variables}
 
 func send_request(call: EnjinCall, callback: EnjinCallback, udata: Dictionary):
