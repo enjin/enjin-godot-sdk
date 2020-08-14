@@ -1,4 +1,6 @@
-extends "res://addons/enjin/sdk/schemas/shared/arguments/BaseArgument.gd"
+extends "res://addons/enjin/sdk/graphql/EnjinVariableHolder.gd"
+
+const EnjinGraphqlRequest = preload("res://addons/enjin/sdk/graphql/EnjinGraphqlRequest.gd")
 
 func _init(owner_in: EnjinGraphqlRequest).(owner_in):
     pass
