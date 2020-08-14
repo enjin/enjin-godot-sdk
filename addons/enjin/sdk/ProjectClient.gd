@@ -1,7 +1,5 @@
-extends "res://addons/enjin/sdk/TrustedPlatformClient.gd"
+extends "res://addons/enjin/sdk/schemas/project/ProjectSchema.gd"
 class_name ProjectClient
 
-const SCHEMA: String = "app"
-
-func _init(base_url: String, debug: bool = false).(base_url, debug, SCHEMA):
+func _init(base_url: String, debug: bool = false).(TrustedPlatformMiddleware.new(base_url, debug)):
     pass
