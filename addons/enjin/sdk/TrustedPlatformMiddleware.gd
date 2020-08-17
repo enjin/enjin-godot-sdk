@@ -1,7 +1,9 @@
 extends Reference
 
 const EnjinCall = preload("res://addons/enjin/sdk/http/EnjinCall.gd")
+const EnjinContentTypes = preload("res://addons/enjin/sdk/http/EnjinContentTypes.gd")
 const EnjinGraphqlQueryRegistry = preload("res://addons/enjin/sdk/graphql/EnjinGraphqlQueryRegistry.gd")
+const EnjinHeaders = preload("res://addons/enjin/sdk/http/EnjinHeaders.gd")
 const EnjinHttp = preload("res://addons/enjin/sdk/http/EnjinHttp.gd")
 const TrustedPlatformState = preload("res://addons/enjin/sdk/TrustedPlatformState.gd")
 
@@ -31,6 +33,22 @@ func execute_gql(call: EnjinCall,
                  udata: Dictionary = {}):
     udata.call = call
     _http.enqueue(call, callback, udata)
+
+func post(schema: String, request: Dictionary) -> EnjinCall:
+    var call: EnjinCall = _create_call("/graphql/%s" % schema, to_json(request))
+    if _state._auth_app_id != null:
+        call.add_header(EnjinHeaders.X_APP_ID, str(_state._auth_app_id))
+    if _state._auth_token != null:
+        call.add_header(EnjinHeaders.AUTHORIZATION, _state._auth_token)
+    return call
+
+func _create_call(path: String, body: String) -> EnjinCall:
+    var call: EnjinCall = EnjinCall.new()
+    call.set_method(HTTPClient.METHOD_POST)
+    call.set_endpoint(path)
+    call.set_body(body)
+    call.set_content_type(EnjinContentTypes.APPLICATION_JSON_UTF8)
+    return call
 
 func process_graphql_data(udata: Dictionary):
     var response: EnjinResponse = udata.response
