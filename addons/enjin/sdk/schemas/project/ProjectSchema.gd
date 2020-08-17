@@ -8,19 +8,19 @@ func _init(middleware: TrustedPlatformMiddleware).(middleware, SCHEMA):
 func auth_player(request: AuthPlayer,
                  callback: EnjinCallback,
                  udata: Dictionary):
-    var call: EnjinCall = _http_service.post(SCHEMA, create_request_body(request))
+    var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, callback, udata)
 
 func auth_project(request: AuthProject,
                   callback: EnjinCallback,
                   udata: Dictionary):
-    var call: EnjinCall = _http_service.post(SCHEMA, create_request_body(request))
+    var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, callback, udata)
 
 func create_player(request: CreatePlayer,
                    callback: EnjinCallback,
                    udata: Dictionary):
-    var call: EnjinCall = _http_service.post(SCHEMA, create_request_body(request))
+    var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, callback, udata)
 
 func create_token(request: CreateToken,
@@ -46,13 +46,13 @@ func delete_player(request: DeletePlayer,
 func get_player(request: ProjectGetPlayer,
                 callback: EnjinCallback,
                 udata: Dictionary):
-    var call: EnjinCall = _http_service.post(SCHEMA, create_request_body(request))
+    var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, callback, udata)
 
 func get_players(request: GetPlayers,
                  callback: EnjinCallback,
                  udata: Dictionary):
-    var call: EnjinCall = _http_service.post(SCHEMA, create_request_body(request))
+    var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, callback, udata)
 
 func invalidate_token_metadata(request: InvalidateTokenMetadata,

@@ -8,7 +8,7 @@ func _init(middleware: TrustedPlatformMiddleware).(middleware, SCHEMA):
 func get_player(request: PlayerGetPlayer,
                 callback: EnjinCallback,
                 udata: Dictionary):
-    var call: EnjinCall = _http_service.post(SCHEMA, create_request_body(request))
+    var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, callback, udata)
 
 func unlink_wallet(request: PlayerUnlinkWallet,
