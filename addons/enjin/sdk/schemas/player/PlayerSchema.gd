@@ -14,4 +14,5 @@ func get_player(request: PlayerGetPlayer,
 func unlink_wallet(request: PlayerUnlinkWallet,
                    callback: EnjinCallback,
                    udata: Dictionary):
-    pass
+    var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
+    send_request(call, callback, udata)
