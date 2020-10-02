@@ -7,8 +7,8 @@ Sign up to Enjin Cloud: [Kovan (Testnet)](https://kovan.cloud.enjin.io/) or [Mai
 
 Documentation
 =================
-   * [Getting Started](https://github.com/enjin/Enjin-Coin-Documentation/blob/master/docs/godot_getting_started.md)
-   * [Authentication](https://github.com/enjin/Enjin-Coin-Documentation/blob/master/docs/godot_authentication.md)
-   * [Player Management](https://github.com/enjin/Enjin-Coin-Documentation/blob/master/docs/godot_player_management.md)
-   * [Creating Requests](https://github.com/enjin/Enjin-Coin-Documentation/blob/master/docs/godot_creating_requests.md)
+   * [Getting Started](https://docs.enjin.io/godot-getting-started/https://docs.enjin.io/godot-getting-started/)
+   * [Authentication](https://docs.enjin.io/godot-authentication/)
+   * [Player Management](https://docs.enjin.io/godot-player-management/)
+   * [Creating Requests](https://docs.enjin.io/godot-creating-requests/)
    * [Demo Game Documentation](addons/enjin/example/README.md)
