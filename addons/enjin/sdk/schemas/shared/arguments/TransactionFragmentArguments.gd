@@ -5,6 +5,9 @@ const EnjinGraphqlRequest = preload("res://addons/enjin/sdk/graphql/EnjinGraphql
 func _init(owner_in: EnjinGraphqlRequest).(owner_in):
     pass
 
+func with_blockchain_data() -> EnjinGraphqlRequest:
+    return set_variable("withBlockchainData", true)
+
 func with_meta() -> EnjinGraphqlRequest:
     return set_variable("with_meta", true)
 
