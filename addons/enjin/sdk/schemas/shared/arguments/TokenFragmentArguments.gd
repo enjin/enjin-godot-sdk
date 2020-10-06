@@ -8,6 +8,12 @@ func _init(owner_in: EnjinGraphqlRequest).(owner_in):
 func token_id_format(token_id_format: String) -> EnjinGraphqlRequest:
     return set_variable("tokenIdFormat", token_id_format)
 
+func with_state_data() -> EnjinGraphqlRequest:
+    return set_variable("withStateData", true)
+
+func with_config_data() -> EnjinGraphqlRequest:
+    return set_variable("withConfigData", true)
+
 func with_token_blocks() -> EnjinGraphqlRequest:
     return set_variable("withTokenBlocks", true)
 
