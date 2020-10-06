@@ -59,6 +59,18 @@ func get_players(request: GetPlayers,
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, callback, udata)
 
+func get_wallet(request: ProjectGetWallet,
+                callback: EnjinCallback,
+                udata: Dictionary):
+    var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
+    send_request(call, callback, udata)
+
+func get_wallets(request: GetWallets,
+                 callback: EnjinCallback,
+                 udata: Dictionary):
+    var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
+    send_request(call, callback, udata)
+
 func invalidate_token_metadata(request: InvalidateTokenMetadata,
                                callback: EnjinCallback,
                                udata: Dictionary):
@@ -104,6 +116,12 @@ func set_uri(request: SetUri,
 func set_whitelisted(request: SetWhitelisted,
                      callback: EnjinCallback,
                      udata: Dictionary):
+    var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
+    send_request(call, callback, udata)
+
+func unlink_player_wallet(request: UnlinkPlayerWallet,
+                          callback: EnjinCallback,
+                          udata: Dictionary):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, callback, udata)
 
