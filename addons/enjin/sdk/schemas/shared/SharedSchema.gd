@@ -21,6 +21,12 @@ func approve_max_enj(request: ApproveMaxEnj,
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, callback, udata)
 
+func cancel_transaction(request: CancelTransaction,
+                        callback: EnjinCallback,
+                        udata: Dictionary):
+    var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
+    send_request(call, callback, udata)
+
 func complete_trade(request: CompleteTrade,
                     callback: EnjinCallback,
                     udata: Dictionary):
