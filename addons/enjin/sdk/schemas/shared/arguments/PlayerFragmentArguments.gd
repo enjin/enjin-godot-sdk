@@ -9,7 +9,7 @@ func with_linking_info() -> EnjinGraphqlRequest:
     return set_variable("withLinkingInfo", true)
 
 func with_wallet() -> EnjinGraphqlRequest:
-    return set_variable("withWallet", true)
+    return set_variable("withPlayerWallet", true)
 
 func qr_size(size: int) -> EnjinGraphqlRequest:
     return set_variable("linkingCodeQrSize", size)

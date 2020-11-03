@@ -9,7 +9,7 @@ func with_blockchain_data() -> EnjinGraphqlRequest:
     return set_variable("withBlockchainData", true)
 
 func with_meta() -> EnjinGraphqlRequest:
-    return set_variable("with_meta", true)
+    return set_variable("withMeta", true)
 
 func with_encoded_data() -> EnjinGraphqlRequest:
     return set_variable("withEncodedData", true)
@@ -31,3 +31,9 @@ func with_state() -> EnjinGraphqlRequest:
 
 func with_receipt() -> EnjinGraphqlRequest:
     return set_variable("withReceipt", true)
+
+func with_receipt_logs() -> EnjinGraphqlRequest:
+    return set_variable("withReceiptLogs", true)
+
+func with_log_event() -> EnjinGraphqlRequest:
+    return set_variable("withLogEvent", true)
