@@ -119,12 +119,6 @@ func set_whitelisted(request: SetWhitelisted,
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, callback, udata)
 
-func unlink_player_wallet(request: UnlinkPlayerWallet,
-                          callback: EnjinCallback,
-                          udata: Dictionary):
-    var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
-
 func unlink_wallet(request: ProjectUnlinkWallet,
                    callback: EnjinCallback,
                    udata: Dictionary):
