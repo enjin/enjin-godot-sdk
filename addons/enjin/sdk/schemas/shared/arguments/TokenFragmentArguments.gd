@@ -37,3 +37,6 @@ func with_token_variant_mode() -> EnjinGraphqlRequest:
 
 func with_token_variants() -> EnjinGraphqlRequest:
     return set_variable("withTokenVariants", true)
+
+func with_variant_metadata() -> EnjinGraphqlRequest:
+    return set_variable("withVariantMetadata", true)
