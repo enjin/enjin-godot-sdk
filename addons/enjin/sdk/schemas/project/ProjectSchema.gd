@@ -130,9 +130,3 @@ func unlink_wallet(request: ProjectUnlinkWallet,
                    udata: Dictionary):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, callback, udata)
-
-func update_name(request: UpdateName,
-                 callback: EnjinCallback,
-                 udata: Dictionary):
-    var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
