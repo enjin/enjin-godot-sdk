@@ -29,8 +29,8 @@ func execute_post_cb(call: EnjinCall,
     _http.enqueue(call, callback, udata)
 
 func execute_gql(call: EnjinCall,
-                 callback:EnjinCallback = _gql_callback,
-                 udata: Dictionary = {}):
+                 udata: Dictionary = {},
+                 callback: EnjinCallback = _gql_callback):
     udata.call = call
     _http.enqueue(call, callback, udata)
 

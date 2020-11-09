@@ -6,121 +6,121 @@ func _init(middleware: TrustedPlatformMiddleware).(middleware, SCHEMA):
     pass
 
 func auth_player(request: AuthPlayer,
-                 callback: EnjinCallback,
-                 udata: Dictionary):
+                 callback: EnjinCallback = null,
+                 udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func auth_project(request: AuthProject,
-                  callback: EnjinCallback,
-                  udata: Dictionary):
+                  callback: EnjinCallback = null,
+                  udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func create_player(request: CreatePlayer,
-                   callback: EnjinCallback,
-                   udata: Dictionary):
+                   callback: EnjinCallback = null,
+                   udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func create_token(request: CreateToken,
-                  callback: EnjinCallback,
-                  udata: Dictionary):
+                  callback: EnjinCallback = null,
+                  udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func decrease_max_melt_fee(request: DecreaseMaxMeltFee,
-                           callback: EnjinCallback,
-                           udata: Dictionary):
+                           callback: EnjinCallback = null,
+                           udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func decrease_max_transfer_fee(request: DecreaseMaxTransferFee,
-                               callback: EnjinCallback,
-                               udata: Dictionary):
+                               callback: EnjinCallback = null,
+                               udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func delete_player(request: DeletePlayer,
-                   callback: EnjinCallback,
-                   udata: Dictionary):
+                   callback: EnjinCallback = null,
+                   udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func get_player(request: ProjectGetPlayer,
-                callback: EnjinCallback,
-                udata: Dictionary):
+                callback: EnjinCallback = null,
+                udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func get_players(request: GetPlayers,
-                 callback: EnjinCallback,
-                 udata: Dictionary):
+                 callback: EnjinCallback = null,
+                 udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func get_wallet(request: ProjectGetWallet,
-                callback: EnjinCallback,
-                udata: Dictionary):
+                callback: EnjinCallback = null,
+                udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func get_wallets(request: GetWallets,
-                 callback: EnjinCallback,
-                 udata: Dictionary):
+                 callback: EnjinCallback = null,
+                 udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func invalidate_token_metadata(request: InvalidateTokenMetadata,
-                               callback: EnjinCallback,
-                               udata: Dictionary):
+                               callback: EnjinCallback = null,
+                               udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func mint_token(request: MintToken,
-                callback: EnjinCallback,
-                udata: Dictionary):
+                callback: EnjinCallback = null,
+                udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func release_reserve(request: ReleaseReserve,
-                     callback: EnjinCallback,
-                     udata: Dictionary):
+                     callback: EnjinCallback = null,
+                     udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func set_melt_fee(request: SetMeltFee,
-                  callback: EnjinCallback,
-                  udata: Dictionary):
+                  callback: EnjinCallback = null,
+                  udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func set_transferable(request: SetTransferable,
-                      callback: EnjinCallback,
-                      udata: Dictionary):
+                      callback: EnjinCallback = null,
+                      udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func set_transfer_fee(request: SetTransferFee,
-                      callback: EnjinCallback,
-                      udata: Dictionary):
+                      callback: EnjinCallback = null,
+                      udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func set_uri(request: SetUri,
-             callback: EnjinCallback,
-             udata: Dictionary):
+             callback: EnjinCallback = null,
+             udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func set_whitelisted(request: SetWhitelisted,
-                     callback: EnjinCallback,
-                     udata: Dictionary):
+                     callback: EnjinCallback = null,
+                     udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func unlink_wallet(request: ProjectUnlinkWallet,
-                   callback: EnjinCallback,
-                   udata: Dictionary):
+                   callback: EnjinCallback = null,
+                   udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)

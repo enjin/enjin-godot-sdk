@@ -6,19 +6,19 @@ func _init(middleware: TrustedPlatformMiddleware).(middleware, SCHEMA):
     pass
 
 func get_player(request: PlayerGetPlayer,
-                callback: EnjinCallback,
-                udata: Dictionary):
+                callback: EnjinCallback = null,
+                udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func get_wallet(request: PlayerGetWallet,
-                callback: EnjinCallback,
-                udata: Dictionary):
+                callback: EnjinCallback = null,
+                udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)
 
 func unlink_wallet(request: PlayerUnlinkWallet,
-                   callback: EnjinCallback,
-                   udata: Dictionary):
+                   callback: EnjinCallback = null,
+                   udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
-    send_request(call, callback, udata)
+    send_request(call, udata, callback)

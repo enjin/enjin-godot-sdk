@@ -59,5 +59,8 @@ func has_result() -> bool:
 func is_paginated() -> bool:
     return _cursor != null
 
+func is_success() -> bool:
+    return has_result() and not has_errors()
+
 func has_errors() -> bool:
     return _errors != null

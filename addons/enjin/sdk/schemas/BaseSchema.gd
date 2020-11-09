@@ -18,5 +18,7 @@ func create_request_body(request: EnjinGraphqlRequest) -> Dictionary:
     var variables: Dictionary = request.get_vars()
     return {"query": query, "variables": variables}
 
-func send_request(call: EnjinCall, callback: EnjinCallback, udata: Dictionary):
-    _middleware.execute_gql(call, callback, udata)
+func send_request(call: EnjinCall, udata: Dictionary = {}, callback: EnjinCallback = null):
+    if callback != null:
+        udata.callback = callback
+    _middleware.execute_gql(call, udata)
