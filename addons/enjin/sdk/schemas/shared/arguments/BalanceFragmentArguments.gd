@@ -12,7 +12,7 @@ func bal_index_format(bal_index_format: String) -> EnjinGraphqlRequest:
     return set_variable("balIndexFormat", bal_index_format)
 
 func with_bal_project_id() -> EnjinGraphqlRequest:
-    return set_variable("withBalAppId", true)
+    return set_variable("withBalProjectId", true)
 
 func with_bal_wallet_address() -> EnjinGraphqlRequest:
     return set_variable("withBalWalletAddress", true)

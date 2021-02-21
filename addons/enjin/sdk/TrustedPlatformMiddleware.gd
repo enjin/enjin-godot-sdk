@@ -36,8 +36,8 @@ func execute_gql(call: EnjinCall,
 
 func post(schema: String, request: Dictionary) -> EnjinCall:
     var call: EnjinCall = _create_call("/graphql/%s" % schema, to_json(request))
-    if _state._auth_app_id != null:
-        call.add_header(EnjinHeaders.X_APP_ID, str(_state._auth_app_id))
+    if _state._auth_project_id != null:
+        call.add_header(EnjinHeaders.X_APP_ID, str(_state._auth_project_id))
     if _state._auth_token != null:
         call.add_header(EnjinHeaders.AUTHORIZATION, _state._auth_token)
     return call

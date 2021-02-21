@@ -1,6 +1,6 @@
 extends "res://addons/enjin/sdk/schemas/shared/SharedSchema.gd"
 
-const SCHEMA: String = "app"
+const SCHEMA: String = "project"
 
 func _init(middleware: TrustedPlatformMiddleware).(middleware, SCHEMA):
     pass
