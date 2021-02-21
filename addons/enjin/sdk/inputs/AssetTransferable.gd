@@ -1,5 +1,5 @@
 extends Reference
-class_name TokenTransferable
+class_name AssetTransferable
 
 const PERMANENT: String = "PERMANENT"
 const TEMPORARY: String = "TEMPORARY"

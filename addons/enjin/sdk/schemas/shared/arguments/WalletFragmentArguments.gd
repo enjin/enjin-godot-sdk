@@ -5,5 +5,5 @@ const EnjinGraphqlRequest = preload("res://addons/enjin/sdk/graphql/EnjinGraphql
 func _init(owner_in: EnjinGraphqlRequest).(owner_in):
     pass
 
-func with_tokens_created() -> EnjinGraphqlRequest:
-    return set_variable("withTokensCreated", true)
+func with_assets_created() -> EnjinGraphqlRequest:
+    return set_variable("withAssetsCreated", true)

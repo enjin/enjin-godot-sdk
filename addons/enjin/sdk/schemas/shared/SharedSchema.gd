@@ -3,7 +3,7 @@ extends "res://addons/enjin/sdk/schemas/BaseSchema.gd"
 func _init(middleware: TrustedPlatformMiddleware, schema: String).(middleware, schema):
     pass
 
-func advanced_send_token(request: AdvancedSendToken,
+func advanced_send_asset(request: AdvancedSendAsset,
                          callback: EnjinCallback = null,
                          udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
@@ -76,19 +76,19 @@ func get_requests(request: GetRequests,
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, udata, callback)
 
-func get_token(request: GetToken,
+func get_asset(request: GetAsset,
                callback: EnjinCallback = null,
                udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, udata, callback)
 
-func get_tokens(request: GetBalances,
+func get_assets(request: GetAssets,
                 callback: EnjinCallback = null,
                 udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, udata, callback)
 
-func melt_token(request: MeltToken,
+func melt_asset(request: MeltAsset,
                 callback: EnjinCallback = null,
                 udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
@@ -112,7 +112,7 @@ func send_enj(request: SendEnj,
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, udata, callback)
 
-func send_token(request: SendToken,
+func send_asset(request: SendAsset,
                 callback: EnjinCallback = null,
                 udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))

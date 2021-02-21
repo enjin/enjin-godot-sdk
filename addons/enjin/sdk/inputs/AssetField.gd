@@ -1,5 +1,5 @@
 extends Reference
-class_name TokenField
+class_name AssetField
 
 const ID: String = "id"
 const NAME: String = "name"

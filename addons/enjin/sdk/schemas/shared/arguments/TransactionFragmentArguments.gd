@@ -14,8 +14,8 @@ func with_meta() -> EnjinGraphqlRequest:
 func with_encoded_data() -> EnjinGraphqlRequest:
     return set_variable("withEncodedData", true)
 
-func with_token_data() -> EnjinGraphqlRequest:
-    return set_variable("withTokenData", true)
+func with_asset_data() -> EnjinGraphqlRequest:
+    return set_variable("withAssetData", true)
 
 func with_signed_txs() -> EnjinGraphqlRequest:
     return set_variable("withSignedTxs", true)

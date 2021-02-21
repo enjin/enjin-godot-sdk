@@ -1,18 +1,18 @@
 extends "res://addons/enjin/sdk/graphql/EnjinGraphqlRequest.gd"
-class_name GetTokens
+class_name GetAssets
 
-const TokenFragmentArguments = preload("res://addons/enjin/sdk/schemas/shared/arguments/TokenFragmentArguments.gd")
+const AssetFragmentArguments = preload("res://addons/enjin/sdk/schemas/shared/arguments/AssetFragmentArguments.gd")
 const PaginationArguments = preload("res://addons/enjin/sdk/schemas/shared/arguments/PaginationArguments.gd")
 
-var token_i: TokenFragmentArguments
+var asset_i: AssetFragmentArguments
 var pagination_i: PaginationArguments
 
-func _init().("enjin.sdk.shared.GetTokens"):
-    token_i = TokenFragmentArguments.new(self)
+func _init().("enjin.sdk.shared.GetAssets"):
+    asset_i = AssetFragmentArguments.new(self)
     pagination_i = PaginationArguments.new(self)
 
-func filter(filter: TokenFilter) -> GetTokens:
+func filter(filter: AssetFilter) -> GetAssets:
     return set_variable("filter", filter.get_vars().duplicate())
 
-func sort(sort: TokenSort) -> GetTokens:
+func sort(sort: AssetSort) -> GetAssets:
     return set_variable("sort", sort.get_vars().duplicate())
