@@ -4,12 +4,12 @@ class_name BalanceFilter
 func _init().():
     pass
 
-func token_id(token_id: String) -> BalanceFilter:
-    set_variable("tokenId", token_id)
+func asset_id(asset_id: String) -> BalanceFilter:
+    set_variable("assetId", asset_id)
     return self
 
-func token_id_in(token_ids: Array) -> BalanceFilter:
-    set_variable("tokenId_in", token_ids)
+func asset_id_in(asset_ids: Array) -> BalanceFilter:
+    set_variable("assetId_in", asset_ids)
     return self
 
 func wallet(wallet: String) -> BalanceFilter:

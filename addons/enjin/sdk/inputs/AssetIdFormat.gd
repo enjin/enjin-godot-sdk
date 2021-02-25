@@ -1,5 +1,5 @@
 extends Reference
-class_name TokenIdFormat
+class_name AssetIdFormat
 
 const HEX64: String = "hex64"
 const HEX256: String = "hex256"

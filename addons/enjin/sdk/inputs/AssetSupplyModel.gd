@@ -1,5 +1,5 @@
 extends Reference
-class_name TokenSupplyModel
+class_name AssetSupplyModel
 
 const FIXED: String = "FIXED"
 const SETTABLE: String = "SETTABLE"

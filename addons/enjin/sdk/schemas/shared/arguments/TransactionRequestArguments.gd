@@ -8,8 +8,5 @@ func _init(owner_in: EnjinGraphqlRequest).(owner_in):
 func eth_address(eth_address: String) -> EnjinGraphqlRequest:
     return set_variable("ethAddress", eth_address)
 
-func test(test: bool) -> EnjinGraphqlRequest:
-    return set_variable("test", test)
-
 func send(send: bool) -> EnjinGraphqlRequest:
     return set_variable("send", send)

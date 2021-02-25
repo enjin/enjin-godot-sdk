@@ -11,8 +11,8 @@ func _init().("enjin.sdk.project.ReleaseReserve"):
     txn_i = TransactionFragmentArguments.new(self)
     txn_request_i = TransactionRequestArguments.new(self)
 
-func token_id(token_id: String) -> ReleaseReserve:
-    return set_variable("tokenId", token_id)
+func asset_id(asset_id: String) -> ReleaseReserve:
+    return set_variable("assetId", asset_id)
 
 func value(value: String) -> ReleaseReserve:
     return set_variable("value", value)

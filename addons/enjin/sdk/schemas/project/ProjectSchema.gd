@@ -1,6 +1,6 @@
 extends "res://addons/enjin/sdk/schemas/shared/SharedSchema.gd"
 
-const SCHEMA: String = "app"
+const SCHEMA: String = "project"
 
 func _init(middleware: TrustedPlatformMiddleware).(middleware, SCHEMA):
     pass
@@ -23,7 +23,7 @@ func create_player(request: CreatePlayer,
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, udata, callback)
 
-func create_token(request: CreateToken,
+func create_asset(request: CreateAsset,
                   callback: EnjinCallback = null,
                   udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
@@ -71,13 +71,13 @@ func get_wallets(request: GetWallets,
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, udata, callback)
 
-func invalidate_token_metadata(request: InvalidateTokenMetadata,
+func invalidate_asset_metadata(request: InvalidateAssetMetadata,
                                callback: EnjinCallback = null,
                                udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))
     send_request(call, udata, callback)
 
-func mint_token(request: MintToken,
+func mint_asset(request: MintAsset,
                 callback: EnjinCallback = null,
                 udata: Dictionary = {}):
     var call: EnjinCall = _middleware.post(_schema, create_request_body(request))

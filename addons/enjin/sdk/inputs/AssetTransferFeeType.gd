@@ -1,5 +1,5 @@
 extends Reference
-class_name TokenTransferFeeType
+class_name AssetTransferFeeType
 
 const NONE: String = "NONE"
 const PER_TRANSFER: String = "PER_TRANSFER"

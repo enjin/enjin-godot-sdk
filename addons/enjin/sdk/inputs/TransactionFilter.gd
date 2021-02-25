@@ -20,12 +20,12 @@ func transaction_id_in(transaction_ids: Array) -> TransactionFilter:
     set_variable("transactionId_in", transaction_ids)
     return self
 
-func token_id(token_id: String) -> TransactionFilter:
-    set_variable("tokenId", token_id)
+func asset_id(asset_id: String) -> TransactionFilter:
+    set_variable("assetId", asset_id)
     return self
 
-func token_id_in(token_ids: Array) -> TransactionFilter:
-    set_variable("tokenId_in", token_ids)
+func asset_id_in(asset_ids: Array) -> TransactionFilter:
+    set_variable("assetId_in", asset_ids)
     return self
 
 func type(type: String) -> TransactionFilter:
